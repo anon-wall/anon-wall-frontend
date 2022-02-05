@@ -44,24 +44,24 @@ const MainHeaderContainer = styled.div`
   height: 130px;
 
   nav {
-    height: 100%;
     display: grid;
     grid-template-columns: 150px auto 50px;
     align-items: center;
+    height: 100%;
   }
 
   .mainHeader-link {
-    height: 100%;
-    padding: 0;
     display: flex;
-    align-items: center;
     justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    height: 100%;
     list-style: none;
   }
 
   .mainHeader-link li {
-    width: 100px;
     margin: 0 20px;
+    width: 100px;
   }
 
   .mainHeader-link a {
