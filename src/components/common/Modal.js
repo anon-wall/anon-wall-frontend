@@ -6,7 +6,7 @@ export default function Modal({ onClick, width, height, children }) {
   return ReactDOM.createPortal(
     <>
       <OverlayWrapper onClick={() => onClick((prev) => !prev)} />
-      <ModalWrapper width={width} heigth={height}>
+      <ModalWrapper width={width} height={height}>
         {children}
       </ModalWrapper>
     </>,
