@@ -6,6 +6,7 @@
   },
   "env": {
     "browser": true,
+    "node": true,
     "es2021": true,
     "jest/globals": true
   },
@@ -41,6 +42,6 @@
       "groups": ["builtin", "external", ["parent", "sibling"], "index"],
       "newlines-between": "always"
     }],
-    "no-console": "error"
+    "no-console": "off"
   }
 }

@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
 
+import LoginButton from "./LoginButton";
+
 export default function MainHeader() {
   return (
     <MainHeaderContainer>
@@ -32,7 +34,7 @@ export default function MainHeader() {
           </li>
         </ul>
         <section>
-          <div>login</div>
+          <LoginButton />
         </section>
       </nav>
     </MainHeaderContainer>
