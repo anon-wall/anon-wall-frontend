@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import MainHeader from "./components/MainHeader";
 
-function App() {
+export default function App() {
   return (
     <div>
       <MainHeader />
@@ -26,8 +26,6 @@ function App() {
     </div>
   );
 }
-
-export default App;
 
 const Main = styled.main`
   margin: 20px;
