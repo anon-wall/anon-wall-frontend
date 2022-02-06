@@ -17,7 +17,7 @@ export default function MainHeader() {
           <li>
             <NavLink
               to="/counsels"
-              className={(navData) => (navData.isActive ? "active" : "")}
+              className={({ isActive }) => (isActive ? "active" : "")}
             >
               고민 담벼락
             </NavLink>
@@ -25,7 +25,7 @@ export default function MainHeader() {
           <li>
             <NavLink
               to="/mypage"
-              className={(navData) => (navData.isActive ? "active" : "")}
+              className={({ isActive }) => (isActive ? "active" : "")}
             >
               나의 담벼락
             </NavLink>
