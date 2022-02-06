@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import styled from "styled-components";
 
 import Modal from "./common/Modal";
-import photo from "../assets/tree.png";
+import homeImage from "../assets/tree.png";
 
 export default function Home() {
   const welcomeMessage =
@@ -11,10 +11,10 @@ export default function Home() {
   const buttonName = "Discover Now";
   const copyright = "All rights reserved to anon-wall";
 
-  const [modalOn, setModalOn] = useState(false);
+  const [isModalOn, setIsModalOn] = useState(false);
 
   const handleModalOn = () => {
-    setModalOn(true);
+    setIsModalOn(true);
   };
 
   return (
@@ -25,14 +25,14 @@ export default function Home() {
           <div className="description">
             <div className="message">{welcomeMessage}</div>
             <button onClick={handleModalOn}>{buttonName}</button>
-            {modalOn && (
-              <Modal onClick={handleModalOn} width="300px" height="600px" />
+            {isModalOn && (
+              <Modal onClick={setIsModalOn} width="300px" height="600px" />
             )}
           </div>
         </DescriptionContainer>
         <ImageWrapper>
           <div className="image">
-            <img src={photo} atl="" />
+            <img src={homeImage} alt="A tree and a window" />
           </div>
         </ImageWrapper>
       </MiddleContainer>
@@ -51,50 +51,50 @@ export default function Home() {
 }
 
 const UpperBoxWrapper = styled.div`
-  background-color: rgba(176, 182, 164, 1);
   width: 100%;
   height: 50px;
+  background-color: rgba(176, 182, 164, 1);
 `;
 
 const MiddleContainer = styled.div`
+  display: flex;
   width: 90%;
   margin: 10px auto;
-  display: flex;
 `;
 
 const DescriptionContainer = styled.div`
-  background-color: rgba(191, 174, 164, 1);
-  float: left;
   flex: 1;
-  padding: 20px;
+  float: left;
+  box-sizing: content-box;
   height: 400px;
   width: 50%;
-  box-sizing: content-box;
+  padding: 20px;
+  background-color: rgba(191, 174, 164, 1);
 
   .description {
     margin-top: 50%;
   }
 
   .message {
-    font-size: 20px;
-    text-align: center;
     margin: 14px;
+    text-align: center;
+    font-size: 20px;
   }
 
   button {
+    display: block;
     width: 170px;
     height: 50px;
     left: 270px;
     top: 500px;
-    border-radius: 10px;
     margin: auto;
-    display: block;
+    border-radius: 10px;
   }
 `;
 
 const ImageWrapper = styled.div`
-  float: right;
   flex: 1;
+  float: right;
   box-sizing: content-box;
 
   img {
@@ -103,15 +103,15 @@ const ImageWrapper = styled.div`
 `;
 
 const LowerBoxWrapper = styled.div`
-  background-color: rgba(176, 182, 164, 1);
   width: 100%;
   height: 50px;
+  background-color: rgba(176, 182, 164, 1);
 `;
 
 const FooterWrapper = styled.div`
-  background-color: rgba(225, 219, 214, 1);
   width: 100%;
   height: 70px;
+  background-color: rgba(225, 219, 214, 1);
 
   .copyright {
     text-align: center;
