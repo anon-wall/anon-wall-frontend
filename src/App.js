@@ -1,8 +1,9 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 
 import MainHeader from "./components/MainHeader";
+import Home from "./components/Home";
 
 export default function App() {
   return (
@@ -10,7 +11,7 @@ export default function App() {
       <MainHeader />
       <Main>
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<Home />} />
           <Route path="/counsels/*">
             <Route path=":counsel_id/*" />
             <Route path=":counsel_id/counselors/:user_id" />
