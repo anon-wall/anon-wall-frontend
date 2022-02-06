@@ -46,7 +46,9 @@ const MainHeaderContainer = styled.div`
   nav {
     display: grid;
     grid-template-columns: 150px auto 50px;
+    column-gap: 30px;
     align-items: center;
+    margin: 20px;
     height: 100%;
   }
 
