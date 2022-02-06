@@ -42,6 +42,7 @@ export default function MainHeader() {
 const MainHeaderContainer = styled.div`
   width: 100%;
   height: 130px;
+  background-color: rgba(225, 219, 214, 1);
 
   nav {
     display: grid;
