@@ -1,42 +1,86 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
+import Modal from "./common/Modal";
 import SubHeader from "./common/SubHeader";
+import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
+
+const heading = "고민 담벼락";
+const paragraph =
+  "나누고 싶은 고민을 자유롭게 올려주세요. 여러분의 고민을 들어줄 익명의 누군가가 곧 찾아올거에요.";
 
 export default function StoryDetail() {
+  const { counsel_id } = useParams();
+
+  const [story, setStory] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${counsel_id}`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (data.message) {
+        setErrorMessage(data.message);
+        setIsModalOpen(true);
+        setIsLoading(false);
+
+        return;
+      }
+
+      setStory(data.data);
+      setIsLoading(false);
+    })();
+  }, [setStory]);
+
   return (
     <>
-      <SubHeader
-        heading="고민 담벼락"
-        paragraph="나누고 싶은 고민을 자유롭게 올려주세요. 여러분의 고민을 들어줄 익명의 누군가가 곧 찾아올거에요."
-      />
+      <SubHeader heading={heading} paragraph={paragraph} />
       <MainContainer>
-        <section>
-          <StoryHeaderWrapper>
-            <ImageWrapper>
-              <img />
-            </ImageWrapper>
-            <StoryInfoWrapper>
-              <div className="name">켄 아버지</div>
-              <div className="title">요즘 힘들어요</div>
-              <div className="tags">#소통 #코딩 #바닐라코딩</div>
-            </StoryInfoWrapper>
-          </StoryHeaderWrapper>
-          <StoryBodyWrapper>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Inventore sapiente nobis consectetur. Quidem quasi repellat vitae
-              molestiae, quia ratione sequi praesentium veritatis amet
-              architecto aliquam libero maxime in iste. Dolore!
-            </p>
-          </StoryBodyWrapper>
-        </section>
-        <aside>
-          <AsideWrapper>
-            <ButtonWrapper>
-              <button>사연 수락하기</button>
-            </ButtonWrapper>
-          </AsideWrapper>
-        </aside>
+        {isLoading && <StyledLoadingSpinner />}
+        {!isLoading && errorMessage && isModalOpen ? (
+          <Modal onClick={setIsModalOpen} width="150px" height="50px">
+            {errorMessage}
+          </Modal>
+        ) : null}
+        {!isLoading && !errorMessage && story ? (
+          <>
+            <section>
+              <StoryHeaderWrapper>
+                <ImageWrapper>
+                  <img src={story.counslee.imageURL} alt="Profile Image" />
+                </ImageWrapper>
+                <StoryInfoWrapper>
+                  <div className="name">{story.counselee.nickname}</div>
+                  <div className="title">{story.title}</div>
+                  <div className="tags">
+                    {story.tag.map((tag) => {
+                      return <Tag key={tag}>#{tag}</Tag>;
+                    })}
+                  </div>
+                </StoryInfoWrapper>
+              </StoryHeaderWrapper>
+              <StoryBodyWrapper>
+                <p>{story.content}</p>
+              </StoryBodyWrapper>
+            </section>
+            <aside>
+              <AsideWrapper>
+                <ButtonWrapper>
+                  <button>사연 수락하기</button>
+                </ButtonWrapper>
+              </AsideWrapper>
+            </aside>
+          </>
+        ) : null}
       </MainContainer>
     </>
   );
@@ -68,6 +112,7 @@ const StoryHeaderWrapper = styled.div`
   margin-top: 3rem;
   border: 0.8rem solid #bfaea4;
   border-radius: 3rem;
+  overflow: scroll;
 `;
 
 const ImageWrapper = styled.div`
@@ -97,6 +142,10 @@ const StoryInfoWrapper = styled.div`
     font-size: 3rem;
     color: #3e005b;
   }
+`;
+
+const Tag = styled.span`
+  margin: 0 1rem;
 `;
 
 const StoryBodyWrapper = styled.div`
