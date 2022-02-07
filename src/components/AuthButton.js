@@ -15,7 +15,6 @@ export default function AuthButton() {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    console.log("in login btn store", rejectedLoginError);
     setIsError(rejectedLoginError);
   }, [rejectedLoginError]);
 
