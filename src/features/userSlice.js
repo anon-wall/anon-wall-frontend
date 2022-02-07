@@ -1,23 +1,38 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const login = createAsyncThunk("user/login", async (loginData) => {
-  // const userData = await axios.post("/api/auth/login", loginData);
-  const userData = await axios.get("/data.json", loginData);
+import { auth } from "../api/firebase";
 
-  console.log("sojung!");
+export const login = createAsyncThunk("user/login", async (loginData) => {
+  const userData = await axios.post("/api/auth/login", loginData);
+
+  return userData;
+});
+
+export const logout = createAsyncThunk("user/logout", async () => {
+  const userData = await axios.get("/api/auth/logout");
+  await auth.signOut();
 
   return userData;
 });
 
 const initialState = {
-  isLoggedIn: null,
-  errorMessage: null,
+  isLoggedIn: false,
+  isLogging: "",
+  error: null,
   data: {
-    image: "",
+    _id: "",
+    imageUrl: "",
     email: "",
-    alarm: "",
+    notification: "",
     nickname: "",
+    counselor: {
+      familyTitle: "",
+      shortInput: "",
+      longInput: "",
+      tag: [],
+      validDate: [],
+    },
   },
 };
 
@@ -26,18 +41,26 @@ const userSlice = createSlice({
   initialState,
   extraReducers: {
     [login.pending]: (state) => {
-      state.isLoggedIn = "pending";
+      state.isLogging = "pending";
     },
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
+      state.isLogging = "success";
       state.data = action.payload.data;
     },
     [login.rejected]: (state, action) => {
-      state.isLoggedIn = "failed";
-      state.error = action.error;
+      state.isLogging = "failed";
+      state.error = action.error.message;
+    },
+    [logout.pending]: (state) => {
+      state.isLogging = "pending";
+    },
+    [logout.fulfilled]: () => initialState,
+    [logout.rejected]: (state, action) => {
+      state.isLogging = "failed";
+      state.error = action.error.message;
     },
   },
 });
 
-// export const { login, logout } = userSlice.actions;
 export default userSlice.reducer;

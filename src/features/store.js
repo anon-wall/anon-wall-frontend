@@ -5,8 +5,13 @@ import userReducer from "./userSlice";
 
 const store = configureStore({
   reducer: { user: userReducer },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
+  middleware: (getDefaultMiddleware) => {
+    if (process.env.NODE_ENV !== "production") {
+      getDefaultMiddleware({ serializableCheck: false }).concat(logger);
+    }
+
+    return getDefaultMiddleware();
+  },
 });
 
 export default store;
