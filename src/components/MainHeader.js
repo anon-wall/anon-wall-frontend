@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
 
-import LoginButton from "./LoginButton";
+import AuthButton from "./AuthButton";
 
 export default function MainHeader() {
   return (
@@ -34,7 +34,7 @@ export default function MainHeader() {
           </li>
         </ul>
         <section>
-          <LoginButton />
+          <AuthButton />
         </section>
       </nav>
     </MainHeaderContainer>
