@@ -4,16 +4,27 @@ import axios from "axios";
 import { auth } from "../api/firebase";
 
 export const login = createAsyncThunk("user/login", async (loginData) => {
-  const userData = await axios.post("/api/auth/login", loginData);
+  const userData = await axios.post(
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/auth/login`,
+    loginData,
+    {
+      withCredentials: true,
+    }
+  );
 
-  return userData;
+  return userData.data;
 });
 
 export const logout = createAsyncThunk("user/logout", async () => {
-  const userData = await axios.get("/api/auth/logout");
+  const userData = await axios.get(
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/auth/logout`,
+    {
+      withCredentials: true,
+    }
+  );
   await auth.signOut();
 
-  return userData;
+  return userData.data;
 });
 
 const initialState = {

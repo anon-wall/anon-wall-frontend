@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default styled.button`
+const StyledAuthButton = styled.button`
   width: 100px;
   height: 20px;
   background-color: transparent;
@@ -8,3 +8,5 @@ export default styled.button`
   cursor: pointer;
   font-size: 17px;
 `;
+
+export default StyledAuthButton;
