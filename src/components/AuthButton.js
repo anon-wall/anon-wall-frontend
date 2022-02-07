@@ -21,10 +21,10 @@ export default function AuthButton() {
   async function handleClickLoginButton() {
     try {
       const { user } = await signInWithPopup(auth, provider);
-      const isLoggedIn = {
+      const userData = {
         email: user.email,
       };
-      dispatch(login(isLoggedIn));
+      dispatch(login(userData));
     } catch (err) {
       setIsError(err);
     }
