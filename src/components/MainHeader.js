@@ -8,13 +8,13 @@ export default function MainHeader() {
   return (
     <MainHeaderContainer>
       <nav>
-        <section>
+        <div>
           <Link to="/">
             <div className="logo">
               <h2>anon-wall</h2>
             </div>
           </Link>
-        </section>
+        </div>
         <ul className="mainHeader-link">
           <li>
             <NavLink
@@ -32,10 +32,10 @@ export default function MainHeader() {
               나의 담벼락
             </NavLink>
           </li>
+          <li>
+            <AuthButton />
+          </li>
         </ul>
-        <section>
-          <AuthButton />
-        </section>
       </nav>
     </MainHeaderContainer>
   );
@@ -48,25 +48,30 @@ const MainHeaderContainer = styled.div`
 
   nav {
     display: grid;
-    grid-template-columns: 150px auto 50px;
+    grid-template-columns: 300px auto 50px;
     column-gap: 30px;
     align-items: center;
-    margin: 20px;
     height: 100%;
+  }
+
+  .logo {
+    margin-left: 5rem;
+    font-size: 2.5rem;
   }
 
   .mainHeader-link {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    text-align: center;
     padding: 0;
     height: 100%;
     list-style: none;
   }
 
   .mainHeader-link li {
-    margin: 0 20px;
-    width: 100px;
+    font-size: 1.7rem;
+    width: 15rem;
   }
 
   .mainHeader-link a {

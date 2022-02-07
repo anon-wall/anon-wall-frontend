@@ -1,18 +1,19 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import styled from "styled-components";
 
 import MainHeader from "./components/MainHeader";
 import Home from "./components/Home";
+import StoryDetail from "./components/StroyDetail";
 
 export default function App() {
   return (
     <div>
       <MainHeader />
-      <Main>
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/counsels/*">
+          <Route path="/counsels">
+            <Route path=":counsel_id" element={<StoryDetail />} />
             <Route path=":counsel_id/*" />
             <Route path=":counsel_id/counselors/:user_id" />
             <Route path=":counsel_id/room" />
@@ -23,11 +24,7 @@ export default function App() {
             <Route path="/mypage/stories" />
           </Route>
         </Routes>
-      </Main>
+      </main>
     </div>
   );
 }
-
-const Main = styled.main`
-  margin: 20px;
-`;
