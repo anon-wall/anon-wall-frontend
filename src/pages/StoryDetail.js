@@ -17,27 +17,23 @@ export default function StoryDetail() {
   const [story, setStory] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isModalOn, setIsModalOn] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${counsel_id}`,
-        {
-          withCredentials: true,
-        }
-      );
+      try {
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${counsel_id}`,
+          {
+            withCredentials: true,
+          }
+        );
 
-      if (data.message) {
-        setErrorMessage(data.message);
-        setIsModalOn(true);
+        setStory(data.data);
         setIsLoading(false);
-
-        return;
+      } catch (err) {
+        setErrorMessage(err.response.data.message);
+        setIsLoading(false);
       }
-
-      setStory(data.data);
-      setIsLoading(false);
     })();
   }, [setStory]);
 
@@ -49,11 +45,11 @@ export default function StoryDetail() {
       />
       <MainContainer>
         {isLoading && <StyledLoadingSpinner />}
-        {!isLoading && errorMessage && isModalOn ? (
-          <Modal onClick={setIsModalOn} width="150px" height="50px">
+        {!isLoading && errorMessage && (
+          <Modal onClick={setErrorMessage} width="50rem" height="20rem">
             {errorMessage}
           </Modal>
-        ) : null}
+        )}
         {!isLoading && !errorMessage && story ? (
           <>
             <section>

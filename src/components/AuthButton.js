@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { signInWithPopup } from "firebase/auth";
 
-import StyledAuthButton from "./shared/StyledAuthButton";
+import StyledTransparentButton from "./shared/StyledTransparentButton";
 import Modal from "./common/Modal";
 import { login, logout } from "../features/userSlice";
 import { auth, provider } from "../api/firebase";
@@ -41,13 +41,13 @@ export default function AuthButton() {
   return (
     <>
       {isLoggedIn ? (
-        <StyledAuthButton onClick={handleClickLoginButton}>
+        <StyledTransparentButton onClick={handleClickLoginButton}>
           로그인
-        </StyledAuthButton>
+        </StyledTransparentButton>
       ) : (
-        <StyledAuthButton onClick={handleClickLogoutButton}>
+        <StyledTransparentButton onClick={handleClickLogoutButton}>
           로그아웃
-        </StyledAuthButton>
+        </StyledTransparentButton>
       )}
       {isError && (
         <Modal onClick={setIsError} width="500px" height="200px">

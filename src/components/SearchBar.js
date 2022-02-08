@@ -1,0 +1,115 @@
+import React, { useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import { Icon } from "@iconify/react";
+
+// import Modal from "../components/common/Modal";
+import StyledTransparentButton from "../components/shared/StyledTransparentButton";
+
+export default function SearchBar() {
+  const [tag, setTag] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false);
+
+  function handleChangeTag(tag) {
+    /* eslint-disable */
+    const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
+    /* eslint-enable */
+    if (tag.search(reg) > -1) {
+      setErrorMessage("특수문자 또는 공백은 입력할 수 없습니다.");
+    }
+
+    setTag(tag.replace(reg, ""));
+  }
+
+  async function handleSubmitTag(e) {
+    e.preventDefault();
+
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
+        {
+          params: { tag },
+          withCredentials: true,
+        }
+      );
+      setTag(data);
+    } catch (err) {
+      setErrorMessage(err.response.data.message);
+    }
+  }
+
+  return (
+    <SearchBarContainer>
+      <div className="button-container">
+        <StyledTransparentButton>고민 올리기</StyledTransparentButton>
+      </div>
+      <form className="search-container" onSubmit={handleSubmitTag}>
+        <input
+          type="text"
+          placeholder="태그 검색"
+          onChange={(event) => handleChangeTag(event.target.value)}
+          value={tag}
+        />
+        <Icon className="icon" icon="ph:magnifying-glass-light" />
+        {errorMessage && <div>{errorMessage}</div>}
+      </form>
+    </SearchBarContainer>
+  );
+}
+
+const SearchBarContainer = styled.div`
+  .button-container {
+    height: 2rem;
+  }
+
+  .button-container button {
+    float: right;
+    height: 4rem;
+    margin: 1rem 2rem;
+  }
+
+  .search-container {
+    width: 40rem;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .search-container input {
+    margin: 2.5rem auto 1rem;
+    width: 100%;
+    height: 5.5rem;
+    padding: 0 20px;
+    border: 3.5px solid #bfaea4;
+    border-radius: 30px;
+    outline: none;
+    font-size: 1.6rem;
+    color: #bfaea4;
+  }
+
+  .search-container input:focus {
+    border: 3.5px solid red;
+    transition: 0.35s ease;
+    color: red;
+    &::-webkit-input-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+    &:-ms-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+  }
+
+  .search-container .icon {
+    position: relative;
+    float: right;
+    width: 3rem;
+    height: 3rem;
+    top: -5.5rem;
+    right: 1.5rem;
+  }
+`;

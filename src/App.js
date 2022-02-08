@@ -4,7 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import MainHeader from "./components/MainHeader";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
-import StoryDetail from "./components/StroyDetail";
+import StoryList from "./pages/StoryList";
+import StoryDetail from "./pages/StoryDetail";
 
 export default function App() {
   return (
@@ -13,12 +14,11 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/counsels">
-            <Route path=":counsel_id" element={<StoryDetail />} />
-            <Route path=":counsel_id/*" />
-            <Route path=":counsel_id/counselors/:user_id" />
-            <Route path=":counsel_id/room" />
-          </Route>
+          <Route path="/counsels" element={<StoryList />} />
+          <Route path="/counsels/:counsel_id" element={<StoryDetail />} />
+          <Route path="/counsels/:counsel_id/*" />
+          <Route path="/counsels/:counsel_id/counselors/:user_id" />
+          <Route path="/counsels/:counsel_id/room" />
           <Route path="/counsels/new" />
           <Route path="/mypage">
             <Route path="/mypage/counselor" />
