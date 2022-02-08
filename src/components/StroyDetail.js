@@ -59,7 +59,7 @@ export default function StoryDetail() {
             <section>
               <StoryHeaderWrapper>
                 <ImageWrapper>
-                  <img src={story.counslee.imageURL} alt="Profile Image" />
+                  <img src={story.counselee.imageURL} alt="Profile Image" />
                 </ImageWrapper>
                 <StoryInfoWrapper>
                   <div className="name">{story.counselee.nickname}</div>
