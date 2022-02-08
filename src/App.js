@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import MainHeader from "./components/MainHeader";
 import Home from "./components/Home";
+import NotFound from "./components/NotFound";
 import StoryDetail from "./components/StroyDetail";
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/mypage/counselor" />
             <Route path="/mypage/stories" />
           </Route>
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </main>
     </div>
