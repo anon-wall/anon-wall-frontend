@@ -16,7 +16,7 @@ export default function SubHeader({ heading, paragraph }) {
 
 const SubHeaderWrapper = styled.div`
   width: 100%;
-  height: 20rem;
+  height: 14rem;
   background-color: #dedfac;
   text-align: center;
 
@@ -32,15 +32,15 @@ const SubHeaderWrapper = styled.div`
     width: 50%;
     margin: 0 auto;
     padding-top: 2rem;
-    font-size: 3.5rem;
+    font-size: 3rem;
   }
 
   p {
     display: block;
     width: 60%;
     margin: 0 auto;
-    margin-top: 3rem;
-    font-size: 2rem;
+    margin-top: 3.5rem;
+    font-size: 1.7rem;
     overflow: auto;
   }
 `;
