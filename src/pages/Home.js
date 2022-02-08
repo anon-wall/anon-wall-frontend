@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Icon } from "@iconify/react";
 import styled from "styled-components";
 
-import Modal from "./common/Modal";
+import Modal from "../components/common/Modal";
 import homeImage from "../assets/tree.png";
 
 const welcomeMessage =

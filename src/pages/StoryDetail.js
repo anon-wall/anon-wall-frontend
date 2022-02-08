@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
-import Modal from "./common/Modal";
-import SubHeader from "./common/SubHeader";
-import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
+import Modal from "../components/common/Modal";
+import SubHeader from "../components/common/SubHeader";
+import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import {
   STORY_SUB_HEADER_HEADING,
   STORY_SUB_HEADER_PARAGRAPH,
