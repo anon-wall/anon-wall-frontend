@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   :root {
-    font-size: 10px;
+    font-size: 62.5%;
   }
 
   * {

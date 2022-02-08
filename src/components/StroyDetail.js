@@ -6,10 +6,10 @@ import axios from "axios";
 import Modal from "./common/Modal";
 import SubHeader from "./common/SubHeader";
 import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
-
-const heading = "고민 담벼락";
-const paragraph =
-  "나누고 싶은 고민을 자유롭게 올려주세요. 여러분의 고민을 들어줄 익명의 누군가가 곧 찾아올거에요.";
+import {
+  STORY_SUB_HEADER_HEADING,
+  STORY_SUB_HEADER_PARAGRAPH,
+} from "../constants/story";
 
 export default function StoryDetail() {
   const { counsel_id } = useParams();
@@ -17,7 +17,7 @@ export default function StoryDetail() {
   const [story, setStory] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOn, setIsModalOn] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -30,7 +30,7 @@ export default function StoryDetail() {
 
       if (data.message) {
         setErrorMessage(data.message);
-        setIsModalOpen(true);
+        setIsModalOn(true);
         setIsLoading(false);
 
         return;
@@ -43,11 +43,14 @@ export default function StoryDetail() {
 
   return (
     <>
-      <SubHeader heading={heading} paragraph={paragraph} />
+      <SubHeader
+        heading={STORY_SUB_HEADER_HEADING}
+        paragraph={STORY_SUB_HEADER_PARAGRAPH}
+      />
       <MainContainer>
         {isLoading && <StyledLoadingSpinner />}
-        {!isLoading && errorMessage && isModalOpen ? (
-          <Modal onClick={setIsModalOpen} width="150px" height="50px">
+        {!isLoading && errorMessage && isModalOn ? (
+          <Modal onClick={setIsModalOn} width="150px" height="50px">
             {errorMessage}
           </Modal>
         ) : null}
@@ -90,7 +93,7 @@ const MainContainer = styled.section`
   display: flex;
   justify-content: center;
   width: 80%;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
 
   section {

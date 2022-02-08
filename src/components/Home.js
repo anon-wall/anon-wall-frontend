@@ -5,12 +5,12 @@ import styled from "styled-components";
 import Modal from "./common/Modal";
 import homeImage from "../assets/tree.png";
 
-export default function Home() {
-  const welcomeMessage =
-    "주변에 말 못할 고민이 있으신가요? 익명의 사람들과 고민을 나눠보세요!";
-  const buttonName = "Discover Now";
-  const copyright = "All rights reserved to anon-wall";
+const welcomeMessage =
+  "주변에 말 못할 고민이 있으신가요? 익명의 사람들과 고민을 나눠보세요!";
+const buttonName = "Discover Now";
+const copyright = "All rights reserved to anon-wall";
 
+export default function Home() {
   const [isModalOn, setIsModalOn] = useState(false);
 
   const handleModalOn = () => {
