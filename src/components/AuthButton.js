@@ -7,7 +7,7 @@ import Modal from "./common/Modal";
 import { login, logout } from "../features/userSlice";
 import { auth, provider } from "../api/firebase";
 
-export default function AuthButton() {
+function AuthButton() {
   const rejectedLoginError = useSelector(({ user }) => user.error);
   const isLoggedIn = useSelector(({ user }) => !user.isLoggedIn);
   const dispatch = useDispatch();
@@ -57,3 +57,5 @@ export default function AuthButton() {
     </>
   );
 }
+
+export default AuthButton;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -15,7 +14,7 @@ import {
   NEXT,
 } from "../constants/story";
 
-export default function StoryList() {
+function StoryList() {
   const [storyList, setStoryList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(false);
   const [page, setPage] = useState(1);
@@ -98,7 +97,6 @@ export default function StoryList() {
           {NEXT}
         </StyledTransparentButton>
       )}
-      <Outlet />
     </>
   );
 }
@@ -109,7 +107,9 @@ const StoryListContainer = styled.div`
   padding: 2em 0 0;
   grid-template-columns: repeat(3, 47rem);
   grid-template-rows: repeat(2, 36rem);
-  column-gap: 1vw;
-  row-gap: 2vh;
+  column-gap: 2vw;
+  row-gap: 50px;
   width: 100%;
 `;
+
+export default StoryList;

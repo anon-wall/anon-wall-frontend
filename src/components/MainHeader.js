@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import AuthButton from "./AuthButton";
 
-export default function MainHeader() {
+function MainHeader() {
   return (
     <MainHeaderContainer>
       <nav>
@@ -87,3 +87,5 @@ const MainHeaderContainer = styled.div`
     color: #95bcf0;
   }
 `;
+
+export default MainHeader;
