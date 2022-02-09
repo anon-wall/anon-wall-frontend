@@ -2,7 +2,7 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-export default function Modal({ onClick, width, height, children }) {
+function Modal({ onClick, width, height, children }) {
   return ReactDOM.createPortal(
     <>
       <OverlayWrapper onClick={() => onClick((prev) => !prev)} />
@@ -43,3 +43,5 @@ Modal.propTypes = {
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
 };
+
+export default Modal;

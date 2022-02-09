@@ -11,7 +11,7 @@ import {
   STORY_SUB_HEADER_PARAGRAPH,
 } from "../constants/story";
 
-export default function StoryDetail() {
+function StoryDetail() {
   const { counsel_id } = useParams();
 
   const [story, setStory] = useState(null);
@@ -182,3 +182,5 @@ const ButtonWrapper = styled.div`
     border-radius: 3rem;
   }
 `;
+
+export default StoryDetail;

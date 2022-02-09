@@ -1,16 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import ImageWrapper from "./shared/ImageWrapper";
 import StoryInfoWrapper from "./shared/StoryInfoWrapper";
 
-export default function StoryListEntry({ id, img, nickname, title, tag }) {
-  console.log(id, tag);
+function StoryListEntry({ id, img, nickname, title, tag }) {
+  const navigate = useNavigate();
+
+  function handleClickStoryDetail() {
+    navigate(`/counsels/${id}`);
+  }
+
   return (
-    <StoryWrapper>
+    <StoryWrapper onClick={handleClickStoryDetail}>
       <ImageWrapper>
-        <img src={img} alt="" />
+        <img src={img} alt="User's Profile" />
       </ImageWrapper>
       <StoryInfoWrapper>
         <div className="name">작성자: {nickname}</div>
@@ -44,3 +50,5 @@ StoryListEntry.propTypes = {
   title: PropTypes.string.isRequired,
   tag: PropTypes.array.isRequired,
 };
+
+export default StoryListEntry;

@@ -5,14 +5,13 @@ import { Icon } from "@iconify/react";
 
 import StyledTransparentButton from "../components/shared/StyledTransparentButton";
 
-export default function SearchBar({ onSubmitKeyword }) {
+function SearchBar({ onSubmitKeyword }) {
   const [tag, setTag] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
 
   function handleChangeTag(tag) {
-    /* eslint-disable */
     const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
-    /* eslint-enable */
+
     if (tag.search(reg) > -1) {
       setErrorMessage("특수문자 또는 공백은 입력할 수 없습니다.");
     }
@@ -34,7 +33,7 @@ export default function SearchBar({ onSubmitKeyword }) {
         <input
           type="text"
           placeholder="태그 검색"
-          onChange={(event) => handleChangeTag(event.target.value)}
+          onChange={(e) => handleChangeTag(e.target.value)}
           value={tag}
         />
         <Icon className="icon" icon="ph:magnifying-glass-light" />
@@ -104,3 +103,5 @@ const SearchBarContainer = styled.div`
 SearchBar.propTypes = {
   onSubmitKeyword: PropTypes.func.isRequired,
 };
+
+export default SearchBar;

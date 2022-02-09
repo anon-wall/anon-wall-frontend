@@ -7,7 +7,7 @@ const store = configureStore({
   reducer: { user: userReducer },
   middleware: (getDefaultMiddleware) => {
     if (process.env.NODE_ENV !== "production") {
-      getDefaultMiddleware({ serializableCheck: false }).concat(logger);
+      return getDefaultMiddleware({ serializableCheck: false }).concat(logger);
     }
 
     return getDefaultMiddleware();

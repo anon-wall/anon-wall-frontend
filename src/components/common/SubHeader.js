@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-export default function SubHeader({ heading, paragraph }) {
+function SubHeader({ heading, paragraph }) {
   return (
     <SubHeaderWrapper>
       <div className="headingWrapper">
@@ -49,3 +49,5 @@ SubHeader.propTypes = {
   heading: PropTypes.string,
   paragraph: PropTypes.string,
 };
+
+export default SubHeader;

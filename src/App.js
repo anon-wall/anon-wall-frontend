@@ -2,12 +2,12 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import MainHeader from "./components/MainHeader";
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import NotFound from "./components/NotFound";
 import StoryList from "./pages/StoryList";
 import StoryDetail from "./pages/StoryDetail";
 
-export default function App() {
+function App() {
   return (
     <div>
       <MainHeader />
@@ -16,7 +16,6 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/counsels" element={<StoryList />} />
           <Route path="/counsels/:counsel_id" element={<StoryDetail />} />
-          <Route path="/counsels/:counsel_id/*" />
           <Route path="/counsels/:counsel_id/counselors/:user_id" />
           <Route path="/counsels/:counsel_id/room" />
           <Route path="/counsels/new" />
@@ -30,3 +29,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;

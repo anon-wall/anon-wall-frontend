@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import notFoundImage from "../assets/404.png";
 
-export default function NotFound() {
+function NotFound() {
   return (
     <Container>
       <ImageWrapper>
@@ -35,3 +35,5 @@ const Text = styled.p`
   font-size: 2.5rem;
   text-align: center;
 `;
+
+export default NotFound;
