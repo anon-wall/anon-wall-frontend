@@ -5,6 +5,7 @@ import MainHeader from "./components/MainHeader";
 import Home from "./pages/Home";
 import StoryList from "./pages/StoryList";
 import StoryDetail from "./pages/StoryDetail";
+import UploadStory from "./pages/UploadStory";
 import CounselorDetail from "./components/CounselorDetail";
 import MyPageMain from "./pages/MyPageMain";
 import MyPageCounselor from "./pages/MyPageCounselor";
@@ -25,7 +26,7 @@ function App() {
             element={<CounselorDetail />}
           />
           <Route path="/counsels/:counsel_id/room" />
-          <Route path="/counsels/new" />
+          <Route path="/counsels/new" element={<UploadStory />} />
           <Route path="/mypage" element={<MyPage />}>
             <Route path="/mypage/main" element={<MyPageMain />} />
             <Route path="/mypage/counselor" element={<MyPageCounselor />} />
