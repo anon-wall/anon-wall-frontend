@@ -25,14 +25,6 @@ export default function StoryListEntry({ id, img, nickname, title, tag }) {
   );
 }
 
-StoryListEntry.propTypes = {
-  id: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  nickname: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  tag: PropTypes.array.isRequired,
-};
-
 const Tag = styled.span`
   margin: 0 1rem;
 `;
@@ -44,3 +36,11 @@ const StoryWrapper = styled.div`
   border: 6px solid #bfaea4;
   border-radius: 40px;
 `;
+
+StoryListEntry.propTypes = {
+  id: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
+  nickname: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  tag: PropTypes.array.isRequired,
+};

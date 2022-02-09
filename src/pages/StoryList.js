@@ -1,55 +1,79 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 import SubHeader from "../components/common/SubHeader";
-// import Modal from "../components/common/Modal";
-import { prevButton, nextButton } from "../features/paginationSlice";
+import Modal from "../components/common/Modal";
 import StyledTransparentButton from "../components/shared/StyledTransparentButton";
+import StoryListEntry from "../components/StoryListEntry";
+import SearchBar from "../components/SearchBar";
 import {
   STORY_SUB_HEADER_HEADING,
   STORY_SUB_HEADER_PARAGRAPH,
   PREV,
   NEXT,
 } from "../constants/story";
-import StoryListEntry from "../components/StoryListEntry";
-import SearchBar from "../components/SearchBar";
 
 export default function StoryList() {
-  const { error, page, size, pageCounsels, hasPrevPage, hasNextPage } =
-    useSelector(({ pagination }) => pagination);
-  const dispatch = useDispatch();
-
+  const [storyList, setStoryList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(false);
-
-  console.log(errorMessage);
+  const [page, setPage] = useState(1);
+  const [keyword, setKeyword] = useState("");
+  const [hasPage, setHasPage] = useState({
+    prev: false,
+    next: false,
+  });
 
   useEffect(() => {
-    setErrorMessage(error);
-  }, [error]);
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
+          {
+            params: { page, size: 6, tag: keyword },
+            withCredentials: true,
+          }
+        );
 
-  useEffect(() => {
-    handleClickNextButton();
-  }, []);
+        setStoryList(data.data.pageCounsels);
+        setHasPage({
+          ...hasPage,
+          prev: data.data.hasPrevPage,
+          next: data.data.hasNextPage,
+        });
+      } catch (err) {
+        setErrorMessage(err.response.data.message);
+      }
+    })();
+  }, [page, keyword]);
 
   function handleClickPrevButton() {
-    dispatch(prevButton({ page: page - 1, size }));
+    setPage((page) => page - 1);
+  }
+  function handleClickNextButton() {
+    setPage((page) => page + 1);
   }
 
-  function handleClickNextButton() {
-    dispatch(nextButton({ page: page + 1, size }));
+  function handleSearchKeyword(keyword) {
+    setPage(1);
+    setKeyword(keyword);
   }
 
   return (
     <>
+      {errorMessage && (
+        <Modal onClick={setErrorMessage} width="500px" height="200px">
+          <p>{errorMessage}</p>
+        </Modal>
+      )}
       <SubHeader
         heading={STORY_SUB_HEADER_HEADING}
         paragraph={STORY_SUB_HEADER_PARAGRAPH}
       />
-      <SearchBar />
+      <SearchBar onSubmitKeyword={handleSearchKeyword} />
       <StoryListContainer>
-        {pageCounsels.map((story) => {
+        {storyList.map((story) => {
           const { _id, counselee, title, tag } = story;
 
           return (
@@ -64,12 +88,12 @@ export default function StoryList() {
           );
         })}
       </StoryListContainer>
-      {hasPrevPage && (
+      {hasPage.prev && (
         <StyledTransparentButton onClick={handleClickPrevButton}>
           {PREV}
         </StyledTransparentButton>
       )}
-      {hasNextPage && (
+      {hasPage.next && (
         <StyledTransparentButton onClick={handleClickNextButton}>
           {NEXT}
         </StyledTransparentButton>

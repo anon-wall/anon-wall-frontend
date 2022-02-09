@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+import PropTypes from "prop-types";
 import { Icon } from "@iconify/react";
 
-// import Modal from "../components/common/Modal";
 import StyledTransparentButton from "../components/shared/StyledTransparentButton";
 
-export default function SearchBar() {
+export default function SearchBar({ onSubmitKeyword }) {
   const [tag, setTag] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
 
@@ -23,19 +22,7 @@ export default function SearchBar() {
 
   async function handleSubmitTag(e) {
     e.preventDefault();
-
-    try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
-        {
-          params: { tag },
-          withCredentials: true,
-        }
-      );
-      setTag(data);
-    } catch (err) {
-      setErrorMessage(err.response.data.message);
-    }
+    onSubmitKeyword(tag);
   }
 
   return (
@@ -113,3 +100,7 @@ const SearchBarContainer = styled.div`
     right: 1.5rem;
   }
 `;
+
+SearchBar.propTypes = {
+  onSubmitKeyword: PropTypes.func.isRequired,
+};
