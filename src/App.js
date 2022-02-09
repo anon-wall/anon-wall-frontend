@@ -6,7 +6,6 @@ import Home from "./pages/Home";
 import NotFound from "./components/NotFound";
 import StoryList from "./pages/StoryList";
 import StoryDetail from "./pages/StoryDetail";
-import StoryDetail from "./components/StroyDetail";
 import CounselorDetail from "./components/CounselorDetail";
 
 function App() {
