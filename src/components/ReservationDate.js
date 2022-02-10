@@ -55,11 +55,14 @@ function ReservationDate({ counselor }) {
       return true;
     }
 
-    for (const specificDate of specificDates) {
-      if (
-        format(date, YYYY_MM_DD) === format(specificDate.startTime, YYYY_MM_DD)
-      ) {
-        return false;
+    if (Array.isArray(specificDates)) {
+      for (const specificDate of specificDates) {
+        if (
+          format(date, YYYY_MM_DD) ===
+          format(specificDate?.startTime, YYYY_MM_DD)
+        ) {
+          return false;
+        }
       }
     }
 
