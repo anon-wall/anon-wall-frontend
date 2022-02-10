@@ -13,7 +13,7 @@ import {
 } from "../constants/story";
 
 function CounselorDetail() {
-  const { counsel_id, user_id } = useParams();
+  const { user_id } = useParams();
 
   const [counselor, setCounselor] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +23,7 @@ function CounselorDetail() {
     (async () => {
       try {
         const { data } = await axios.get(
-          `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${counsel_id}/counselors/${user_id}`,
+          `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${user_id}`,
           {
             withCredentials: true,
           }
