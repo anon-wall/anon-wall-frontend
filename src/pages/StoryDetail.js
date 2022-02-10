@@ -12,6 +12,7 @@ import {
   STORY_SUB_HEADER_PARAGRAPH,
   STORY_ACCEPT_SUCCESS_MESSAGE,
 } from "../constants/story";
+import CounselorDetailEntry from "../components/CounselorDetailEntry";
 
 function StoryDetail() {
   const { counsel_id } = useParams();
@@ -21,7 +22,6 @@ function StoryDetail() {
   const [story, setStory] = useState(null);
   const [modalMessage, setModalMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
   const handleClickMemoized = useCallback(handleClick, [userId]);
 
   useEffect(() => {
@@ -96,9 +96,29 @@ function StoryDetail() {
             </section>
             <aside>
               <AsideWrapper>
-                <ButtonWrapper>
-                  <button onClick={handleClickMemoized}>사연 수락하기</button>
-                </ButtonWrapper>
+                {story.counselee._id === userId ? (
+                  story.counselors?.map(
+                    ({ _id, nickname, counselor, imageURL }) => {
+                      const { tag, shortInput } = counselor;
+
+                      return (
+                        <CounselorDetailEntry
+                          key={_id}
+                          id={_id}
+                          imageURL={imageURL}
+                          nickname={nickname}
+                          tag={tag}
+                          shortInput={shortInput}
+                        />
+                      );
+                    }
+                  )
+                ) : (
+                  <ButtonWrapper>
+                    <button onClick={handleClickMemoized}>사연 수락하기</button>
+                  </ButtonWrapper>
+                )}
+                ;
               </AsideWrapper>
             </aside>
           </>
@@ -116,11 +136,11 @@ const MainContainer = styled.section`
   margin: 0 auto;
   section {
     flex-basis: 70%;
-    height: 100%;
+    min-height: 100%;
   }
   aside {
     flex-basis: 30%;
-    height: 100%;
+    min-height: 100%;
   }
 `;
 
