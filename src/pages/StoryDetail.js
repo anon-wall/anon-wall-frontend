@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 import Modal from "../components/common/Modal";
 import SubHeader from "../components/common/SubHeader";
@@ -9,14 +10,19 @@ import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import {
   STORY_SUB_HEADER_HEADING,
   STORY_SUB_HEADER_PARAGRAPH,
+  STORY_ACCEPT_SUCCESS_MESSAGE,
 } from "../constants/story";
 
 function StoryDetail() {
   const { counsel_id } = useParams();
 
+  const userId = useSelector(({ user }) => user.data._id);
+
   const [story, setStory] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [modalMessage, setModalMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const handleClickMemoized = useCallback(handleClick, [userId]);
 
   useEffect(() => {
     (async () => {
@@ -31,11 +37,28 @@ function StoryDetail() {
         setStory(data.data);
         setIsLoading(false);
       } catch (err) {
-        setErrorMessage(err.response.data.message);
+        setModalMessage(err.response.data.message);
         setIsLoading(false);
       }
     })();
   }, [setStory]);
+
+  async function handleClick() {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${counsel_id}/counselors`,
+        userId,
+        {
+          withCredentials: true,
+        }
+      );
+
+      setModalMessage(STORY_ACCEPT_SUCCESS_MESSAGE);
+    } catch (err) {
+      setModalMessage(err.response.data.message);
+      setIsLoading(false);
+    }
+  }
 
   return (
     <>
@@ -45,12 +68,12 @@ function StoryDetail() {
       />
       <MainContainer>
         {isLoading && <StyledLoadingSpinner />}
-        {!isLoading && errorMessage && (
-          <Modal onClick={setErrorMessage} width="50rem" height="20rem">
-            {errorMessage}
+        {!isLoading && modalMessage && (
+          <Modal onClick={setModalMessage} width="50rem" height="20rem">
+            {modalMessage}
           </Modal>
         )}
-        {!isLoading && !errorMessage && story ? (
+        {!isLoading && !modalMessage && story ? (
           <>
             <section>
               <StoryHeaderWrapper>
@@ -74,7 +97,7 @@ function StoryDetail() {
             <aside>
               <AsideWrapper>
                 <ButtonWrapper>
-                  <button>사연 수락하기</button>
+                  <button onClick={handleClickMemoized}>사연 수락하기</button>
                 </ButtonWrapper>
               </AsideWrapper>
             </aside>
@@ -91,12 +114,10 @@ const MainContainer = styled.section`
   width: 80%;
   min-height: 100vh;
   margin: 0 auto;
-
   section {
     flex-basis: 70%;
     height: 100%;
   }
-
   aside {
     flex-basis: 30%;
     height: 100%;
@@ -121,7 +142,6 @@ const ImageWrapper = styled.div`
   width: 30rem;
   height: 100%;
   background-color: #000000;
-
   img {
     width: 20rem;
     height: 20rem;
@@ -136,7 +156,6 @@ const StoryInfoWrapper = styled.div`
   font-size: 2.5rem;
   text-align: center;
   line-height: 6rem;
-
   .name {
     font-size: 3rem;
     color: #3e005b;
@@ -175,7 +194,6 @@ const ButtonWrapper = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-
   button {
     font-size: 3.5rem;
     padding: 1rem;
