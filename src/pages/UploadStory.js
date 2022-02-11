@@ -103,54 +103,54 @@ const FormWrapper = styled.div`
 
   .title {
     vertical-align: top;
-    width: 400px;
-    height: 30px;
-    margin: 10px;
+    width: 40rem;
+    height: 3rem;
+    margin: 1rem;
     box-sizing: border-box;
-    border: 4px solid #bfaea4;
-    border-radius: 32px;
+    border: 0.4rem solid #bfaea4;
+    border-radius: 3.2rem;
     text-align: center;
   }
 
   textarea {
     vertical-align: top;
-    width: 400px;
-    height: 200px;
+    width: 40rem;
+    height: 20rem;
     box-sizing: border-box;
     resize: none;
     padding-top: 5%;
-    border: 4px solid #bfaea4;
-    border-radius: 32px;
+    border: 0.4rem solid #bfaea4;
+    border-radius: 3.2rem;
     text-align: center;
   }
 
   textarea:focus {
     outline: none !important;
     border-color: #719ece;
-    box-shadow: 0 0 10px #719ece;
+    box-shadow: 0 0 1rem #719ece;
   }
 
   .tag {
     vertical-align: top;
-    width: 400px;
-    height: 30px;
-    margin: 10px;
+    width: 40rem;
+    height: 3rem;
+    margin: 1rem;
     box-sizing: border-box;
-    border: 4px solid #bfaea4;
-    border-radius: 32px;
+    border: 0.4rem solid #bfaea4;
+    border-radius: 3.2rem;
     text-align: center;
   }
 
   .submit {
-    width: 80px;
-    height: 30px;
+    width: 8rem;
+    height: 3rem;
     align-items: flex-start;
-    padding: 8px 29px;
-    margin: 10px;
+    padding: 0.8rem 2.9rem;
+    margin: 1rem;
     box-sizing: border-box;
-    border: 1px solid #b0adad;
-    border-radius: 40px;
+    border: 0.1rem solid #b0adad;
+    border-radius: 4rem;
     background: #e8e8e8;
-    box-shadow: 0px 0px 25px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0rem 0rem 2.5rem 0.3rem rgba(0, 0, 0, 0.2);
   }
 `;
