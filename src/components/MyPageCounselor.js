@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-// import axios from "axios";
 
 import Modal from "./common/Modal";
 import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
