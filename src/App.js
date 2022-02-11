@@ -1,18 +1,21 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import styled from "styled-components";
 
 import MainHeader from "./components/MainHeader";
 import Home from "./pages/Home";
-import NotFound from "./components/NotFound";
 import StoryList from "./pages/StoryList";
 import StoryDetail from "./pages/StoryDetail";
 import CounselorDetail from "./components/CounselorDetail";
+import Sidebar from "./components/SideBar";
+import Counselor from "./pages/Counselor";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
     <div>
       <MainHeader />
-      <main>
+      <Main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/counsels" element={<StoryList />} />
@@ -23,15 +26,20 @@ function App() {
           />
           <Route path="/counsels/:counsel_id/room" />
           <Route path="/counsels/new" />
-          <Route path="/mypage">
-            <Route path="/mypage/counselor" />
+          <Route path="/mypage" element={<Sidebar />}>
+            <Route path="/mypage/main" />
+            <Route path="/mypage/counselor" element={<Counselor />} />
             <Route path="/mypage/stories" />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>
-      </main>
+      </Main>
     </div>
   );
 }
+
+const Main = styled.main`
+  position: relative;
+`;
 
 export default App;
