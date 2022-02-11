@@ -1,21 +1,21 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import styled from "styled-components";
 
 import MainHeader from "./components/MainHeader";
 import Home from "./pages/Home";
 import StoryList from "./pages/StoryList";
 import StoryDetail from "./pages/StoryDetail";
 import CounselorDetail from "./components/CounselorDetail";
-import Sidebar from "./components/SideBar";
-import Counselor from "./pages/Counselor";
+import MyPageMain from "./components/MyPageMain";
+import MyPageCounselor from "./components/MyPageCounselor";
 import NotFound from "./components/NotFound";
+import MyPage from "./components/MyPage";
 
 function App() {
   return (
     <div>
       <MainHeader />
-      <Main>
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/counsels" element={<StoryList />} />
@@ -26,20 +26,16 @@ function App() {
           />
           <Route path="/counsels/:counsel_id/room" />
           <Route path="/counsels/new" />
-          <Route path="/mypage" element={<Sidebar />}>
-            <Route path="/mypage/main" />
-            <Route path="/mypage/counselor" element={<Counselor />} />
+          <Route path="/mypage" element={<MyPage />}>
+            <Route path="/mypage/main" element={<MyPageMain />} />
+            <Route path="/mypage/counselor" element={<MyPageCounselor />} />
             <Route path="/mypage/stories" />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>
-      </Main>
+      </main>
     </div>
   );
 }
-
-const Main = styled.main`
-  position: relative;
-`;
 
 export default App;

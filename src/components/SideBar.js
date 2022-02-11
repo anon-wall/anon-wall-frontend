@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 function Sidebar() {
@@ -35,7 +35,6 @@ function Sidebar() {
           </ul>
         </nav>
       </SideBarContainer>
-      <Outlet />
     </>
   );
 }
@@ -43,7 +42,7 @@ function Sidebar() {
 const SideBarContainer = styled.div`
   width: 20rem;
   height: 70rem;
-  margin: 4rem 4rem;
+  margin-top: 3rem;
   border: 0.7rem solid #bfaea4;
   border-radius: 3rem;
 
@@ -53,7 +52,6 @@ const SideBarContainer = styled.div`
     justify-content: flex-end;
     align-items: center;
     text-align: center;
-    margin: 9rem 0;
     padding: 0;
     height: 100%;
     list-style: none;
