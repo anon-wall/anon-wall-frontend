@@ -9,6 +9,7 @@ import UploadStory from "./pages/UploadStory";
 import CounselorDetail from "./components/CounselorDetail";
 import MyPageMain from "./pages/MyPageMain";
 import MyPageCounselor from "./pages/MyPageCounselor";
+import ChatRoom from "./components/ChatRoom";
 import NotFound from "./components/NotFound";
 import MyPage from "./pages/MyPage";
 import UserStoryList from "./pages/UserStoryList";
@@ -26,7 +27,7 @@ function App() {
             path="/counsels/:counsel_id/counselors/:user_id"
             element={<CounselorDetail />}
           />
-          <Route path="/counsels/:counsel_id/room" />
+          <Route path="/counsels/:counsel_id/room" element={<ChatRoom />} />
           <Route path="/counsels/new" element={<UploadStory />} />
           <Route path="/mypage" element={<MyPage />}>
             <Route path="/mypage/main" element={<MyPageMain />} />
