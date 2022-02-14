@@ -13,7 +13,7 @@ import "../assets/stylesheets/datepicker-custom.css";
 function ReservationDate({ counselor }) {
   const { counsel_id, user_id } = useParams();
 
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [excludedTimes, setExcludedTimes] = useState([]);
   const reservedDates = [];
 

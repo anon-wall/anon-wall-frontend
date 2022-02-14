@@ -30,12 +30,12 @@ function StoryList() {
         const { data } = await axios.get(
           `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
           {
-            params: { page, size: 6, tag: keyword },
+            params: { page, limit: 6, tag: keyword },
             withCredentials: true,
           }
         );
 
-        setStoryList(data.data.pagedCounsels);
+        setStoryList(data.data.pageCounsels);
         setHasPage({
           ...hasPage,
           prev: data.data.hasPrevPage,

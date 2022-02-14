@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 
-import MyPageWrapper from "../components/shared/MyPageWrapper";
 import UserStoryLIstEntry from "../components/UserStoryLIstEntry";
 import Modal from "../components/common/Modal";
 import StyledTransparentButton from "../components/shared/StyledTransparentButton";
@@ -18,7 +17,6 @@ function UserStoryList() {
     next: false,
   });
   const userId = useSelector(({ user }) => user.data._id);
-  console.log(userId);
 
   useEffect(() => {
     (async () => {
@@ -26,7 +24,7 @@ function UserStoryList() {
         const { data } = await axios.get(
           `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
           {
-            params: { page, size: 6 },
+            params: { page, size: 6, counselee: userId },
             withCredentials: true,
           }
         );
@@ -58,48 +56,45 @@ function UserStoryList() {
           <p>{errorMessage}</p>
         </Modal>
       )}
-      <MyPageWrapper>
-        <UserStoryListContainer>
-          {storyList.map((story) => {
-            const { _id, title, endDate, counselors } = story;
-            const currentDate = new Date().toUTCString();
-            const isDone = endDate || endDate < currentDate ? "종료" : "진행중";
-            const numsOfRequest = counselors.length;
+      <UserStoryListContainer>
+        {storyList.map((story) => {
+          const { _id, title, endDate, counselors } = story;
+          const currentDate = new Date().toUTCString();
+          const isDone = endDate || endDate < currentDate ? "종료" : "진행중";
+          const numberOfRequest = counselors.length;
 
-            return (
-              <UserStoryLIstEntry
-                key={_id}
-                id={_id}
-                title={title}
-                endDate={isDone}
-                counselors={numsOfRequest}
-              />
-            );
-          })}
-        </UserStoryListContainer>
-        {hasPage.prev && (
-          <StyledTransparentButton onClick={handleClickPrevButton}>
-            {PREV}
-          </StyledTransparentButton>
-        )}
-        {hasPage.next && (
-          <StyledTransparentButton onClick={handleClickNextButton}>
-            {NEXT}
-          </StyledTransparentButton>
-        )}
-      </MyPageWrapper>
+          return (
+            <UserStoryLIstEntry
+              key={_id}
+              id={_id}
+              title={title}
+              endDate={isDone}
+              counselors={numberOfRequest}
+            />
+          );
+        })}
+      </UserStoryListContainer>
+      {hasPage.prev && (
+        <StyledTransparentButton onClick={handleClickPrevButton}>
+          {PREV}
+        </StyledTransparentButton>
+      )}
+      {hasPage.next && (
+        <StyledTransparentButton onClick={handleClickNextButton}>
+          {NEXT}
+        </StyledTransparentButton>
+      )}
     </>
   );
 }
 
 const UserStoryListContainer = styled.div`
-  /* display: grid; */
   justify-content: center;
-  padding: 2em 0 0;
+  padding: 2rem 0 0;
   column-gap: 2vw;
   row-gap: 2rem;
   width: 100%;
-  font-size: 2rem;
+  font-size: 1.5rem;
 `;
 
 export default UserStoryList;

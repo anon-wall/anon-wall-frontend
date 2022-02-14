@@ -16,7 +16,7 @@ function WeekDayScheduler() {
 
   const [selectedDay, setSelectedDay] = useState(0);
   const [selectedWDays, setSelectedWDays] = useState([]);
-  const [startHour, setstartHour] = useState(0);
+  const [startHour, setStartHour] = useState(0);
   const [endHour, setEndHour] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -28,30 +28,30 @@ function WeekDayScheduler() {
     setSelectedWDays(sameDays);
   }, [selectedDay, availableDates.length]);
 
-  function handlestartHourChange(e) {
+  function handleStartHourChange(e) {
     const { value } = e.target;
 
     if (value === "") {
-      setstartHour("");
+      setStartHour("");
       return;
     }
 
     if (value <= 0) {
-      setstartHour(0);
+      setStartHour(0);
       return;
     }
     if (value >= 23) {
-      setstartHour(23);
+      setStartHour(23);
       return;
     }
 
     if (value >= endHour) {
-      setstartHour(parseInt(value));
+      setStartHour(parseInt(value));
       setEndHour(parseInt(value) + 1);
       return;
     }
 
-    setstartHour(parseInt(value));
+    setStartHour(parseInt(value));
   }
 
   function handleEndHourChange(e) {
@@ -131,7 +131,7 @@ function WeekDayScheduler() {
         <div>
           <input
             className="input"
-            onChange={handlestartHourChange}
+            onChange={handleStartHourChange}
             value={startHour}
           />
           <input
