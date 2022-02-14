@@ -6,10 +6,10 @@ import Home from "./pages/Home";
 import StoryList from "./pages/StoryList";
 import StoryDetail from "./pages/StoryDetail";
 import CounselorDetail from "./components/CounselorDetail";
-import MyPageMain from "./components/MyPageMain";
-import MyPageCounselor from "./components/MyPageCounselor";
+import MyPageMain from "./pages/MyPageMain";
+import MyPageCounselor from "./pages/MyPageCounselor";
 import NotFound from "./components/NotFound";
-import MyPage from "./components/MyPage";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (

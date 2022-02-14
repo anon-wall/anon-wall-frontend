@@ -1,13 +1,22 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 
-function WeekDayScheduler() {
-  const { _id: userId } = useSelector((state) => state.user.data);
+import { TYPE_WEEKDAY, EXISTED_TIMELINE_WARNING } from "../constants/date";
+import {
+  updateAvailableDates,
+  deleteAvailableDates,
+} from "../features/counselorSlice";
 
-  const [availableDates, setAvailableDates] = useState([]);
-  const [selectedDay, setSelectedDay] = useState(1);
+function WeekDayScheduler() {
+  const dispatch = useDispatch();
+  const userId = useSelector(({ user }) => user.data._id);
+  const availableDates = useSelector(
+    ({ counselor }) => counselor.data.availableDates
+  ).filter(({ type }) => type === TYPE_WEEKDAY);
+
+  const [selectedDay, setSelectedDay] = useState(0);
   const [selectedWDays, setSelectedWDays] = useState([]);
   const [startHour, setstartHour] = useState(0);
   const [endHour, setEndHour] = useState(1);
@@ -79,7 +88,7 @@ function WeekDayScheduler() {
       }
       for (const exisiting of selectedWDays) {
         if (startHour < exisiting.startHour && endHour > exisiting.startHour) {
-          setErrorMessage("이미 시간대가 존재합니다.");
+          setErrorMessage(EXISTED_TIMELINE_WARNING);
           return;
         }
 
@@ -87,24 +96,22 @@ function WeekDayScheduler() {
           startHour >= exisiting.startHour &&
           startHour <= exisiting.endHour
         ) {
-          setErrorMessage("이미 시간대가 존재합니다.");
+          setErrorMessage(EXISTED_TIMELINE_WARNING);
           return;
         }
       }
 
-      const { data } = await axios.patch(
-        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}/counselor/availableDates`,
-        {
-          type: "wDay",
-          startHour,
-          endHour,
-        },
-        {
-          withCredentials: true,
-        }
+      dispatch(
+        updateAvailableDates({
+          userId,
+          availableDates: {
+            type: TYPE_WEEKDAY,
+            day: selectedDay,
+            startHour,
+            endHour,
+          },
+        })
       );
-
-      setAvailableDates(data.data);
     } catch (err) {
       setErrorMessage(err.message);
     }
@@ -120,6 +127,8 @@ function WeekDayScheduler() {
           withCredentials: true,
         }
       );
+
+      dispatch(deleteAvailableDates({ id }));
     } catch (err) {
       setErrorMessage(err.message);
     }
@@ -137,17 +146,19 @@ function WeekDayScheduler() {
           <option value="5">금</option>
           <option value="6">토</option>
         </select>
-        <input
-          className="input"
-          onChange={handlestartHourChange}
-          value={startHour}
-        ></input>
-        <input
-          className="input"
-          onChange={handleEndHourChange}
-          value={endHour}
-        ></input>
-        <button onClick={handleAdd}>Add</button>
+        <div>
+          <input
+            className="input"
+            onChange={handlestartHourChange}
+            value={startHour}
+          />
+          <input
+            className="input"
+            onChange={handleEndHourChange}
+            value={endHour}
+          />
+          <button onClick={handleAdd}>Add</button>
+        </div>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
       </div>
       <WeekDayContainer>
@@ -160,7 +171,7 @@ function WeekDayScheduler() {
               return (
                 <>
                   <div key={_id}>
-                    {startHour}:00 ~ {endHour}:00
+                    {startHour}시 ~ {endHour}시
                     <span className="delete" id={_id} onClick={handleDelete}>
                       Delete
                     </span>
@@ -179,7 +190,7 @@ function WeekDayScheduler() {
             .map(({ startHour, endHour, _id }) => {
               return (
                 <div key={_id}>
-                  {startHour}:00 ~ {endHour}:00
+                  {startHour}시 ~ {endHour}시
                   <span className="delete" id={_id} onClick={handleDelete}>
                     Delete
                   </span>
@@ -197,7 +208,7 @@ function WeekDayScheduler() {
             .map(({ startHour, endHour, _id }) => {
               return (
                 <div key={_id}>
-                  {startHour}:00 ~ {endHour}:00
+                  {startHour}시 ~ {endHour}시
                   <span className="delete" id={_id} onClick={handleDelete}>
                     Delete
                   </span>
@@ -215,7 +226,7 @@ function WeekDayScheduler() {
             .map(({ startHour, endHour, _id }) => {
               return (
                 <div key={_id}>
-                  {startHour}:00 ~ {endHour}:00
+                  {startHour}시 ~ {endHour}시
                   <span className="delete" id={_id} onClick={handleDelete}>
                     Delete
                   </span>
@@ -233,7 +244,7 @@ function WeekDayScheduler() {
             .map(({ startHour, endHour, _id }) => {
               return (
                 <div key={_id}>
-                  {startHour}:00 ~ {endHour}:00
+                  {startHour}시 ~ {endHour}시
                   <span className="delete" id={_id} onClick={handleDelete}>
                     Delete
                   </span>
@@ -251,7 +262,7 @@ function WeekDayScheduler() {
             .map(({ startHour, endHour, _id }) => {
               return (
                 <div key={_id}>
-                  {startHour}:00 ~ {endHour}:00
+                  {startHour}시 ~ {endHour}시
                   <span className="delete" id={_id} onClick={handleDelete}>
                     Delete
                   </span>
@@ -269,7 +280,7 @@ function WeekDayScheduler() {
             .map(({ startHour, endHour, _id }) => {
               return (
                 <div key={_id}>
-                  {startHour}:00 ~ {endHour}:00
+                  {startHour}시 ~ {endHour}시
                   <span className="delete" id={_id} onClick={handleDelete}>
                     Delete
                   </span>
@@ -289,6 +300,8 @@ const Container = styled.div`
 
   .input-fields {
     padding: 3rem;
+    display: flex;
+    flex-direction: column;
   }
 
   .delete {
@@ -308,7 +321,7 @@ const WeekDayContainer = styled.div`
   width: 60%;
   padding: 2rem;
   background-color: blanchedalmond;
-  font-size: 3rem;
+  font-size: 1.7rem;
 
   .day-name {
     flex-basis: 15%;
