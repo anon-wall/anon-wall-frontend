@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import ImageWrapper from "./shared/ImageWrapper";
 import StoryInfoWrapper from "./shared/StoryInfoWrapper";
 
-function StoryListEntry({ id, img, nickname, title, tag }) {
+function StoryListEntry({ id, title, endDate, counselors }) {
   const navigate = useNavigate();
 
   function handleClickStoryDetail() {
@@ -15,25 +14,14 @@ function StoryListEntry({ id, img, nickname, title, tag }) {
 
   return (
     <StoryWrapper onClick={handleClickStoryDetail}>
-      <ImageWrapper>
-        <img src={img} alt="User's Profile" />
-      </ImageWrapper>
       <StoryInfoWrapper>
-        <div className="name">작성자: {nickname}</div>
-        <div className="title">{title}</div>
-        <div className="tags">
-          {tag.map((tag) => {
-            return <Tag key={tag}>#{tag}</Tag>;
-          })}
-        </div>
+        <div className="title">제목: {title}</div>
+        <div>{endDate}</div>
+        <div>수락 요청: {counselors}</div>
       </StoryInfoWrapper>
     </StoryWrapper>
   );
 }
-
-const Tag = styled.span`
-  margin: 0 1rem;
-`;
 
 const StoryWrapper = styled.div`
   display: flex;
@@ -45,10 +33,10 @@ const StoryWrapper = styled.div`
 
 StoryListEntry.propTypes = {
   id: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  nickname: PropTypes.string,
+  nickname: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  tag: PropTypes.array.isRequired,
+  endDate: PropTypes.string.isRequired,
+  counselors: PropTypes.any,
 };
 
 export default StoryListEntry;
