@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Icon } from "@iconify/react";
 
+import { RESTRICT_REGEX } from "../constants/upload";
 import StyledTransparentButton from "../components/shared/StyledTransparentButton";
 
 function SearchBar({ onSubmitKeyword }) {
@@ -13,7 +14,7 @@ function SearchBar({ onSubmitKeyword }) {
     const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
 
     if (tag.search(reg) > -1) {
-      setErrorMessage("특수문자 또는 공백은 입력할 수 없습니다.");
+      setErrorMessage(RESTRICT_REGEX);
     }
 
     setTag(tag.replace(reg, ""));

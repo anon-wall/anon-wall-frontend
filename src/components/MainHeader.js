@@ -11,7 +11,7 @@ function MainHeader() {
         <div>
           <Link to="/">
             <div className="logo">
-              <h2>anon-wall</h2>
+              <h2>Anon-Wall</h2>
             </div>
           </Link>
         </div>

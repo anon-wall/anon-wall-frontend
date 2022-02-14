@@ -18,16 +18,16 @@ function Home() {
       <UpperBoxWrapper />
       <MiddleContainer>
         <DescriptionContainer>
-          <div className="description">
+          <div>
             <div className="message">{WELCOME_MESSAGE}</div>
             <button onClick={handleModalOn}>{BUTTON_NAME}</button>
             {isModalOn && (
-              <Modal onClick={setIsModalOn} width="300px" height="600px" />
+              <Modal onClick={setIsModalOn} width="70rem" height="90rem" />
             )}
           </div>
         </DescriptionContainer>
         <ImageWrapper>
-          <div className="image">
+          <div>
             <img src={homeImage} alt="A tree and a window" />
           </div>
         </ImageWrapper>
@@ -48,43 +48,40 @@ function Home() {
 
 const UpperBoxWrapper = styled.div`
   width: 100%;
-  height: 50px;
+  height: 5rem;
   background-color: rgba(176, 182, 164, 1);
 `;
 
 const MiddleContainer = styled.div`
   display: flex;
-  width: 90%;
-  margin: 10px auto;
+  width: 100%;
+  margin: auto;
 `;
 
 const DescriptionContainer = styled.div`
   flex: 1;
   float: left;
   box-sizing: content-box;
-  height: 400px;
-  width: 50%;
-  padding: 20px;
+  padding: 2rem;
   background-color: rgba(191, 174, 164, 1);
 
-  .description {
-    margin-top: 50%;
+  div {
+    margin-top: 50rem;
   }
 
   .message {
-    margin: 14px;
+    margin: 1.4rem;
     text-align: center;
-    font-size: 20px;
+    font-size: 4rem;
   }
 
   button {
     display: block;
-    width: 170px;
-    height: 50px;
-    left: 270px;
-    top: 500px;
+    width: 17rem;
+    height: 5rem;
     margin: auto;
-    border-radius: 10px;
+    border-radius: 1rem;
+    font-size: 2rem;
   }
 `;
 
@@ -92,36 +89,38 @@ const ImageWrapper = styled.div`
   flex: 1;
   float: right;
   box-sizing: content-box;
+  width: auto;
 
   img {
     width: 100%;
+    height: auto;
   }
 `;
 
 const LowerBoxWrapper = styled.div`
   width: 100%;
-  height: 50px;
+  height: 5rem;
   background-color: rgba(176, 182, 164, 1);
 `;
 
 const FooterWrapper = styled.div`
   width: 100%;
-  height: 70px;
+  height: 10rem;
   background-color: rgba(225, 219, 214, 1);
 
   .copyright {
     text-align: center;
-    font-size: 20px;
+    font-size: 3rem;
   }
 
   .icon {
     float: right;
-    margin: 10px;
+    margin: 1rem;
   }
 
   .health-icon {
-    width: 80px;
-    height: 80px;
+    width: 8rem;
+    height: 8rem;
   }
 `;
 
