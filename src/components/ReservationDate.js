@@ -30,7 +30,7 @@ function ReservationDate({ counselor }) {
     handleExcludeTimes(selectedDate);
   }, []);
 
-  function handlefilterTime(date) {
+  function handleFilterTime(date) {
     const specificDates = counselor.counselor.availableDates?.filter(
       ({ type }) => type === TYPE_DATE
     );
@@ -66,7 +66,7 @@ function ReservationDate({ counselor }) {
       }
     }
 
-    const weekDays = counselor.counselor.avalidDates?.filter(
+    const weekDays = counselor.counselor.availableDates?.filter(
       ({ type }) => type === TYPE_WEEKDAY
     );
 
@@ -109,7 +109,7 @@ function ReservationDate({ counselor }) {
               onChange={(date) => setSelectedDate(date)}
               onSelect={handleExcludeTimes}
               showTimeSelect
-              filterTime={handlefilterTime}
+              filterTime={handleFilterTime}
               excludeTimes={excludedTimes}
               minDate={addDays(new Date(), 2)}
               maxDate={addDays(new Date(), 28)}

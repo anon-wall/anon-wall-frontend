@@ -46,7 +46,7 @@ const StoryWrapper = styled.div`
 StoryListEntry.propTypes = {
   id: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
-  nickname: PropTypes.string,
+  nickname: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   tag: PropTypes.array.isRequired,
 };
