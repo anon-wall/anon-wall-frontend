@@ -11,6 +11,7 @@ import MyPageMain from "./pages/MyPageMain";
 import MyPageCounselor from "./pages/MyPageCounselor";
 import NotFound from "./components/NotFound";
 import MyPage from "./pages/MyPage";
+import UserStoryList from "./pages/UserStoryList";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
           <Route path="/mypage" element={<MyPage />}>
             <Route path="/mypage/main" element={<MyPageMain />} />
             <Route path="/mypage/counselor" element={<MyPageCounselor />} />
-            <Route path="/mypage/stories" />
+            <Route path="/mypage/stories" element={<UserStoryList />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>
