@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 import styled from "styled-components";
 
 import SubHeader from "../components/common/SubHeader";
-// import {
-//   STORY_SUB_HEADER_HEADING,
-//   STORY_SUB_HEADER_PARAGRAPH,
-// } from "../constants/story";
+import {
+  STORY_SUB_HEADER_HEADING,
+  STORY_SUB_HEADER_PARAGRAPH,
+} from "../constants/story";
+import {
+  INPUT_TITLE,
+  INPUT_CONTENT,
+  INPUT_TAG,
+  RESTRICT_REGEX,
+} from "../constants/upload";
 
 export default function StoryNew() {
-  const userId = useSelector(({ user }) => user.data._id);
-  // const createdDate = new Date().toISOString();
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tag, setTag] = useState([]);
   // const [isModalOn, setIsModalOn] = useState(false);
-  // const [isCreated, setIsCreated] = useState(true);
-  // const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const userId = useSelector(({ user }) => user.data._id);
+  console.log(userId);
 
   function handleChangeTitle(title) {
     setTitle(title);
@@ -30,7 +34,13 @@ export default function StoryNew() {
   }
 
   function handleChangeTag(tag) {
-    setTag(tag);
+    const reg = /[`~!@$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
+
+    if (tag.search(reg) > -1) {
+      setErrorMessage(RESTRICT_REGEX);
+    }
+
+    setTag(tag.replace(reg, ""));
   }
 
   const handleSubmit = async (e) => {
@@ -41,44 +51,44 @@ export default function StoryNew() {
 
     const newStory = {
       counselee: userId,
-      title,
-      content,
-      splittedTags,
+      title: title.value,
+      content: content.value,
+      tag: splittedTags,
+      createdAt: new Date().toISOString(),
     };
 
+    await axios.post(
+      `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/new`,
+      newStory,
+      {
+        withCredentials: true,
+      }
+    );
     console.log(newStory);
   };
 
-  // function inputCharacterCheck(object) {
-  //   const restrictedRegex = "/[{}[]/?.,;:|)*~`!^-_+<>@#$%&\\=('\"]/g";
-  //   const easy = restrictedRegex.split("");
-  //   setNoRegex(object);
-
-  //   if (easy.test(object.value)) {
-  //     console.alert("특수문자 입력금지");
-  //     object.value = object.value.substring(0, object.value.length - 1);
-  //   }
-  // }
-
   return (
     <>
-      <SubHeader></SubHeader>
-      <Link to="/counselors">
-        <button>Back</button> {/** styled button */}
+      <SubHeader
+        heading={STORY_SUB_HEADER_HEADING}
+        paragraph={STORY_SUB_HEADER_PARAGRAPH}
+      />
+      <Link to="/counsels">
+        <button>Back</button>
       </Link>
       <FormWrapper>
-        <form action="" name="new-story-form" onSubmit={handleSubmit}>
+        <form name="new-story-form" onSubmit={handleSubmit}>
           <input
             className="title"
             type="text"
             name="title"
-            placeholder="제목을 입력해주세요."
+            placeholder={INPUT_TITLE}
             onChange={(e) => handleChangeTitle(e.target.value)}
             value={title}
           />
           <textarea
             name="content"
-            placeholder="어떤 고민을 나누고 싶으신가요? 자유롭게 적어주세요! (2000자 이하)"
+            placeholder={INPUT_CONTENT}
             onChange={(e) => handleChangeContent(e.target.value)}
             value={content}
           />
@@ -86,11 +96,14 @@ export default function StoryNew() {
             className="tag"
             type="text"
             name="tag"
-            placeholder="연관된 태그를 달아주세요. ex) #화해#부모님"
+            placeholder={INPUT_TAG}
             onChange={(e) => handleChangeTag(e.target.value)}
             value={tag}
           />
-          <input className="submit" type="submit" placeholder="사연 올리기" />
+          {errorMessage && <div>{errorMessage}</div>}
+          <button type="submit" className="submit">
+            등록하기
+          </button>
         </form>
       </FormWrapper>
     </>
@@ -142,7 +155,7 @@ const FormWrapper = styled.div`
   }
 
   .submit {
-    width: 8rem;
+    width: 20rem;
     height: 3rem;
     align-items: flex-start;
     padding: 0.8rem 2.9rem;
