@@ -50,6 +50,7 @@ function StoryList() {
   function handleClickPrevButton() {
     setPage((page) => page - 1);
   }
+
   function handleClickNextButton() {
     setPage((page) => page + 1);
   }
@@ -62,7 +63,7 @@ function StoryList() {
   return (
     <>
       {errorMessage && (
-        <Modal onClick={setErrorMessage} width="500px" height="200px">
+        <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <p>{errorMessage}</p>
         </Modal>
       )}
@@ -75,7 +76,6 @@ function StoryList() {
         {storyList?.map((story) => {
           const { _id, counselee, title, tag } = story;
 
-          console.log(story);
           return (
             <StoryListEntry
               key={_id}
@@ -109,7 +109,7 @@ const StoryListContainer = styled.div`
   grid-template-columns: repeat(3, 47rem);
   grid-template-rows: repeat(2, 36rem);
   column-gap: 2vw;
-  row-gap: 50px;
+  row-gap: 5rem;
   width: 100%;
 `;
 
