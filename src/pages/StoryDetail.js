@@ -24,6 +24,8 @@ function StoryDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const handleClickMemoized = useCallback(handleClick, [userId]);
 
+  console.log(story);
+
   useEffect(() => {
     (async () => {
       try {
@@ -47,7 +49,9 @@ function StoryDetail() {
     try {
       await axios.post(
         `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${counsel_id}/counselors`,
-        userId,
+        {
+          userId,
+        },
         {
           withCredentials: true,
         }

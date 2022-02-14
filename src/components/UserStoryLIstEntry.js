@@ -14,16 +14,12 @@ function StoryListEntry({ id, title, endDate, counselors }) {
     <StoryWrapper onClick={handleClickStoryDetail}>
       <MyStoryInfoWrapper>
         <div className="title">제목: {title}</div>
-        <div>{endDate}</div>
-        <div>수락 요청: {counselors}</div>
+        <div className="endDate">{endDate}</div>
+        <div className="counselors">수락 요청: {counselors}</div>
       </MyStoryInfoWrapper>
     </StoryWrapper>
   );
 }
-
-const MyStoryInfoWrapper = styled.div`
-  width: 100%;
-`;
 
 const StoryWrapper = styled.div`
   display: flex;
@@ -31,6 +27,10 @@ const StoryWrapper = styled.div`
   align-items: center;
   border: 0.2rem solid #bfaea4;
   border-radius: 4rem;
+`;
+
+const MyStoryInfoWrapper = styled.div`
+  width: 100%;
 `;
 
 StoryListEntry.propTypes = {
