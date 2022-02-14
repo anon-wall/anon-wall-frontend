@@ -6,6 +6,7 @@ import Modal from "../components/common/Modal";
 import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import ReservationList from "../components/ReservationList";
 import WeekDayScheduler from "../components/WeekDayScheduler";
+import DailyScheduler from "../components/DailyScheduler";
 import { getInfo } from "../features/counselorSlice";
 
 function MyPageCounselor() {
@@ -58,6 +59,7 @@ function MyPageCounselor() {
         </div>
         <SchduleContainer>
           <WeekDayScheduler />
+          <DailyScheduler />
         </SchduleContainer>
       </MainContainer>
     </>
@@ -114,6 +116,7 @@ const InfoWrapper = styled.div`
 const SchduleContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  column-gap: 50px;
   width: 90%;
   min-height: 20rem;
   margin: 0 auto;
