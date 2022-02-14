@@ -37,13 +37,13 @@ const initialState = {
     email: "",
     notification: "",
     nickname: "",
-    counselor: {
-      familyTitle: "",
-      shortInput: "",
-      longInput: "",
-      tag: [],
-      validDate: [],
-    },
+    // counselor: {
+    //   familyTitle: "",
+    //   shortInput: "",
+    //   longInput: "",
+    //   tag: [],
+    //   validDate: [],
+    // },
   },
 };
 

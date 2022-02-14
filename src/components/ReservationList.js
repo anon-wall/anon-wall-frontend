@@ -53,7 +53,7 @@ function ReservationList({ payload, onError }) {
   return (
     <>
       <ReservationContainer>
-        {counsels.map((counsel) => {
+        {counsels?.map((counsel) => {
           return (
             <ReservationListEntry
               key={counsel._id}
@@ -86,7 +86,7 @@ const ReservationContainer = styled.section`
   min-height: 20rem;
   margin: 0 auto;
   margin-top: 3rem;
-  border: 0.8rem solid #bfaea4;
+  border: 0.5rem solid #c9bab2;
   border-radius: 3rem;
   overflow: scroll;
   font-size: 1.8rem;

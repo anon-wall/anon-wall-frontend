@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import Modal from "./common/Modal";
-import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
-import ReservationList from "./ReservationList";
-import WeekDayScheduler from "./WeekDayScheduler";
+import Modal from "../components/common/Modal";
+import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
+import ReservationList from "../components/ReservationList";
+import WeekDayScheduler from "../components/WeekDayScheduler";
+import { getInfo } from "../features/counselorSlice";
 
 function MyPageCounselor() {
-  const { _id: userId, counselor } = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
+  const userId = useSelector(({ user }) => user.data._id);
+  const counselorInfo = useSelector((state) => state.counselor.data);
 
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     setIsLoading(false);
+    dispatch(getInfo(userId));
   }, []);
 
   return (
@@ -28,15 +32,15 @@ function MyPageCounselor() {
         )}
         <InfoContainer>
           <InfoWrapper>
-            <div>호칭 입력: {counselor.familyTitle}</div>
+            <div>호칭 입력: {counselorInfo.familyTitle}</div>
             <div>
               태그 입력:
-              {counselor.tag.map((tag) => (
+              {counselorInfo.tag.map((tag) => (
                 <span key={tag}>#{tag}</span>
               ))}
             </div>
-            <div>한줄 소개: {counselor.shortInput}</div>
-            <div>긴줄 소개: {counselor.longInput}</div>
+            <div>한줄 소개: {counselorInfo.shortInput}</div>
+            <div>긴줄 소개: {counselorInfo.longInput}</div>
           </InfoWrapper>
         </InfoContainer>
         <div className="sub-title">
@@ -81,7 +85,7 @@ const InfoContainer = styled.div`
   min-height: 20rem;
   margin: 0 auto;
   margin-top: 3rem;
-  border: 0.8rem solid #bfaea4;
+  border: 0.5rem solid #c9bab2;
   border-radius: 3rem;
   overflow: scroll;
 `;
@@ -89,7 +93,7 @@ const InfoContainer = styled.div`
 const InfoWrapper = styled.div`
   width: 100%;
   margin: auto;
-  font-size: 2.25rem;
+  font-size: 1.7rem;
   line-height: 3rem;
 
   div {
@@ -108,11 +112,13 @@ const InfoWrapper = styled.div`
 `;
 
 const SchduleContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   width: 90%;
   min-height: 20rem;
   margin: 0 auto;
   margin-top: 3rem;
-  border: 0.8rem solid #bfaea4;
+  border: 0.5rem solid #c9bab2;
   border-radius: 3rem;
   overflow: scroll;
 `;

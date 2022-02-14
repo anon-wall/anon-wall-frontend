@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 
-import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
-import Modal from "./common/Modal";
-import ReservationList from "./ReservationList";
+import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
+import Modal from "../components/common/Modal";
+import ReservationList from "../components/ReservationList";
 
 function MyPageMain() {
   const {
@@ -98,7 +98,7 @@ const MyInfoContainer = styled.div`
   min-height: 20rem;
   margin: 0 auto;
   margin-top: 3rem;
-  border: 0.8rem solid #bfaea4;
+  border: 0.5rem solid #c9bab2;
   border-radius: 3rem;
   overflow: scroll;
 `;

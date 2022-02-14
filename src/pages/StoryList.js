@@ -37,7 +37,7 @@ function StoryList() {
 
         console.log(data);
 
-        setStoryList(data.data.pageCounsels);
+        setStoryList(data.data.pagedCounsels);
         setHasPage({
           ...hasPage,
           prev: data.data.hasPrevPage,
@@ -74,7 +74,7 @@ function StoryList() {
       />
       <SearchBar onSubmitKeyword={handleSearchKeyword} />
       <StoryListContainer>
-        {storyList.map((story) => {
+        {storyList?.map((story) => {
           const { _id, counselee, title, tag } = story;
 
           return (

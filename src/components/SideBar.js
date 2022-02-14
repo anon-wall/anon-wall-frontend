@@ -41,9 +41,9 @@ function Sidebar() {
 
 const SideBarContainer = styled.div`
   width: 20rem;
-  height: 70rem;
+  height: 100%;
   margin-top: 3rem;
-  border: 0.7rem solid #bfaea4;
+  border: 0.5rem solid #c9bab2;
   border-radius: 3rem;
 
   .sidebar-link {

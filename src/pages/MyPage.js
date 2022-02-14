@@ -22,7 +22,8 @@ function MyPage() {
 const MyPageContainer = styled.section`
   display: flex;
   flex-direction: row;
-  width: 70%;
+  width: 95%;
+  height: 100%;
   margin: 0 auto;
 `;
 
