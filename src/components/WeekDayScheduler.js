@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import axios from "axios";
 
+import Row from "./Row";
+import Modal from "./common/Modal";
 import { TYPE_WEEKDAY, EXISTED_TIMELINE_WARNING } from "../constants/date";
-import {
-  updateAvailableDates,
-  deleteAvailableDates,
-} from "../features/counselorSlice";
+import { updateAvailableDates } from "../features/counselorSlice";
 
 function WeekDayScheduler() {
   const dispatch = useDispatch();
@@ -117,25 +115,17 @@ function WeekDayScheduler() {
     }
   }
 
-  async function handleDelete(e) {
-    try {
-      const { id } = e.target;
-
-      await axios.delete(
-        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}/counselor/availableDates/${id}`,
-        {
-          withCredentials: true,
-        }
-      );
-
-      dispatch(deleteAvailableDates({ id }));
-    } catch (err) {
-      setErrorMessage(err.message);
-    }
+  function handleErrorMessage(error) {
+    setErrorMessage(error);
   }
 
   return (
     <Container>
+      {errorMessage && (
+        <Modal onClick={setErrorMessage} width="50rem" height="20rem">
+          {errorMessage}
+        </Modal>
+      )}
       <div className="input-fields">
         <select name="day" onChange={(e) => setSelectedDay(e.target.value)}>
           <option value="0">일</option>
@@ -157,138 +147,13 @@ function WeekDayScheduler() {
             onChange={handleEndHourChange}
             value={endHour}
           />
-          <button onClick={handleAdd}>Add</button>
+          <button onClick={handleAdd}>저장하기</button>
         </div>
-        {errorMessage && <div className="error-message">{errorMessage}</div>}
       </div>
-      <WeekDayContainer>
-        <div className="day-name">일</div>
-        <div>
-          {availableDates
-            .filter(({ day }) => day === 0)
-            .sort((a, b) => a.startHour - b.startHour)
-            .map(({ startHour, endHour, _id }) => {
-              return (
-                <>
-                  <div key={_id}>
-                    {startHour}시 ~ {endHour}시
-                    <span className="delete" id={_id} onClick={handleDelete}>
-                      Delete
-                    </span>
-                  </div>
-                </>
-              );
-            })}
-        </div>
-      </WeekDayContainer>
-      <WeekDayContainer>
-        <div className="day-name">월</div>
-        <div>
-          {availableDates
-            .filter(({ day }) => day === 1)
-            .sort((a, b) => a.startHour - b.startHour)
-            .map(({ startHour, endHour, _id }) => {
-              return (
-                <div key={_id}>
-                  {startHour}시 ~ {endHour}시
-                  <span className="delete" id={_id} onClick={handleDelete}>
-                    Delete
-                  </span>
-                </div>
-              );
-            })}
-        </div>
-      </WeekDayContainer>
-      <WeekDayContainer>
-        <div className="day-name">화</div>
-        <div>
-          {availableDates
-            .filter(({ day }) => day === 2)
-            .sort((a, b) => a.startHour - b.startHour)
-            .map(({ startHour, endHour, _id }) => {
-              return (
-                <div key={_id}>
-                  {startHour}시 ~ {endHour}시
-                  <span className="delete" id={_id} onClick={handleDelete}>
-                    Delete
-                  </span>
-                </div>
-              );
-            })}
-        </div>
-      </WeekDayContainer>
-      <WeekDayContainer>
-        <div className="day-name">수</div>
-        <div>
-          {availableDates
-            .filter(({ day }) => day === 3)
-            .sort((a, b) => a.startHour - b.startHour)
-            .map(({ startHour, endHour, _id }) => {
-              return (
-                <div key={_id}>
-                  {startHour}시 ~ {endHour}시
-                  <span className="delete" id={_id} onClick={handleDelete}>
-                    Delete
-                  </span>
-                </div>
-              );
-            })}
-        </div>
-      </WeekDayContainer>
-      <WeekDayContainer>
-        <div className="day-name">목</div>
-        <div>
-          {availableDates
-            .filter(({ day }) => day === 4)
-            .sort((a, b) => a.startHour - b.startHour)
-            .map(({ startHour, endHour, _id }) => {
-              return (
-                <div key={_id}>
-                  {startHour}시 ~ {endHour}시
-                  <span className="delete" id={_id} onClick={handleDelete}>
-                    Delete
-                  </span>
-                </div>
-              );
-            })}
-        </div>
-      </WeekDayContainer>
-      <WeekDayContainer>
-        <div className="day-name">금</div>
-        <div>
-          {availableDates
-            .filter(({ day }) => day === 5)
-            .sort((a, b) => a.startHour - b.startHour)
-            .map(({ startHour, endHour, _id }) => {
-              return (
-                <div key={_id}>
-                  {startHour}시 ~ {endHour}시
-                  <span className="delete" id={_id} onClick={handleDelete}>
-                    Delete
-                  </span>
-                </div>
-              );
-            })}
-        </div>
-      </WeekDayContainer>
-      <WeekDayContainer>
-        <div className="day-name">토</div>
-        <div>
-          {availableDates
-            .filter(({ day }) => day === 6)
-            .sort((a, b) => a.startHour - b.startHour)
-            .map(({ startHour, endHour, _id }) => {
-              return (
-                <div key={_id}>
-                  {startHour}시 ~ {endHour}시
-                  <span className="delete" id={_id} onClick={handleDelete}>
-                    Delete
-                  </span>
-                </div>
-              );
-            })}
-        </div>
-      </WeekDayContainer>
+
+      {Array.from(Array(7).keys()).map((day) => (
+        <Row key={day} dayNumber={day} onError={handleErrorMessage} />
+      ))}
     </Container>
   );
 }
@@ -302,6 +167,21 @@ const Container = styled.div`
     padding: 3rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+  }
+  .input-fields select {
+    width: 340px;
+    height: 40px;
+  }
+
+  .input-fields input {
+    width: 140px;
+    height: 30px;
+  }
+
+  .input-fields button {
+    width: 60px;
+    height: 30px;
   }
 
   .delete {
@@ -312,19 +192,6 @@ const Container = styled.div`
   .error-message {
     color: red;
     font-size: 2rem;
-  }
-`;
-
-const WeekDayContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 60%;
-  padding: 2rem;
-  background-color: blanchedalmond;
-  font-size: 1.7rem;
-
-  .day-name {
-    flex-basis: 15%;
   }
 `;
 
