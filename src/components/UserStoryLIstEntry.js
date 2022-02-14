@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import StoryInfoWrapper from "./shared/StoryInfoWrapper";
-
 function StoryListEntry({ id, title, endDate, counselors }) {
   const navigate = useNavigate();
 
@@ -14,21 +12,25 @@ function StoryListEntry({ id, title, endDate, counselors }) {
 
   return (
     <StoryWrapper onClick={handleClickStoryDetail}>
-      <StoryInfoWrapper>
+      <MyStoryInfoWrapper>
         <div className="title">제목: {title}</div>
         <div>{endDate}</div>
         <div>수락 요청: {counselors}</div>
-      </StoryInfoWrapper>
+      </MyStoryInfoWrapper>
     </StoryWrapper>
   );
 }
 
+const MyStoryInfoWrapper = styled.div`
+  width: 100%;
+`;
+
 const StoryWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  border: 6px solid #bfaea4;
-  border-radius: 40px;
+  border: 0.2rem solid #bfaea4;
+  border-radius: 4rem;
 `;
 
 StoryListEntry.propTypes = {
