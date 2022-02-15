@@ -29,7 +29,7 @@ export const logout = createAsyncThunk("user/logout", async () => {
 
 const initialState = {
   isLoggedIn: false,
-  isLogging: "",
+  status: "",
   error: null,
   data: {
     _id: "",
@@ -45,23 +45,23 @@ const userSlice = createSlice({
   initialState,
   extraReducers: {
     [login.pending]: (state) => {
-      state.isLogging = "pending";
+      state.status = "pending";
     },
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
-      state.isLogging = "success";
+      state.status = "success";
       state.data = action.payload.data;
     },
     [login.rejected]: (state, action) => {
-      state.isLogging = "failed";
+      state.status = "failed";
       state.error = action.error.message;
     },
     [logout.pending]: (state) => {
-      state.isLogging = "pending";
+      state.status = "pending";
     },
     [logout.fulfilled]: () => initialState,
     [logout.rejected]: (state, action) => {
-      state.isLogging = "failed";
+      state.status = "failed";
       state.error = action.error.message;
     },
   },

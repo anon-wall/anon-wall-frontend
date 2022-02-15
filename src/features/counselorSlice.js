@@ -32,7 +32,7 @@ export const updateAvailableDates = createAsyncThunk(
 );
 
 const initialState = {
-  isLogging: "",
+  status: "",
   error: null,
   data: {
     _id: "",
@@ -56,25 +56,25 @@ const counselorSlice = createSlice({
   },
   extraReducers: {
     [getCounselorInfo.pending]: (state) => {
-      state.isLogging = "pending";
+      state.status = "pending";
     },
     [getCounselorInfo.fulfilled]: (state, action) => {
-      state.isLogging = "success";
+      state.status = "success";
       state.data = action.payload;
     },
     [getCounselorInfo.rejected]: (state, action) => {
-      state.isLogging = "failed";
+      state.status = "failed";
       state.error = action.error.message;
     },
     [updateAvailableDates.pending]: (state) => {
-      state.isLogging = "pending";
+      state.status = "pending";
     },
     [updateAvailableDates.fulfilled]: (state, action) => {
-      state.isLogging = "success";
+      state.status = "success";
       state.data.availableDates = action.payload;
     },
     [updateAvailableDates.rejected]: (state, action) => {
-      state.isLogging = "failed";
+      state.status = "failed";
       state.error = action.error.message;
     },
   },
