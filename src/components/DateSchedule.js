@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import PropTypes from "prop-types";
+import { parseISO, format } from "date-fns";
+import styled from "styled-components";
 
-import Modal from "./common/Modal";
-import { makeLocalTime, makeLocalDate } from "../utils/time";
 import { deleteAvailableDates } from "../features/counselorSlice";
 
-function Schedule() {
+function DateSchedule({ onError }) {
   const dispatch = useDispatch();
   const userId = useSelector(({ user }) => user.data._id);
   const scheduleList = useSelector(
@@ -20,8 +21,6 @@ function Schedule() {
       return 0;
     });
 
-  const [modalMessage, setModalMessage] = useState("");
-
   async function handleClickDeleteButton(id) {
     try {
       await axios.delete(
@@ -33,25 +32,21 @@ function Schedule() {
 
       dispatch(deleteAvailableDates({ id }));
     } catch (err) {
-      setModalMessage(err.message);
+      onError(err.message);
     }
   }
 
   return (
-    <>
-      {modalMessage && (
-        <Modal onClick={setModalMessage} width="50rem" height="20rem">
-          {modalMessage}
-        </Modal>
-      )}
+    <ScheduleContainer>
       {scheduleList.map((date) => {
         const { startDate, endDate, _id } = date;
 
         return (
           <div key={_id}>
-            <span>{makeLocalDate(startDate)}</span>
+            <span>{format(parseISO(startDate), "yyyy.MM.dd(eee)")}</span>
             <span>
-              {makeLocalTime(startDate)}시~{makeLocalTime(endDate)}시
+              {format(parseISO(startDate), "HH")}시 ~
+              {format(parseISO(endDate), "HH")}시
             </span>
             <button
               id={_id}
@@ -62,8 +57,17 @@ function Schedule() {
           </div>
         );
       })}
-    </>
+    </ScheduleContainer>
   );
 }
 
-export default Schedule;
+const ScheduleContainer = styled.div`
+  padding: 20px;
+  font-size: 1.5rem;
+`;
+
+DateSchedule.propTypes = {
+  onError: PropTypes.func.isRequired,
+};
+
+export default DateSchedule;

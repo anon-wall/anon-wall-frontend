@@ -6,6 +6,7 @@ import axios from "axios";
 import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import Modal from "../components/common/Modal";
 import ReservationList from "../components/ReservationList";
+import { NOTIFICATION_TIME } from "../constants/myPage";
 
 function MyPageMain() {
   const {
@@ -50,14 +51,11 @@ function MyPageMain() {
             <div className="email">{email}</div>
             <div className="notification">
               <select onChange={handleChangeNotifiation}>
-                <option value="10">10분</option>
-                <option value="30">30분</option>
-                <option value="60">1시간</option>
-                <option value="120">2시간</option>
-                <option value="180">3시간</option>
-                <option value="360">6시간</option>
-                <option value="720">12시간</option>
-                <option value="1440">24시간</option>
+                {NOTIFICATION_TIME.map((hour, i) => (
+                  <option key={i} value={hour}>
+                    {hour <= 60 ? `${hour}분` : `${hour / 60}시간`}
+                  </option>
+                ))}
               </select>
             </div>
           </MyInfoWrapper>

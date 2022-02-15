@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import Row from "./Row";
+import DaySchedule from "./DaySchedule";
 import Modal from "./common/Modal";
-import { TYPE_WEEKDAY, EXISTED_TIMELINE_WARNING } from "../constants/date";
+import { TYPE_WEEKDAY, EXISTED_TIMELINE, WEEK_DAYS } from "../constants/date";
 import { updateAvailableDates } from "../features/counselorSlice";
 
 function WeekDayScheduler() {
@@ -86,7 +86,7 @@ function WeekDayScheduler() {
       }
       for (const exisiting of selectedWDays) {
         if (startHour < exisiting.startHour && endHour > exisiting.startHour) {
-          setErrorMessage(EXISTED_TIMELINE_WARNING);
+          setErrorMessage(EXISTED_TIMELINE);
           return;
         }
 
@@ -94,7 +94,7 @@ function WeekDayScheduler() {
           startHour >= exisiting.startHour &&
           startHour <= exisiting.endHour
         ) {
-          setErrorMessage(EXISTED_TIMELINE_WARNING);
+          setErrorMessage(EXISTED_TIMELINE);
           return;
         }
       }
@@ -115,10 +115,6 @@ function WeekDayScheduler() {
     }
   }
 
-  function handleErrorMessage(error) {
-    setErrorMessage(error);
-  }
-
   return (
     <Container>
       {errorMessage && (
@@ -128,13 +124,11 @@ function WeekDayScheduler() {
       )}
       <div className="input-fields">
         <select name="day" onChange={(e) => setSelectedDay(e.target.value)}>
-          <option value="0">일</option>
-          <option value="1">월</option>
-          <option value="2">화</option>
-          <option value="3">수</option>
-          <option value="4">목</option>
-          <option value="5">금</option>
-          <option value="6">토</option>
+          {WEEK_DAYS.map((day, i) => (
+            <option key={i} value={i}>
+              {day}
+            </option>
+          ))}
         </select>
         <div>
           <input
@@ -152,7 +146,7 @@ function WeekDayScheduler() {
       </div>
 
       {Array.from(Array(7).keys()).map((day) => (
-        <Row key={day} dayNumber={day} onError={handleErrorMessage} />
+        <DaySchedule key={day} dayNumber={day} onError={setErrorMessage} />
       ))}
     </Container>
   );
