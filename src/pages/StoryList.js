@@ -75,7 +75,6 @@ function StoryList() {
         {storyList?.map((story) => {
           const { _id, counselee, title, tag } = story;
 
-          console.log(story);
           return (
             <StoryListEntry
               key={_id}

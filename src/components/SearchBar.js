@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Icon } from "@iconify/react";
@@ -27,9 +28,11 @@ function SearchBar({ onSubmitKeyword }) {
 
   return (
     <SearchBarContainer>
-      <div className="button-container">
-        <StyledTransparentButton>고민 올리기</StyledTransparentButton>
-      </div>
+      <Link to="/counsels/new">
+        <div className="button-container">
+          <StyledTransparentButton>고민 올리기</StyledTransparentButton>
+        </div>
+      </Link>
       <form className="search-container" onSubmit={handleSubmitTag}>
         <input
           type="text"
