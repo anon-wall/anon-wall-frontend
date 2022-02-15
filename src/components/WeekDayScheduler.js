@@ -26,7 +26,7 @@ function WeekDayScheduler() {
     );
 
     setSelectedWDays(sameDays);
-  }, [selectedDay]);
+  }, [selectedDay, availableDates.length]);
 
   function handlestartHourChange(e) {
     const { value } = e.target;
@@ -84,16 +84,14 @@ function WeekDayScheduler() {
       if (!setSelectedWDays.length) {
         return;
       }
-      for (const exisiting of selectedWDays) {
-        if (startHour < exisiting.startHour && endHour > exisiting.startHour) {
+
+      for (const existing of selectedWDays) {
+        if (startHour < existing.startHour && endHour > existing.startHour) {
           setErrorMessage(EXISTED_TIMELINE);
           return;
         }
 
-        if (
-          startHour >= exisiting.startHour &&
-          startHour <= exisiting.endHour
-        ) {
+        if (startHour >= existing.startHour && startHour < existing.endHour) {
           setErrorMessage(EXISTED_TIMELINE);
           return;
         }

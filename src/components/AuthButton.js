@@ -12,10 +12,10 @@ function AuthButton() {
   const isLoggedIn = useSelector(({ user }) => !user.isLoggedIn);
   const dispatch = useDispatch();
 
-  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   useEffect(() => {
-    setIsError(rejectedLoginError);
+    setErrorMessage(rejectedLoginError);
   }, [rejectedLoginError]);
 
   async function handleClickLoginButton() {
@@ -26,7 +26,7 @@ function AuthButton() {
       };
       dispatch(login(userData));
     } catch (err) {
-      setIsError(err);
+      setErrorMessage(err);
     }
   }
 
@@ -34,7 +34,7 @@ function AuthButton() {
     try {
       dispatch(logout());
     } catch (err) {
-      setIsError(err);
+      setErrorMessage(err);
     }
   }
 
@@ -49,9 +49,9 @@ function AuthButton() {
           로그아웃
         </StyledTransparentButton>
       )}
-      {isError && (
-        <Modal onClick={setIsError} width="500px" height="200px">
-          <p>{isError}</p>
+      {errorMessage && (
+        <Modal onClick={setErrorMessage} width="500px" height="200px">
+          <p>{errorMessage}</p>
         </Modal>
       )}
     </>

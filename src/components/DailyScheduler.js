@@ -55,7 +55,7 @@ function DailyScheduler() {
     setAvailableDates({ type: TYPE_DATE });
   }
 
-  function handleStartTimeToUtc(time) {
+  function handleOnStartTimeChange(time) {
     const addedStartTime = add(selectedDate, {
       hours: time.getHours(),
     });
@@ -70,7 +70,7 @@ function DailyScheduler() {
     }));
   }
 
-  function handleEndTimeToUtc(time) {
+  function handleOnEndTimeChange(time) {
     const addedEndTime = add(selectedDate, {
       hours: time.getHours(),
     });
@@ -178,7 +178,7 @@ function DailyScheduler() {
         <div className="time-picker">
           <DatePicker
             selected={selectedTime.startDate}
-            onChange={(time) => handleStartTimeToUtc(time)}
+            onChange={(time) => handleOnStartTimeChange(time)}
             excludeTimes={handleStartExcludeTime()}
             showTimeSelect
             showTimeSelectOnly
@@ -190,7 +190,7 @@ function DailyScheduler() {
           />
           <DatePicker
             selected={selectedTime.endDate}
-            onChange={(time) => handleEndTimeToUtc(time)}
+            onChange={(time) => handleOnEndTimeChange(time)}
             filterTime={handleFilterEndTime}
             excludeTimes={handleEndExcludeTime()}
             showTimeSelect

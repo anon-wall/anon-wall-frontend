@@ -10,7 +10,7 @@ import { deleteAvailableDates } from "../features/counselorSlice";
 function DateSchedule({ onError }) {
   const dispatch = useDispatch();
   const userId = useSelector(({ user }) => user.data._id);
-  const scheduleList = useSelector(
+  const availableDates = useSelector(
     ({ counselor }) => counselor.data.availableDates
   )
     .filter(({ type }) => type === "date")
@@ -38,7 +38,7 @@ function DateSchedule({ onError }) {
 
   return (
     <ScheduleContainer>
-      {scheduleList.map((date) => {
+      {availableDates.map((date) => {
         const { startDate, endDate, _id } = date;
 
         return (
