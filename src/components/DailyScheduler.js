@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import DatePicker from "react-datepicker";
-import "../assets/stylesheets/timepicker-custom.css";
 import { add, isSameDay, isEqual, parseISO } from "date-fns";
 import ko from "date-fns/locale/ko";
 import styled from "styled-components";
 
-import Schedule from "./Schedule";
+import DateSchedule from "./DateSchedule";
 import Modal from "./common/Modal";
 import { updateAvailableDates } from "../features/counselorSlice";
 import {
   TYPE_DATE,
-  EXISTED_TIMELINE_WARNING,
+  EXISTED_TIMELINE,
   START_DATE,
   END_DATE,
+  DATE_SELECTION,
+  TIME_SELECTION,
 } from "../constants/date";
+
+import "../assets/stylesheets/timepicker-custom.css";
 
 function DailyScheduler() {
   const dispatch = useDispatch();
@@ -37,8 +40,8 @@ function DailyScheduler() {
   }
 
   function handleClickSaveButton() {
-    if (selectedDate || availableDates.startDate || availableDates.endDate) {
-      setErrorMessage("시간을 선택해주세요.");
+    if (!selectedDate || !availableDates.startDate || !availableDates.endDate) {
+      setErrorMessage(TIME_SELECTION);
       return;
     }
 
@@ -56,8 +59,6 @@ function DailyScheduler() {
     const addedStartTime = add(selectedDate, {
       hours: time.getHours(),
     });
-
-    console.log(scheduleList);
 
     setSelectedTime({
       startDate: addedStartTime,
@@ -129,7 +130,7 @@ function DailyScheduler() {
 
   function getEqualSchedule(timeType) {
     const equalDateSchedule = scheduleList
-      .filter((schedule) =>
+      ?.filter((schedule) =>
         isSameDay(selectedDate, parseISO(schedule[timeType]))
       )
       .map((schedule) => parseISO(schedule[timeType]));
@@ -150,7 +151,7 @@ function DailyScheduler() {
         startDate: "",
         endDate: "",
       });
-      setErrorMessage(EXISTED_TIMELINE_WARNING);
+      setErrorMessage(EXISTED_TIMELINE);
     }
   }
 
@@ -172,7 +173,7 @@ function DailyScheduler() {
           locale={ko}
           minDate={nextDay}
           selected={selectedDate}
-          placeholderText="날짜를 선택 해주세요. 당일은 선택할 수 없습니다."
+          placeholderText={DATE_SELECTION}
         />
         <div className="time-picker">
           <DatePicker
@@ -205,16 +206,19 @@ function DailyScheduler() {
           </button>
         </div>
       </div>
-      <Schedule />
+      <DateSchedule onError={setErrorMessage} />
     </DatePickerContainer>
   );
 }
 
 const DatePickerContainer = styled.div`
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .picker-field {
+    margin: 30px;
+  }
 `;
 
 export default DailyScheduler;

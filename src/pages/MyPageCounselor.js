@@ -7,7 +7,7 @@ import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import ReservationList from "../components/ReservationList";
 import WeekDayScheduler from "../components/WeekDayScheduler";
 import DailyScheduler from "../components/DailyScheduler";
-import { getInfo } from "../features/counselorSlice";
+import { getCounselorInfo } from "../features/counselorSlice";
 
 function MyPageCounselor() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function MyPageCounselor() {
 
   useEffect(() => {
     setIsLoading(false);
-    dispatch(getInfo(userId));
+    dispatch(getCounselorInfo(userId));
   }, []);
 
   return (

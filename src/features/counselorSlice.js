@@ -1,17 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getInfo = createAsyncThunk("counselor/getInfo", async (userId) => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}`,
-    userId,
-    {
-      withCredentials: true,
-    }
-  );
+export const getCounselorInfo = createAsyncThunk(
+  "counselor/getCounselorInfo",
+  async (userId) => {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}`,
+      userId,
+      {
+        withCredentials: true,
+      }
+    );
 
-  return data.data.counselor;
-});
+    return data.data.counselor;
+  }
+);
 
 export const updateAvailableDates = createAsyncThunk(
   "counselor/updateAvailableDates",
@@ -52,14 +55,14 @@ const counselorSlice = createSlice({
     },
   },
   extraReducers: {
-    [getInfo.pending]: (state) => {
+    [getCounselorInfo.pending]: (state) => {
       state.isLogging = "pending";
     },
-    [getInfo.fulfilled]: (state, action) => {
+    [getCounselorInfo.fulfilled]: (state, action) => {
       state.isLogging = "success";
       state.data = action.payload;
     },
-    [getInfo.rejected]: (state, action) => {
+    [getCounselorInfo.rejected]: (state, action) => {
       state.isLogging = "failed";
       state.error = action.error.message;
     },

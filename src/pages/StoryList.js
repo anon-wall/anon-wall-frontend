@@ -35,8 +35,6 @@ function StoryList() {
           }
         );
 
-        console.log(data);
-
         setStoryList(data.data.pagedCounsels);
         setHasPage({
           ...hasPage,

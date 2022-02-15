@@ -5,11 +5,9 @@ import axios from "axios";
 import styled from "styled-components";
 
 import { deleteAvailableDates } from "../features/counselorSlice";
-import { TYPE_WEEKDAY } from "../constants/date";
+import { TYPE_WEEKDAY, WEEK_DAYS } from "../constants/date";
 
-const weekDay = ["일", "월", "화", "수", "목", "금", "토"];
-
-function Row({ dayNumber, onError }) {
+function DaySchedule({ dayNumber, onError }) {
   const dispatch = useDispatch();
   const userId = useSelector(({ user }) => user.data._id);
   const availableDates = useSelector(
@@ -35,20 +33,20 @@ function Row({ dayNumber, onError }) {
 
   return (
     <WeekDayContainer>
-      <div className="day-name">{weekDay[dayNumber]}</div>
+      <div className="day-name">{WEEK_DAYS[dayNumber]}</div>
       <div>
         {availableDates
           .filter(({ day }) => day === Number(dayNumber))
           .sort((a, b) => a.startHour - b.startHour)
           .map(({ startHour, endHour, _id }) => {
             return (
-              <div key={_id}>
+              <div key={_id} className="time-line">
                 <span>
                   {startHour}시 ~ {endHour}시
                 </span>
-                <span className="delete" id={_id} onClick={handleDelete}>
+                <button className="delete" id={_id} onClick={handleDelete}>
                   Delete
-                </span>
+                </button>
               </div>
             );
           })}
@@ -62,17 +60,22 @@ const WeekDayContainer = styled.div`
   flex-direction: row;
   width: 100%;
   padding: 2rem;
-  background-color: blanchedalmond;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
+  border-top: 1px solid grey;
 
   .day-name {
     flex-basis: 15%;
+    font-size: 1.7rem;
+  }
+
+  .time-line {
+    overflow: scroll;
   }
 `;
 
-Row.propTypes = {
+DaySchedule.propTypes = {
   dayNumber: PropTypes.number.isRequired,
   onError: PropTypes.func.isRequired,
 };
 
-export default Row;
+export default DaySchedule;

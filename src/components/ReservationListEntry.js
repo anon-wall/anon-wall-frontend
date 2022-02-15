@@ -11,7 +11,6 @@ function ReservationListEntry({ counsel, type }) {
 
   function handleClick() {
     navigate(`counsels/${_id}/room`);
-    3;
   }
 
   return (
@@ -70,8 +69,8 @@ const ButtonWrapper = styled.div`
 `;
 
 ReservationListEntry.propTypes = {
-  counsel: PropTypes.object,
-  type: PropTypes.string,
+  counsel: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default ReservationListEntry;
