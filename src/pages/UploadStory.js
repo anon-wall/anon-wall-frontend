@@ -5,6 +5,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 import SubHeader from "../components/common/SubHeader";
+import Modal from "../components/common/Modal";
 import {
   STORY_SUB_HEADER_HEADING,
   STORY_SUB_HEADER_PARAGRAPH,
@@ -14,16 +15,16 @@ import {
   INPUT_CONTENT,
   INPUT_TAG,
   RESTRICT_REGEX,
+  UPLOAD_SUCCESS,
 } from "../constants/upload";
 
-export default function StoryNew() {
+function UploadStory() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tag, setTag] = useState([]);
-  // const [isModalOn, setIsModalOn] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const userId = useSelector(({ user }) => user.data._id);
-  console.log(userId);
 
   function handleChangeTitle(title) {
     setTitle(title);
@@ -34,7 +35,7 @@ export default function StoryNew() {
   }
 
   function handleChangeTag(tag) {
-    const reg = /[`~!@$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
+    const reg = /[`~!@#$%^&*()_|+\-=?;:'".<>\{\}\[\]\\\/ ]/gim;
 
     if (tag.search(reg) > -1) {
       setErrorMessage(RESTRICT_REGEX);
@@ -47,28 +48,42 @@ export default function StoryNew() {
     e.preventDefault();
 
     const { title, content, tag } = e.target.children;
-    const splittedTags = tag.value.split("#");
-
+    const splittedTags = tag.value.split(",");
     const newStory = {
       counselee: userId,
       title: title.value,
       content: content.value,
       tag: splittedTags,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().toUTCString(),
     };
 
-    await axios.post(
-      `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/new`,
-      newStory,
-      {
-        withCredentials: true,
-      }
-    );
-    console.log(newStory);
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
+        newStory,
+        {
+          withCredentials: true,
+        }
+      );
+
+      setModalMessage(UPLOAD_SUCCESS);
+    } catch (err) {
+      setErrorMessage(err.message);
+    }
   };
 
   return (
     <>
+      {errorMessage && (
+        <Modal onClick={setErrorMessage} width="50rem" height="20rem">
+          {errorMessage}
+        </Modal>
+      )}
+      {modalMessage && (
+        <Modal onClick={setModalMessage} width="50rem" height="20rem">
+          {modalMessage}
+        </Modal>
+      )}
       <SubHeader
         heading={STORY_SUB_HEADER_HEADING}
         paragraph={STORY_SUB_HEADER_PARAGRAPH}
@@ -100,7 +115,6 @@ export default function StoryNew() {
             onChange={(e) => handleChangeTag(e.target.value)}
             value={tag}
           />
-          {errorMessage && <div>{errorMessage}</div>}
           <button type="submit" className="submit">
             등록하기
           </button>
@@ -167,3 +181,5 @@ const FormWrapper = styled.div`
     box-shadow: 0rem 0rem 2.5rem 0.3rem rgba(0, 0, 0, 0.2);
   }
 `;
+
+export default UploadStory;
