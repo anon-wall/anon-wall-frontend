@@ -34,7 +34,7 @@ export async function firebaseLogin() {
   }
 }
 
-export async function getLoginedUser() {
+export async function getLoggedInUser() {
   try {
     if (!getCookie("accessToken")) {
       throw new Error("로그인이 필요합니다.");

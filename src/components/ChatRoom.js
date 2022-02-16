@@ -240,9 +240,9 @@ function ChatRoom() {
             <Button onClick={handleClickCameraButton}>{cameraText}</Button>
             <Button onClick={handleClickMuteButton}>{muteText}</Button>
             {remainingTime <= 60 && (
-              <RemaningTimeWrapper>
+              <RemainingTimeWrapper>
                 남은시간: {remainingTime}
-              </RemaningTimeWrapper>
+              </RemainingTimeWrapper>
             )}
           </ButtonContainer>
         </ChatRoomContainer>
@@ -289,7 +289,7 @@ const Button = styled.button`
   height: 5rem;
 `;
 
-const RemaningTimeWrapper = styled.div`
+const RemainingTimeWrapper = styled.div`
   font-size: 3rem;
   color: red;
 `;
