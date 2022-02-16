@@ -32,12 +32,12 @@ function StoryList() {
         const { data } = await axios.get(
           `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
           {
-            params: { page: 1, limit: 6, tag: keyword },
+            params: { page, limit: 6, tag: keyword },
             withCredentials: true,
           }
         );
 
-        setStoryList(data.data.pageCounsels);
+        setStoryList(data.data.counsels);
         setIsLoading(false);
         setHasPage({
           ...hasPage,
@@ -56,6 +56,7 @@ function StoryList() {
   }
 
   function handleClickNextButton() {
+    console.log(page);
     setPage((page) => page + 1);
   }
 
@@ -66,7 +67,6 @@ function StoryList() {
 
   return (
     <>
-      {isLoading && <StyledLoadingSpinner />}
       {!isLoading && errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <p>{errorMessage}</p>
@@ -77,6 +77,7 @@ function StoryList() {
         paragraph={STORY_SUB_HEADER_PARAGRAPH}
       />
       <SearchBar onSubmitKeyword={handleSearchKeyword} />
+      {isLoading && <StyledLoadingSpinner />}
       <StoryListContainer>
         {storyList?.map((story) => {
           const { _id, counselee, title, tag } = story;

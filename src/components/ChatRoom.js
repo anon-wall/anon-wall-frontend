@@ -11,7 +11,7 @@ import Video from "./Video";
 import useFetch from "../hooks/useFetch";
 import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
 
-const socket = io.connect("http://localhost:8000");
+const socket = io.connect(process.env.REACT_APP_LOCAL_SERVER_URL);
 
 function ChatRoom() {
   const { counsel_id: roomId } = useParams();

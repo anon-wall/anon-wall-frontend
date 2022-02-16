@@ -92,7 +92,7 @@ function UploadStory() {
         <button>Back</button>
       </Link>
       <FormWrapper>
-        <form name="new-story-form" onSubmit={handleSubmit}>
+        <form className="new-story-form" onSubmit={handleSubmit}>
           <input
             className="title"
             type="text"
@@ -125,29 +125,34 @@ function UploadStory() {
 }
 
 const FormWrapper = styled.div`
-  display: flex;
-  justify-content: center;
+  .new-story-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
   .title {
     vertical-align: top;
-    width: 40rem;
-    height: 3rem;
+    width: 70rem;
+    height: 5rem;
     margin: 1rem;
     box-sizing: border-box;
-    border: 0.4rem solid #bfaea4;
-    border-radius: 3.2rem;
+    border: 0.2rem solid #bfaea4;
+    border-radius: 1.5rem;
     text-align: center;
   }
 
   textarea {
     vertical-align: top;
-    width: 40rem;
-    height: 20rem;
+    width: 70rem;
+    height: 37rem;
     box-sizing: border-box;
     resize: none;
+    margin: 10px 0;
     padding-top: 5%;
-    border: 0.4rem solid #bfaea4;
-    border-radius: 3.2rem;
+    border: 0.2rem solid #bfaea4;
+    border-radius: 1.5rem;
     text-align: center;
   }
 
@@ -159,18 +164,18 @@ const FormWrapper = styled.div`
 
   .tag {
     vertical-align: top;
-    width: 40rem;
-    height: 3rem;
+    width: 70rem;
+    height: 5rem;
     margin: 1rem;
     box-sizing: border-box;
-    border: 0.4rem solid #bfaea4;
-    border-radius: 3.2rem;
+    border: 0.2rem solid #bfaea4;
+    border-radius: 1.5rem;
     text-align: center;
   }
 
   .submit {
-    width: 20rem;
-    height: 3rem;
+    width: 15rem;
+    height: 4rem;
     align-items: flex-start;
     padding: 0.8rem 2.9rem;
     margin: 1rem;
