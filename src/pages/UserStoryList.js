@@ -24,12 +24,12 @@ function UserStoryList() {
         const { data } = await axios.get(
           `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
           {
-            params: { page, size: 6, counselee: userId },
+            params: { page, limit: 6, counselee: userId, counselor: true },
             withCredentials: true,
           }
         );
 
-        setStoryList(data.data.pageCounsels);
+        setStoryList(data.data.counsels);
         setHasPage({
           ...hasPage,
           prev: data.data.hasPrevPage,

@@ -31,7 +31,7 @@ function ReservationList({ payload, onError }) {
           }
         );
 
-        setCounsels(data.data.reservedCounsels);
+        setCounsels(data.data.counsels);
         setHasPage({
           ...hasPage,
           prev: data.data.hasPrevPage,
