@@ -6,7 +6,6 @@ export const getCounselorInfo = createAsyncThunk(
   async (userId) => {
     const { data } = await axios.get(
       `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}`,
-      userId,
       {
         withCredentials: true,
       }

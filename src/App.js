@@ -58,8 +58,12 @@ function App() {
               element={<CounselorDetail />}
             />
           </Route>
-          <Route path="/counsels/:counsel_id/room" element={<ChatRoom />} />
-          <Route path="/counsels/new" element={<UploadStory />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/counsels/:counsel_id/room" element={<ChatRoom />} />
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="/counsels/new" element={<UploadStory />} />
+          </Route>
           <Route element={<PrivateRoute />}>
             <Route path="/mypage" element={<MyPage />}>
               <Route element={<PrivateRoute />}>
