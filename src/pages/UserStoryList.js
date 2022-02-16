@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 
-import UserStoryLIstEntry from "../components/UserStoryLIstEntry";
+import UserStoryListEntry from "../components/UserStoryLIstEntry";
 import Modal from "../components/common/Modal";
 import StyledTransparentButton from "../components/shared/StyledTransparentButton";
 import { PREV, NEXT } from "../constants/story";
@@ -64,7 +64,7 @@ function UserStoryList() {
           const numberOfRequest = counselors.length;
 
           return (
-            <UserStoryLIstEntry
+            <UserStoryListEntry
               key={_id}
               id={_id}
               title={title}

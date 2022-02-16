@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -15,7 +14,6 @@ function SearchBar({ onSubmitKeyword }) {
   const [tag, setTag] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const isLoggedIn = useSelector(({ user }) => user.isLoggedIn);
 
   function handleChangeTag(tag) {
     const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
@@ -33,10 +31,6 @@ function SearchBar({ onSubmitKeyword }) {
   }
 
   function handleClickButtonUpload() {
-    if (!isLoggedIn) {
-      setModalMessage("로그인이 필요합니다.");
-      return;
-    }
     navigate("/counsels/new");
   }
 

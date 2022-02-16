@@ -20,7 +20,7 @@ export const login = createAsyncThunk(
 
 export const getLoginUserByToken = createAsyncThunk(
   "user/getLoginUserByToken",
-  async ({ setErrorMessage }, { rejectWithValue }) => {
+  async (setErrorMessage, { rejectWithValue }) => {
     try {
       const response = await getLoginedUser();
 

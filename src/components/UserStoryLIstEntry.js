@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-function StoryListEntry({ id, title, endDate, counselors }) {
+function UserStoryListEntry({ id, title, endDate, counselors }) {
   const navigate = useNavigate();
 
   function handleClickStoryDetail() {
@@ -33,12 +33,11 @@ const MyStoryInfoWrapper = styled.div`
   width: 100%;
 `;
 
-StoryListEntry.propTypes = {
+UserStoryListEntry.propTypes = {
   id: PropTypes.string.isRequired,
-  nickname: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
   counselors: PropTypes.any,
 };
 
-export default StoryListEntry;
+export default UserStoryListEntry;
