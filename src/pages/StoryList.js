@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
+import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import SubHeader from "../components/common/SubHeader";
 import Modal from "../components/common/Modal";
 import StyledTransparentButton from "../components/shared/StyledTransparentButton";
@@ -16,6 +17,7 @@ import {
 
 function StoryList() {
   const [storyList, setStoryList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false);
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
@@ -30,18 +32,20 @@ function StoryList() {
         const { data } = await axios.get(
           `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
           {
-            params: { page, limit: 6, tag: keyword },
+            params: { page: 1, limit: 6, tag: keyword },
             withCredentials: true,
           }
         );
 
         setStoryList(data.data.pageCounsels);
+        setIsLoading(false);
         setHasPage({
           ...hasPage,
           prev: data.data.hasPrevPage,
           next: data.data.hasNextPage,
         });
       } catch (err) {
+        setIsLoading(false);
         setErrorMessage(err.response.data.message);
       }
     })();
@@ -62,7 +66,8 @@ function StoryList() {
 
   return (
     <>
-      {errorMessage && (
+      {isLoading && <StyledLoadingSpinner />}
+      {!isLoading && errorMessage && (
         <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <p>{errorMessage}</p>
         </Modal>

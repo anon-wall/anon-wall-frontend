@@ -9,9 +9,9 @@ import { WELCOME_MESSAGE, BUTTON_NAME, COPYRIGHT } from "../constants/home";
 function Home() {
   const [isModalOn, setIsModalOn] = useState(false);
 
-  const handleModalOn = () => {
+  function handleModalOn() {
     setIsModalOn(true);
-  };
+  }
 
   return (
     <>

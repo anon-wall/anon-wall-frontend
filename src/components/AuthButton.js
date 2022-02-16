@@ -1,41 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { signInWithPopup } from "firebase/auth";
 
-import StyledTransparentButton from "./shared/StyledTransparentButton";
 import Modal from "./common/Modal";
+import StyledTransparentButton from "./shared/StyledTransparentButton";
 import { login, logout } from "../features/userSlice";
-import { auth, provider } from "../api/firebase";
 
 function AuthButton() {
-  const rejectedLoginError = useSelector(({ user }) => user.error);
   const isLoggedIn = useSelector(({ user }) => !user.isLoggedIn);
   const dispatch = useDispatch();
 
   const [errorMessage, setErrorMessage] = useState(false);
 
-  useEffect(() => {
-    setErrorMessage(rejectedLoginError);
-  }, [rejectedLoginError]);
-
-  async function handleClickLoginButton() {
-    try {
-      const { user } = await signInWithPopup(auth, provider);
-      const userData = {
-        email: user.email,
-      };
-      dispatch(login(userData));
-    } catch (err) {
-      setErrorMessage(err);
-    }
+  function handleClickLoginButton() {
+    dispatch(login(setErrorMessage));
   }
 
-  async function handleClickLogoutButton() {
-    try {
-      dispatch(logout());
-    } catch (err) {
-      setErrorMessage(err);
-    }
+  function handleClickLogoutButton() {
+    dispatch(logout());
   }
 
   return (
@@ -50,7 +31,7 @@ function AuthButton() {
         </StyledTransparentButton>
       )}
       {errorMessage && (
-        <Modal onClick={setErrorMessage} width="500px" height="200px">
+        <Modal onClick={setErrorMessage} width="50rem" height="20rem">
           <p>{errorMessage}</p>
         </Modal>
       )}

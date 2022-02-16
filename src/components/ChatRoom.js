@@ -9,7 +9,7 @@ import { differenceInSeconds } from "date-fns";
 import Modal from "./common/Modal";
 import Video from "./Video";
 import useFetch from "../hooks/useFetch";
-import LoadingSpinner from "./shared/StyledLoadingSpinner";
+import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
 
 const socket = io.connect("http://localhost:8000");
 
@@ -211,7 +211,7 @@ function ChatRoom() {
 
   return (
     <>
-      {isLoading && <LoadingSpinner />}
+      {isLoading && <StyledLoadingSpinner />}
       {!isLoading && (errorMessage || fetchError) && isModalOn && (
         <Modal onClick={setIsModalOn} width="40rem" height="20rem">
           {errorMessage || fetchError}
