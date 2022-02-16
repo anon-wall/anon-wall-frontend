@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Icon } from "@iconify/react";
 
 import { RESTRICT_REGEX } from "../constants/upload";
 import StyledTransparentButton from "../components/shared/StyledTransparentButton";
+import Modal from "../components/common/Modal";
 
 function SearchBar({ onSubmitKeyword }) {
+  const navigate = useNavigate();
+
   const [tag, setTag] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const isLoggedIn = useSelector(({ user }) => user.isLoggedIn);
 
   function handleChangeTag(tag) {
     const reg = /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/ ]/gim;
@@ -26,13 +32,26 @@ function SearchBar({ onSubmitKeyword }) {
     onSubmitKeyword(tag);
   }
 
+  function handleClickButtonUpload() {
+    if (!isLoggedIn) {
+      setModalMessage("로그인이 필요합니다.");
+      return;
+    }
+    navigate("/counsels/new");
+  }
+
   return (
     <SearchBarContainer>
-      <Link to="/counsels/new">
-        <div className="button-container">
-          <StyledTransparentButton>고민 올리기</StyledTransparentButton>
-        </div>
-      </Link>
+      {modalMessage && (
+        <Modal onClick={setModalMessage} width="50rem" height="20rem">
+          {modalMessage}
+        </Modal>
+      )}
+      <div className="button-container">
+        <StyledTransparentButton onClick={handleClickButtonUpload}>
+          고민 올리기
+        </StyledTransparentButton>
+      </div>
       <form className="search-container" onSubmit={handleSubmitTag}>
         <input
           type="text"

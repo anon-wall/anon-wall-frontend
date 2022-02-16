@@ -24,8 +24,6 @@ function StoryDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const handleClickMemoized = useCallback(handleClick, [userId]);
 
-  console.log(story);
-
   useEffect(() => {
     (async () => {
       try {

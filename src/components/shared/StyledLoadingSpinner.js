@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const LoadingSpinner = styled.div`
+const StyledLoadingSpinner = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   border: 15px solid #f3f3f3;
@@ -18,9 +18,9 @@ const LoadingSpinner = styled.div`
   }
 `;
 
-LoadingSpinner.defaultProps = {
+StyledLoadingSpinner.defaultProps = {
   width: "120px",
   height: "120px",
 };
 
-export default LoadingSpinner;
+export default StyledLoadingSpinner;

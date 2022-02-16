@@ -1,36 +1,41 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
-import { auth } from "../api/firebase";
+import { firebaseLogin, getLoginedUser } from "../api";
+import { removeCookie } from "../api/cookie";
 
-export const login = createAsyncThunk("user/login", async (loginData) => {
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/auth/login`,
-    loginData,
-    {
-      withCredentials: true,
+export const login = createAsyncThunk(
+  "user/login",
+  async (setErrorMessage, { rejectWithValue }) => {
+    try {
+      const response = await firebaseLogin();
+
+      return response;
+    } catch (err) {
+      setErrorMessage(err.message);
+
+      return rejectWithValue(err.message);
     }
-  );
+  }
+);
 
-  return data;
-});
+export const getLoginUserByToken = createAsyncThunk(
+  "user/getLoginUserByToken",
+  async ({ setErrorMessage }, { rejectWithValue }) => {
+    try {
+      const response = await getLoginedUser();
 
-export const logout = createAsyncThunk("user/logout", async () => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/auth/logout`,
-    {
-      withCredentials: true,
+      return response;
+    } catch (err) {
+      setErrorMessage(err.message);
+
+      return rejectWithValue(err.message);
     }
-  );
-  await auth.signOut();
-
-  return data;
-});
+  }
+);
 
 const initialState = {
   isLoggedIn: false,
   status: "",
-  error: null,
   data: {
     _id: "",
     imageUrl: "",
@@ -43,6 +48,14 @@ const initialState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
+  reducers: {
+    logout: (state) => {
+      removeCookie("accessToken");
+      state.isLoggedIn = false;
+      state.status = "";
+      state.data = initialState.data;
+    },
+  },
   extraReducers: {
     [login.pending]: (state) => {
       state.status = "pending";
@@ -50,21 +63,26 @@ const userSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.status = "success";
-      state.data = action.payload.data;
+      state.data = action.payload;
     },
-    [login.rejected]: (state, action) => {
+    [login.rejected]: (state) => {
       state.status = "failed";
-      state.error = action.error.message;
+      removeCookie("accessToken");
     },
-    [logout.pending]: (state) => {
+    [getLoginUserByToken.pending]: (state) => {
       state.status = "pending";
     },
-    [logout.fulfilled]: () => initialState,
-    [logout.rejected]: (state, action) => {
+    [getLoginUserByToken.fulfilled]: (state, action) => {
+      state.isLoggedIn = true;
+      state.status = "success";
+      state.data = action.payload;
+    },
+    [getLoginUserByToken.rejected]: (state) => {
       state.status = "failed";
-      state.error = action.error.message;
+      removeCookie("accessToken");
     },
   },
 });
 
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;
