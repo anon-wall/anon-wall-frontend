@@ -58,7 +58,7 @@ function MyPageCounselor() {
     }));
   }
 
-  function handleChangelongInput(longInput) {
+  function handleChangeLongInput(longInput) {
     setNewCounselorInfo((info) => ({
       ...info,
       longInput,
@@ -130,7 +130,7 @@ function MyPageCounselor() {
               <label>
                 호칭 입력:
                 <input
-                  className="familytitle"
+                  className="familyTitle"
                   type="text"
                   placeholder={FAMILY_TITLE}
                   onChange={(e) => handleChangeTitle(e.target.value)}
@@ -163,7 +163,7 @@ function MyPageCounselor() {
                   className="long-input"
                   type="text"
                   placeholder={LONG_INPUT}
-                  onChange={(e) => handleChangelongInput(e.target.value)}
+                  onChange={(e) => handleChangeLongInput(e.target.value)}
                   value={newCounselorInfo.longInput}
                 />
               </label>
@@ -183,10 +183,10 @@ function MyPageCounselor() {
         <div className="sub-title">
           <h2>스케줄 관리</h2>
         </div>
-        <SchduleContainer>
+        <ScheduleContainer>
           <WeekDayScheduler />
           <DailyScheduler />
-        </SchduleContainer>
+        </ScheduleContainer>
       </MainContainer>
     </>
   );
@@ -263,7 +263,7 @@ const InfoFormWrapper = styled.form`
   }
 `;
 
-const SchduleContainer = styled.div`
+const ScheduleContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 50px;

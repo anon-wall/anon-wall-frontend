@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { firebaseLogin, getLoginedUser } from "../api";
+import { firebaseLogin, getLoggedInUser } from "../api";
 import { removeCookie } from "../api/cookie";
 
 export const login = createAsyncThunk(
@@ -22,7 +22,7 @@ export const getLoginUserByToken = createAsyncThunk(
   "user/getLoginUserByToken",
   async (setErrorMessage, { rejectWithValue }) => {
     try {
-      const response = await getLoginedUser();
+      const response = await getLoggedInUser();
 
       return response;
     } catch (err) {
@@ -38,7 +38,7 @@ const initialState = {
   status: "",
   data: {
     _id: "",
-    imageUrl: "",
+    imageURL: "",
     email: "",
     notification: "",
     nickname: "",
@@ -63,7 +63,7 @@ const userSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.status = "success";
-      state.data = action.payload;
+      state.data = action.payload.data;
     },
     [login.rejected]: (state) => {
       state.status = "failed";

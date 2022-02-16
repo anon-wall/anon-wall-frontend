@@ -23,10 +23,10 @@ function MyPageMain() {
     setIsLoading(false);
   }, []);
 
-  async function handleChangeNotifiation() {
+  async function handleChangeNotification() {
     try {
       await axios.patch(
-        `${process.env.REACT_APP_LOCAL_SERVER_URL}/users/${userId}`
+        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}`
       );
     } catch (err) {
       setErrorMessage(err.data.message);
@@ -50,7 +50,7 @@ function MyPageMain() {
             <div className="name">{nickname}</div>
             <div className="email">{email}</div>
             <div className="notification">
-              <select onChange={handleChangeNotifiation}>
+              <select onChange={handleChangeNotification}>
                 {NOTIFICATION_TIME.map((hour, i) => (
                   <option key={i} value={hour}>
                     {hour <= 60 ? `${hour}분` : `${hour / 60}시간`}
