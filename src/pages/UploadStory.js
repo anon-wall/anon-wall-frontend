@@ -96,13 +96,11 @@ function UploadStory() {
           <input
             className="title"
             type="text"
-            name="title"
             placeholder={INPUT_TITLE}
             onChange={(e) => handleChangeTitle(e.target.value)}
             value={title}
           />
           <textarea
-            name="content"
             placeholder={INPUT_CONTENT}
             onChange={(e) => handleChangeContent(e.target.value)}
             value={content}
@@ -110,7 +108,6 @@ function UploadStory() {
           <input
             className="tag"
             type="text"
-            name="tag"
             placeholder={INPUT_TAG}
             onChange={(e) => handleChangeTag(e.target.value)}
             value={tag}
