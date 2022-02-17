@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import notFoundImage from "../assets/404.png";
+import notFoundImage from "../assets/images/404.png";
 
 function NotFound() {
   return (

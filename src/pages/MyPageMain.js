@@ -5,7 +5,7 @@ import styled from "styled-components";
 import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import Modal from "../components/common/Modal";
 import ReservationList from "../components/ReservationList";
-import { NOTIFICATION_TIME, CONSTRUCTION } from "../constants/myPage";
+import StyledBorderCard from "../components/shared/StyledBorderCard";
 
 function MyPageMain() {
   const {
@@ -38,16 +38,6 @@ function MyPageMain() {
           <MyInfoWrapper>
             <div className="name">{nickname}</div>
             <div className="email">{email}</div>
-            <div className="notification">
-              {CONSTRUCTION}
-              <select>
-                {NOTIFICATION_TIME.map((hour, i) => (
-                  <option key={i} value={hour}>
-                    {hour <= 60 ? `${hour}분` : `${hour / 60}시간`}
-                  </option>
-                ))}
-              </select>
-            </div>
           </MyInfoWrapper>
         </MyInfoContainer>
         <div className="reservation-label">
@@ -80,14 +70,12 @@ const MainContainer = styled.section`
   }
 `;
 
-const MyInfoContainer = styled.div`
+const MyInfoContainer = styled(StyledBorderCard)`
   display: flex;
   width: 90%;
   min-height: 20rem;
   margin: 0 auto;
   margin-top: 3rem;
-  border: 0.5rem solid #c9bab2;
-  border-radius: 3rem;
   overflow: scroll;
 `;
 
@@ -113,12 +101,16 @@ const MyInfoWrapper = styled.div`
   line-height: 3rem;
 
   div {
-    padding-left: 30%;
+    padding-left: 20%;
   }
 
   .name {
-    font-size: 3rem;
+    font-size: ${({ theme }) => theme.fontSizes.lll};
     color: #3e005b;
+  }
+
+  .email {
+    font-size: ${({ theme }) => theme.fontSizes.l};
   }
 
   .tags {

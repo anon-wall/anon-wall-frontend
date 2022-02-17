@@ -23,6 +23,7 @@ const MyPageContainer = styled.section`
   display: flex;
   flex-direction: row;
   width: 95%;
+  max-width: 155rem;
   height: 100%;
   margin: 0 auto;
 `;

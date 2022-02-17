@@ -44,6 +44,7 @@ function MainHeader() {
 const MainHeaderContainer = styled.header`
   height: 10rem;
   background-color: ${({ theme }) => theme.colors.mainHeader_bg};
+  border-bottom: 1px solid black;
 
   nav {
     display: grid;
@@ -82,8 +83,8 @@ const MainHeaderContainer = styled.header`
   .mainHeader-link a:active,
   .mainHeader-link a.active {
     padding-bottom: 0.25rem;
-    border-bottom: 4px solid #95bcf0;
-    color: #95bcf0;
+    border-bottom: 4px solid ${({ theme }) => theme.colors.nav_active_color};
+    color: ${({ theme }) => theme.colors.nav_active_color};
   }
 `;
 

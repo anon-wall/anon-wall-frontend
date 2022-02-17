@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import ImageWrapper from "./shared/ImageWrapper";
 import StoryInfoWrapper from "./shared/StoryInfoWrapper";
+import StyledBorderCard from "./shared/StyledBorderCard";
 
 function StoryListEntry({ id, img, nickname, title, tag }) {
   const navigate = useNavigate();
@@ -31,18 +32,18 @@ function StoryListEntry({ id, img, nickname, title, tag }) {
   );
 }
 
-const Tag = styled.span`
-  margin: 0 1rem;
-`;
-
-const StoryWrapper = styled.div`
+const StoryWrapper = styled(StyledBorderCard)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 6px solid #bfaea4;
-  border-radius: 40px;
-  padding: 10px;
-  margin: 10px;
+  width: 80%;
+  max-width: 50rem;
+  margin: 0 auto;
+  border-radius: 4rem;
+`;
+
+const Tag = styled.span`
+  margin: 0 1rem;
 `;
 
 StoryListEntry.propTypes = {

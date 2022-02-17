@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Icon } from "@iconify/react";
 
 import { getCounselList } from "../api/axios";
 import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import SubHeader from "../components/common/SubHeader";
 import Modal from "../components/common/Modal";
-import StyledTransparentButton from "../components/shared/StyledTransparentButton";
 import StoryListEntry from "../components/StoryListEntry";
 import SearchBar from "../components/SearchBar";
 import {
   STORY_SUB_HEADER_HEADING,
   STORY_SUB_HEADER_PARAGRAPH,
-  PREV,
-  NEXT,
+  STORY_RESULT_MESSAGE,
 } from "../constants/story";
 
 function StoryList() {
-  const [storyList, setStoryList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false);
+
+  const [storyList, setStoryList] = useState([]);
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
   const [hasPage, setHasPage] = useState({
@@ -50,15 +50,21 @@ function StoryList() {
 
   function handleClickPrevButton() {
     setPage((page) => page - 1);
+    setIsLoading(true);
+    setStoryList([]);
   }
 
   function handleClickNextButton() {
     setPage((page) => page + 1);
+    setIsLoading(true);
+    setStoryList([]);
   }
 
   function handleSearchKeyword(keyword) {
-    setPage(1);
     setKeyword(keyword);
+    setIsLoading(true);
+    setStoryList([]);
+    setPage(1);
   }
 
   return (
@@ -73,12 +79,28 @@ function StoryList() {
         paragraph={STORY_SUB_HEADER_PARAGRAPH}
       />
       <SearchBar onSubmitKeyword={handleSearchKeyword} />
-      {isLoading && <StyledLoadingSpinner />}
-      <StoryListContainer>
-        {storyList?.map((story) => {
-          const { _id, counselee, title, tag } = story;
-
-          return (
+      {isLoading && (
+        <CenterContainer>
+          <StyledLoadingSpinner />
+        </CenterContainer>
+      )}
+      {!isLoading && !storyList.length && (
+        <CenterContainer>
+          <p className="result-text">{STORY_RESULT_MESSAGE}</p>
+        </CenterContainer>
+      )}
+      <Container>
+        <div className="indicator-wrapper">
+          {hasPage.prev && !isLoading && (
+            <Icon
+              icon="akar-icons:arrow-left"
+              style={{ fontSize: "5rem" }}
+              onClick={handleClickPrevButton}
+            />
+          )}
+        </div>
+        <StoryListContainer>
+          {storyList?.map(({ _id, counselee, title, tag }) => (
             <StoryListEntry
               key={_id}
               id={_id}
@@ -87,31 +109,57 @@ function StoryList() {
               title={title}
               tag={tag}
             />
-          );
-        })}
-      </StoryListContainer>
-      {hasPage.prev && (
-        <StyledTransparentButton onClick={handleClickPrevButton}>
-          {PREV}
-        </StyledTransparentButton>
-      )}
-      {hasPage.next && (
-        <StyledTransparentButton onClick={handleClickNextButton}>
-          {NEXT}
-        </StyledTransparentButton>
-      )}
+          ))}
+        </StoryListContainer>
+        <div className="indicator-wrapper">
+          {hasPage.next && !isLoading && (
+            <Icon
+              icon="akar-icons:arrow-right"
+              style={{ fontSize: "5rem" }}
+              onClick={handleClickNextButton}
+            ></Icon>
+          )}
+        </div>
+      </Container>
     </>
   );
 }
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: 0 auto;
+  min-height: 60rem;
+  margin-bottom: 10vh;
+
+  .indicator-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+  }
+`;
+
+const CenterContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+
+  .result-text {
+    font-size: ${({ theme }) => theme.fontSizes.lll};
+  }
+`;
+
 const StoryListContainer = styled.div`
   display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(3, 45rem);
-  grid-template-rows: repeat(2, 36rem);
-  column-gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 100%;
+  padding: 2em 0 0;
   row-gap: 5rem;
-  margin-top: 5rem;
 `;
 
 export default StoryList;

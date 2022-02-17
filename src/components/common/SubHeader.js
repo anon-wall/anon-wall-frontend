@@ -16,7 +16,7 @@ function SubHeader({ heading, paragraph }) {
 
 const SubHeaderWrapper = styled.div`
   width: 100%;
-  height: 14rem;
+  min-height: 14rem;
   background-color: #dedfac;
   text-align: center;
 

@@ -1,37 +1,28 @@
 import styled from "styled-components";
-import { Icon } from "@iconify/react";
 
 import { COPYRIGHT } from "../constants/home";
 
 function Footer() {
   return (
     <FooterWrapper>
-      <div className="copyright">{COPYRIGHT}</div>
-      <div className="icon">
-        <Icon className="health-icon" icon="healthicons:agriculture-outline" />
+      <div className="copyright">
+        <span>&copy; </span>
+        {COPYRIGHT}
       </div>
     </FooterWrapper>
   );
 }
 
-const FooterWrapper = styled.div`
-  width: 100%;
-  height: 10rem;
-  background-color: rgba(225, 219, 214, 1);
+const FooterWrapper = styled.footer`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+  border-top: 1px solid black;
+  background-color: ${({ theme }) => theme.colors.footer_bg};
 
   .copyright {
-    text-align: center;
-    font-size: 3rem;
-  }
-
-  .icon {
-    float: right;
-    margin: 1rem;
-  }
-
-  .health-icon {
-    width: 8rem;
-    height: 8rem;
+    font-size: ${({ theme }) => theme.fontSizes.lll};
   }
 `;
 
