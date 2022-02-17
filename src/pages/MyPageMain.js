@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { updateUser } from "../api/axios";
 import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import Modal from "../components/common/Modal";
 import ReservationList from "../components/ReservationList";
-import { NOTIFICATION_TIME } from "../constants/myPage";
+import { NOTIFICATION_TIME, CONSTRUCTION } from "../constants/myPage";
 
 function MyPageMain() {
   const {
@@ -22,14 +21,6 @@ function MyPageMain() {
   useEffect(() => {
     setIsLoading(false);
   }, []);
-
-  async function handleChangeNotification() {
-    try {
-      await updateUser(userId);
-    } catch (err) {
-      setErrorMessage(err.data.message);
-    }
-  }
 
   return (
     <>
@@ -48,7 +39,8 @@ function MyPageMain() {
             <div className="name">{nickname}</div>
             <div className="email">{email}</div>
             <div className="notification">
-              <select onChange={handleChangeNotification}>
+              {CONSTRUCTION}
+              <select>
                 {NOTIFICATION_TIME.map((hour, i) => (
                   <option key={i} value={hour}>
                     {hour <= 60 ? `${hour}분` : `${hour / 60}시간`}
@@ -132,6 +124,10 @@ const MyInfoWrapper = styled.div`
   .tags {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
+  }
+
+  .notification {
+    font-size: 1.2rem;
   }
 `;
 

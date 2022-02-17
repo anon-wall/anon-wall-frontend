@@ -11,9 +11,13 @@ async function getCounselor(user_id) {
   return res;
 }
 
-async function updateUser(userId) {
+async function updateCounselor(payload) {
   const res = await axios.patch(
-    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}`
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${payload.userId}`,
+    payload.newCounselorInfo,
+    {
+      withCredentials: true,
+    }
   );
 
   return res;
@@ -31,9 +35,9 @@ async function updateCounselorSchedule(payload) {
   return res;
 }
 
-async function deleteCounselorSchedule(userId, id) {
+async function deleteCounselorSchedule(user_id, date_id) {
   const res = await axios.delete(
-    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}/counselor/availableDates/${id}`,
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${user_id}/counselor/availableDates/${date_id}`,
     {
       withCredentials: true,
     }
@@ -42,9 +46,10 @@ async function deleteCounselorSchedule(userId, id) {
   return res;
 }
 
-async function getCounselList() {
+async function getCounselList(params) {
   const res = await axios.get(
-    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
+    params
   );
 
   return res;
@@ -61,20 +66,20 @@ async function getCounsel(counsel_id) {
   return res;
 }
 
-async function getStory(userId) {
+async function getStory(user_id) {
   const res = await axios.get(
-    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${userId}`
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${user_id}`
   );
 
   return res;
 }
 
-async function getReservedCounselList(type, userId, page) {
+async function getReservedCounselList(user_id, type, page) {
   const res = await axios.get(
     `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/reserved`,
     {
       params: {
-        [type === "counselee" ? "counselee" : "counselor"]: userId,
+        [type === "counselee" ? "counselee" : "counselor"]: user_id,
         page,
       },
       withCredentials: true,
@@ -84,9 +89,9 @@ async function getReservedCounselList(type, userId, page) {
   return res;
 }
 
-async function getCounselorSchedule(counselor, user_id) {
+async function getCounselorSchedule(counselor_id, user_id) {
   const res = await axios.get(
-    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/schedules?counselor=${counselor._id}&counselee=${user_id}`,
+    `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/schedules?counselor=${counselor_id}&counselee=${user_id}`,
     {
       withCredentials: true,
     }
@@ -107,11 +112,11 @@ async function createCounsel(newStory) {
   return res;
 }
 
-async function updateCounselors(counsel_id, userId) {
+async function updateCounselors(counsel_id, user_id) {
   const res = await axios.post(
     `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${counsel_id}/counselors`,
     {
-      userId,
+      user_id,
     },
     {
       withCredentials: true,
@@ -134,7 +139,7 @@ async function updateCounsel(counsel_id, user_id) {
 
 export {
   getCounselor,
-  updateUser,
+  updateCounselor,
   updateCounselorSchedule,
   deleteCounselorSchedule,
   getCounselList,

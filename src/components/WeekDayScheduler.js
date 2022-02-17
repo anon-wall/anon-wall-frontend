@@ -162,17 +162,17 @@ const Container = styled.div`
     align-items: center;
   }
   .input-fields select {
-    width: 340px;
+    width: 28rem;
     height: 40px;
   }
 
   .input-fields input {
-    width: 140px;
+    width: 11rem;
     height: 30px;
   }
 
   .input-fields button {
-    width: 60px;
+    width: 6rem;
     height: 30px;
   }
 

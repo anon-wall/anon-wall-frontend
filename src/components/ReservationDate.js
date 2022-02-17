@@ -27,7 +27,7 @@ function ReservationDate({ counselor }) {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await getCounselorSchedule(counselor, user_id);
+        const { data } = await getCounselorSchedule(counselor._id, user_id);
 
         setReservedDates(data.data);
       } catch (err) {
@@ -141,17 +141,17 @@ function ReservationDate({ counselor }) {
       {counselor && (
         <>
           {errorMessage && (
-            <Modal onClick={setErrorMessage}>
+            <Modal onClick={setErrorMessage} width="50rem" height="20rem">
               <p>{errorMessage}</p>
             </Modal>
           )}
           {isSuccessful && (
-            <Modal>
+            <Modal width="50rem" height="20rem">
               <p>성공적으로 예약되었습니다! 3초후 홈으로 이동합니다.</p>
             </Modal>
           )}
           {isModalOn && !errorMessage && (
-            <Modal onClick={setIsModalOn}>
+            <Modal onClick={setIsModalOn} width="55rem" height="45rem">
               <DateContainer>
                 <DatePicker
                   inline

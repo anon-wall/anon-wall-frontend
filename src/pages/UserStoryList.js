@@ -54,6 +54,16 @@ function UserStoryList() {
         </Modal>
       )}
       <UserStoryListContainer>
+        {hasPage.prev && (
+          <StyledTransparentButton onClick={handleClickPrevButton}>
+            {PREV}
+          </StyledTransparentButton>
+        )}
+        {hasPage.next && (
+          <StyledTransparentButton onClick={handleClickNextButton}>
+            {NEXT}
+          </StyledTransparentButton>
+        )}
         {storyList.map((story) => {
           const { _id, title, endDate, counselors } = story;
           const currentDate = new Date().toUTCString();
@@ -71,27 +81,17 @@ function UserStoryList() {
           );
         })}
       </UserStoryListContainer>
-      {hasPage.prev && (
-        <StyledTransparentButton onClick={handleClickPrevButton}>
-          {PREV}
-        </StyledTransparentButton>
-      )}
-      {hasPage.next && (
-        <StyledTransparentButton onClick={handleClickNextButton}>
-          {NEXT}
-        </StyledTransparentButton>
-      )}
     </>
   );
 }
 
 const UserStoryListContainer = styled.div`
-  justify-content: center;
-  padding: 2rem 0 0;
-  column-gap: 2vw;
-  row-gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  margin-left: 3rem;
+  padding: 2rem;
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 `;
 
 export default UserStoryList;
