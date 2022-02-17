@@ -173,7 +173,13 @@ const Container = styled.div`
 
   .input-fields button {
     width: 6rem;
-    height: 30px;
+    height: 3rem;
+    background-color: #95bcf0;
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
   }
 
   .delete {

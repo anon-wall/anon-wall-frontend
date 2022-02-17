@@ -27,7 +27,10 @@ function ReservationDate({ counselor }) {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await getCounselorSchedule(counselor._id, user_id);
+        const { data } = await getCounselorSchedule({
+          counselorId: counselor._id,
+          userId: user_id,
+        });
 
         setReservedDates(data.data);
       } catch (err) {
@@ -38,7 +41,9 @@ function ReservationDate({ counselor }) {
 
   async function handleClick() {
     try {
-      await updateCounsel(counsel_id, user_id, {
+      await updateCounsel({
+        counselId: counsel_id,
+        userId: user_id,
         startDate: selectedDate,
         endDate: addMinutes(selectedDate, 25),
       });

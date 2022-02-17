@@ -22,7 +22,7 @@ function ReservationList({ payload, onError }) {
   useEffect(() => {
     try {
       (async () => {
-        const { data } = await getReservedCounselList(type, userId, page);
+        const { data } = await getReservedCounselList({ type, userId, page });
 
         setCounsels(data.data.counsels);
         setHasPage({

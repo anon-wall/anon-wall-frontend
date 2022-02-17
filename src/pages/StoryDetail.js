@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 
 import { getCounsel, updateCounselors } from "../api/axios";
+import ImageWrapper from "../components/shared/ImageWrapper";
 import Modal from "../components/common/Modal";
 import SubHeader from "../components/common/SubHeader";
 import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
@@ -27,7 +28,7 @@ function StoryDetail() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await getCounsel(counsel_id);
+        const { data } = await getCounsel({ counselId: counsel_id });
 
         setStory(data.data);
         setIsLoading(false);
@@ -40,7 +41,7 @@ function StoryDetail() {
 
   async function handleClick() {
     try {
-      await updateCounselors(counsel_id, userId);
+      await updateCounselors({ counselId: counsel_id, userId });
 
       setModalMessage(STORY_ACCEPT_SUCCESS_MESSAGE);
     } catch (err) {
@@ -135,6 +136,7 @@ const MainContainer = styled.section`
 
 const StoryHeaderWrapper = styled.div`
   display: flex;
+  align-items: center;
   width: 90%;
   height: 20%;
   margin: 0 auto;
@@ -142,29 +144,19 @@ const StoryHeaderWrapper = styled.div`
   border: 0.8rem solid #bfaea4;
   border-radius: 3rem;
   overflow: scroll;
-`;
 
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30rem;
-  height: 100%;
-  background-color: #000000;
   img {
     width: 20rem;
     height: 20rem;
-    border-radius: 50%;
-    background-color: #ffffff;
   }
 `;
 
 const StoryInfoWrapper = styled.div`
   width: 100%;
   margin: auto;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   text-align: center;
-  line-height: 6rem;
+  line-height: 3rem;
   .name {
     font-size: 3rem;
     color: #3e005b;
@@ -204,7 +196,7 @@ const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: center;
   button {
-    font-size: 3.5rem;
+    font-size: 1.8rem;
     padding: 1rem;
     border-radius: 3rem;
   }

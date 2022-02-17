@@ -22,8 +22,10 @@ function UserStoryList() {
     (async () => {
       try {
         const { data } = await getCounselList({
-          params: { page, limit: 6, counselee: userId, counselor: true },
-          withCredentials: true,
+          options: {
+            params: { page, limit: 6, counselee: userId, counselor: true },
+            withCredentials: true,
+          },
         });
 
         setStoryList(data.data.counsels);

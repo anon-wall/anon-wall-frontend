@@ -73,10 +73,12 @@ function UploadStory() {
       )}
       {modalMessage && (
         <Modal width="50rem" height="20rem">
-          <div>{modalMessage}</div>
-          <Link to="/counsels">
-            <button>Back</button>
-          </Link>
+          <MessageWrapper>
+            <div>{modalMessage}</div>
+            <Link to="/counsels">
+              <button>Back</button>
+            </Link>
+          </MessageWrapper>
         </Modal>
       )}
       <SubHeader
@@ -173,6 +175,25 @@ const FormWrapper = styled.div`
     border-radius: 4rem;
     background: #e8e8e8;
     box-shadow: 0rem 0rem 2.5rem 0.3rem rgba(0, 0, 0, 0.2);
+  }
+`;
+
+const MessageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    margin: 50px;
+    padding: 5px;
+    width: 80px;
+    background-color: #95bcf0;
+    border-radius: 3rem;
+    border: none;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: bold;
+    cursor: pointer;
   }
 `;
 

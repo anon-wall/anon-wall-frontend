@@ -30,8 +30,10 @@ function StoryList() {
     (async () => {
       try {
         const { data } = await getCounselList({
-          params: { page, limit: 6, tag: keyword },
-          withCredentials: true,
+          options: {
+            params: { page, limit: 6, tag: keyword },
+            withCredentials: true,
+          },
         });
 
         setStoryList(data.data.counsels);
