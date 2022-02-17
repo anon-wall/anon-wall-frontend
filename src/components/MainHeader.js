@@ -41,10 +41,9 @@ function MainHeader() {
   );
 }
 
-const MainHeaderContainer = styled.div`
-  width: 100%;
-  height: 130px;
-  background-color: rgba(225, 219, 214, 1);
+const MainHeaderContainer = styled.header`
+  height: 10rem;
+  background-color: ${({ theme }) => theme.colors.mainHeader_bg};
 
   nav {
     display: grid;
@@ -64,14 +63,14 @@ const MainHeaderContainer = styled.div`
     justify-content: flex-end;
     align-items: center;
     text-align: center;
-    padding: 0;
     height: 100%;
+    padding: 0;
     list-style: none;
   }
 
   .mainHeader-link li {
-    font-size: 1.7rem;
     width: 15rem;
+    font-size: 1.7rem;
   }
 
   .mainHeader-link a {
