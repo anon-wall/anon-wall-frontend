@@ -23,7 +23,7 @@ function DateSchedule({ onError }) {
 
   async function handleClickDeleteButton(id) {
     try {
-      await deleteCounselorSchedule(userId, id);
+      await deleteCounselorSchedule({ userId, dateId: id });
 
       dispatch(deleteAvailableDates({ id }));
     } catch (err) {
@@ -65,6 +65,7 @@ const ScheduleContainer = styled.div`
   }
 
   .date-line button {
+    width: 43px;
     margin: 0 10px;
     padding: 5px;
     background-color: #95bcf0;

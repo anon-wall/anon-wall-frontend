@@ -18,7 +18,7 @@ function DaySchedule({ dayNumber, onError }) {
     try {
       const { id } = e.target;
 
-      await deleteCounselorSchedule(userId, id);
+      await deleteCounselorSchedule({ userId, dateId: id });
 
       dispatch(deleteAvailableDates({ id }));
     } catch (err) {
@@ -75,7 +75,8 @@ const WeekDayContainer = styled.div`
     margin: 0.5rem;
   }
 
-  .time-line button {
+  .delete {
+    width: 43px;
     margin: 0 10px;
     padding: 5px;
     background-color: #95bcf0;

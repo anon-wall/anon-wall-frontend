@@ -22,7 +22,7 @@ function CounselorDetail() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await getCounselor(user_id);
+        const { data } = await getCounselor({ userId: user_id });
 
         setCounselor(data.data);
         setIsLoading(false);

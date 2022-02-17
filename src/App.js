@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import MainHeader from "./components/MainHeader";
@@ -20,7 +20,6 @@ import { getCookie } from "./api/cookie";
 import { getLoginUserByToken } from "./features/userSlice";
 
 function App() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(({ user }) => user.isLoggedIn);
 
@@ -32,16 +31,14 @@ function App() {
     }
   }, []);
 
-  function handleClickGoHomeButton() {
-    navigate("/");
-  }
-
   return (
     <div>
       {errorMessage && (
         <Modal width="50rem" height="20rem">
           <div>{errorMessage}</div>
-          <button onClick={handleClickGoHomeButton}>홈으로</button>
+          <Link to="/">
+            <button>Back</button>
+          </Link>
         </Modal>
       )}
       <MainHeader />

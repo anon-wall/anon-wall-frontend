@@ -228,7 +228,7 @@ const InfoContainer = styled.div`
     border-radius: 3rem;
     border: none;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     font-weight: bold;
     cursor: pointer;
   }

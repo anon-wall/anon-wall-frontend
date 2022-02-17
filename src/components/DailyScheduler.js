@@ -219,6 +219,16 @@ const DatePickerContainer = styled.div`
   .picker-field {
     margin: 30px;
   }
+
+  button {
+    width: 6rem;
+    background-color: #95bcf0;
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
 `;
 
 export default DailyScheduler;
