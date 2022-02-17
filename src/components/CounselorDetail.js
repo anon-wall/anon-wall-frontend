@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 
+import { getCounselor } from "../api/axios";
 import ReservationDate from "./ReservationDate";
 import SubHeader from "./common/SubHeader";
 import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
@@ -22,12 +22,7 @@ function CounselorDetail() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${user_id}`,
-          {
-            withCredentials: true,
-          }
-        );
+        const { data } = await getCounselor(user_id);
 
         setCounselor(data.data);
         setIsLoading(false);

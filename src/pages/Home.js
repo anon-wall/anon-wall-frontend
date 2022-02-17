@@ -4,7 +4,12 @@ import styled from "styled-components";
 
 import Modal from "../components/common/Modal";
 import homeImage from "../assets/tree.png";
-import { WELCOME_MESSAGE, BUTTON_NAME, COPYRIGHT } from "../constants/home";
+import {
+  WELCOME_MESSAGE,
+  BUTTON_NAME,
+  COPYRIGHT,
+  DISCOVER_NOW,
+} from "../constants/home";
 
 function Home() {
   const [isModalOn, setIsModalOn] = useState(false);
@@ -22,7 +27,9 @@ function Home() {
             <div className="message">{WELCOME_MESSAGE}</div>
             <button onClick={handleModalOn}>{BUTTON_NAME}</button>
             {isModalOn && (
-              <Modal onClick={setIsModalOn} width="70rem" height="90rem" />
+              <Modal onClick={setIsModalOn} width="70rem" height="90rem">
+                <ModalMessage>{DISCOVER_NOW}</ModalMessage>
+              </Modal>
             )}
           </div>
         </DescriptionContainer>
@@ -83,6 +90,10 @@ const DescriptionContainer = styled.div`
     border-radius: 1rem;
     font-size: 2rem;
   }
+`;
+
+const ModalMessage = styled.div`
+  margin: 3rem;
 `;
 
 const ImageWrapper = styled.div`

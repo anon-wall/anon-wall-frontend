@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 
+import { createCounsel } from "../api/axios";
 import SubHeader from "../components/common/SubHeader";
 import Modal from "../components/common/Modal";
 import {
@@ -41,30 +41,22 @@ function UploadStory() {
       setErrorMessage(RESTRICT_REGEX);
     }
 
-    setTag(tag.replace(reg, ""));
+    setTag(tag.replace(reg, "").split(","));
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { title, content, tag } = e.target.children;
-    const splittedTags = tag.value.split(",");
     const newStory = {
       counselee: userId,
-      title: title.value,
-      content: content.value,
-      tag: splittedTags,
+      title,
+      content,
+      tag,
       createdAt: new Date().toUTCString(),
     };
 
     try {
-      await axios.post(
-        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
-        newStory,
-        {
-          withCredentials: true,
-        }
-      );
+      await createCounsel(newStory);
 
       setModalMessage(UPLOAD_SUCCESS);
     } catch (err) {
@@ -80,17 +72,17 @@ function UploadStory() {
         </Modal>
       )}
       {modalMessage && (
-        <Modal onClick={setModalMessage} width="50rem" height="20rem">
-          {modalMessage}
+        <Modal width="50rem" height="20rem">
+          <div>{modalMessage}</div>
+          <Link to="/counsels">
+            <button>Back</button>
+          </Link>
         </Modal>
       )}
       <SubHeader
         heading={STORY_SUB_HEADER_HEADING}
         paragraph={STORY_SUB_HEADER_PARAGRAPH}
       />
-      <Link to="/counsels">
-        <button>Back</button>
-      </Link>
       <FormWrapper>
         <form className="new-story-form" onSubmit={handleSubmit}>
           <input

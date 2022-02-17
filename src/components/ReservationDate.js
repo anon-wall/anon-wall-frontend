@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import { format, addDays, addMinutes } from "date-fns";
 import styled from "styled-components";
-import axios from "axios";
 
 import Modal from "./common/Modal";
+import { getCounselorSchedule, updateCounsel } from "../api/axios";
 import { YYYY_MM_DD, TYPE_DATE, TYPE_WEEKDAY } from "../constants/date";
 
 import "../assets/stylesheets/datepicker-custom.css";
@@ -27,12 +27,7 @@ function ReservationDate({ counselor }) {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/schedules?counselor=${counselor._id}&counselee=${user_id}`,
-          {
-            withCredentials: true,
-          }
-        );
+        const { data } = await getCounselorSchedule(counselor, user_id);
 
         setReservedDates(data.data);
       } catch (err) {
@@ -43,16 +38,10 @@ function ReservationDate({ counselor }) {
 
   async function handleClick() {
     try {
-      await axios.post(
-        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${counsel_id}/counselors/${user_id}`,
-        {
-          startDate: selectedDate,
-          endDate: addMinutes(selectedDate, 25),
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      await updateCounsel(counsel_id, user_id, {
+        startDate: selectedDate,
+        endDate: addMinutes(selectedDate, 25),
+      });
 
       setTimeout(() => {
         navigate("/");

@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import { useSelector } from "react-redux";
 
+import { getCounsel, updateCounselors } from "../api/axios";
 import Modal from "../components/common/Modal";
 import SubHeader from "../components/common/SubHeader";
 import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
@@ -27,12 +27,7 @@ function StoryDetail() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${counsel_id}`,
-          {
-            withCredentials: true,
-          }
-        );
+        const { data } = await getCounsel(counsel_id);
 
         setStory(data.data);
         setIsLoading(false);
@@ -45,15 +40,7 @@ function StoryDetail() {
 
   async function handleClick() {
     try {
-      await axios.post(
-        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/${counsel_id}/counselors`,
-        {
-          userId,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      await updateCounselors(counsel_id, userId);
 
       setModalMessage(STORY_ACCEPT_SUCCESS_MESSAGE);
     } catch (err) {

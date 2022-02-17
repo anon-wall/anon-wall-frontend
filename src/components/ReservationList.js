@@ -1,8 +1,8 @@
-import axios from "axios";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import { getReservedCounselList } from "../api/axios";
 import ReservationListEntry from "./ReservationListEntry";
 import StyledTransparentButton from "./shared/StyledTransparentButton";
 import { PREV, NEXT } from "../constants/story";
@@ -20,16 +20,7 @@ function ReservationList({ payload, onError }) {
   useEffect(() => {
     try {
       (async () => {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels/reserved`,
-          {
-            params: {
-              [type === "counselee" ? "counselee" : "counselor"]: userId,
-              page,
-            },
-            withCredentials: true,
-          }
-        );
+        const { data } = await getReservedCounselList(type, userId, page);
 
         setCounsels(data.data.counsels);
         setHasPage({

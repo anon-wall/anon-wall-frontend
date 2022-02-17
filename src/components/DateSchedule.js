@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import PropTypes from "prop-types";
 import { parseISO, format } from "date-fns";
 import styled from "styled-components";
 
+import { deleteCounselorSchedule } from "../api/axios";
 import { deleteAvailableDates } from "../features/counselorSlice";
 
 function DateSchedule({ onError }) {
@@ -23,12 +23,7 @@ function DateSchedule({ onError }) {
 
   async function handleClickDeleteButton(id) {
     try {
-      await axios.delete(
-        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}/counselor/availableDates/${id}`,
-        {
-          withCredentials: true,
-        }
-      );
+      await deleteCounselorSchedule(userId, id);
 
       dispatch(deleteAvailableDates({ id }));
     } catch (err) {
