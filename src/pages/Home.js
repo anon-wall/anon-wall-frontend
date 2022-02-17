@@ -1,85 +1,62 @@
 import { useState } from "react";
-import { Icon } from "@iconify/react";
 import styled from "styled-components";
 
 import Modal from "../components/common/Modal";
 import homeImage from "../assets/tree.png";
-import {
-  WELCOME_MESSAGE,
-  BUTTON_NAME,
-  COPYRIGHT,
-  DISCOVER_NOW,
-} from "../constants/home";
+import Footer from "../components/Footer";
+import { WELCOME_MESSAGE, BUTTON_NAME } from "../constants/home";
 
 function Home() {
   const [isModalOn, setIsModalOn] = useState(false);
 
-  function handleModalOn() {
-    setIsModalOn(true);
-  }
-
   return (
     <>
-      <UpperBoxWrapper />
-      <MiddleContainer>
-        <DescriptionContainer>
+      <FillerBox />
+      <Container>
+        <DescriptionWrapper>
           <div>
             <div className="message">{WELCOME_MESSAGE}</div>
-            <button onClick={handleModalOn}>{BUTTON_NAME}</button>
+            <button onClick={setIsModalOn}>{BUTTON_NAME}</button>
             {isModalOn && (
               <Modal onClick={setIsModalOn} width="70rem" height="90rem">
                 <ModalMessage>{DISCOVER_NOW}</ModalMessage>
               </Modal>
             )}
           </div>
-        </DescriptionContainer>
+        </DescriptionWrapper>
         <ImageWrapper>
-          <div>
-            <img src={homeImage} alt="A tree and a window" />
-          </div>
+          <img src={homeImage} alt="A tree and a window" />
         </ImageWrapper>
-      </MiddleContainer>
-      <LowerBoxWrapper />
-      <FooterWrapper>
-        <div className="copyright">{COPYRIGHT}</div>
-        <div className="icon">
-          <Icon
-            className="health-icon"
-            icon="healthicons:agriculture-outline"
-          />
-        </div>
-      </FooterWrapper>
+      </Container>
+      <FillerBox />
+      <Footer />
     </>
   );
 }
 
-const UpperBoxWrapper = styled.div`
+const FillerBox = styled.div`
   width: 100%;
   height: 5rem;
   background-color: rgba(176, 182, 164, 1);
 `;
 
-const MiddleContainer = styled.div`
+const Container = styled.div`
   display: flex;
-  width: 100%;
-  margin: auto;
+  height: 100rem;
 `;
 
-const DescriptionContainer = styled.div`
-  flex: 1;
-  float: left;
-  box-sizing: content-box;
+const DescriptionWrapper = styled.div`
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
   padding: 2rem;
-  background-color: rgba(191, 174, 164, 1);
-
-  div {
-    margin-top: 50rem;
-  }
+  background-color: ${({ theme }) => theme.colors.home_bg};
 
   .message {
     margin: 1.4rem;
     text-align: center;
-    font-size: 4rem;
+    font-size: 2.5rem;
   }
 
   button {
@@ -97,41 +74,13 @@ const ModalMessage = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  flex: 1;
-  float: right;
-  box-sizing: content-box;
-  width: auto;
+  width: 50%;
+  height: 100%;
 
   img {
     width: 100%;
-    height: auto;
-  }
-`;
-
-const LowerBoxWrapper = styled.div`
-  width: 100%;
-  height: 5rem;
-  background-color: rgba(176, 182, 164, 1);
-`;
-
-const FooterWrapper = styled.div`
-  width: 100%;
-  height: 10rem;
-  background-color: rgba(225, 219, 214, 1);
-
-  .copyright {
-    text-align: center;
-    font-size: 3rem;
-  }
-
-  .icon {
-    float: right;
-    margin: 1rem;
-  }
-
-  .health-icon {
-    width: 8rem;
-    height: 8rem;
+    height: 100%;
+    object-fit: fill;
   }
 `;
 
