@@ -1,15 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import { getCounselor, updateCounselorSchedule } from "../api/axios";
 
 export const getCounselorInfo = createAsyncThunk(
   "counselor/getCounselorInfo",
   async (userId) => {
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const { data } = await getCounselor(userId);
 
     return data.data.counselor;
   }
@@ -18,13 +14,7 @@ export const getCounselorInfo = createAsyncThunk(
 export const updateAvailableDates = createAsyncThunk(
   "counselor/updateAvailableDates",
   async (payload) => {
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${payload.userId}/counselor/availableDates`,
-      payload.availableDates,
-      {
-        withCredentials: true,
-      }
-    );
+    const { data } = await updateCounselorSchedule(payload);
 
     return data.data.counselor.availableDates;
   }

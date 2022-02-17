@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import axios from "axios";
 
+import { updateUser } from "../api/axios";
 import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import Modal from "../components/common/Modal";
 import ReservationList from "../components/ReservationList";
@@ -25,9 +25,7 @@ function MyPageMain() {
 
   async function handleChangeNotification() {
     try {
-      await axios.patch(
-        `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}`
-      );
+      await updateUser(userId);
     } catch (err) {
       setErrorMessage(err.data.message);
     }

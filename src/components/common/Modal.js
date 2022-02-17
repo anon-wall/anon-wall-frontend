@@ -20,6 +20,7 @@ const ModalWrapper = styled.div`
   z-index: 100;
   top: 50%;
   left: 50%;
+  padding: 30px;
   width: ${(props) => props.width || "auto"};
   height: ${(props) => props.height || "auto"};
   background-color: #fff;

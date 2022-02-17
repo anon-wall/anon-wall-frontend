@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 
+import { getCounselList } from "../api/axios";
 import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
 import SubHeader from "../components/common/SubHeader";
 import Modal from "../components/common/Modal";
@@ -29,13 +29,10 @@ function StoryList() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
-          {
-            params: { page, limit: 6, tag: keyword },
-            withCredentials: true,
-          }
-        );
+        const { data } = await getCounselList({
+          params: { page: 1, limit: 6, tag: keyword },
+          withCredentials: true,
+        });
 
         setStoryList(data.data.counsels);
         setIsLoading(false);
@@ -56,7 +53,6 @@ function StoryList() {
   }
 
   function handleClickNextButton() {
-    console.log(page);
     setPage((page) => page + 1);
   }
 

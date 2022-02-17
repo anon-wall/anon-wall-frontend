@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import axios from "axios";
 
+import { getCounselList } from "../api/axios";
 import UserStoryListEntry from "../components/UserStoryLIstEntry";
 import Modal from "../components/common/Modal";
 import StyledTransparentButton from "../components/shared/StyledTransparentButton";
@@ -21,13 +21,10 @@ function UserStoryList() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/counsels`,
-          {
-            params: { page, limit: 6, counselee: userId, counselor: true },
-            withCredentials: true,
-          }
-        );
+        const { data } = await getCounselList({
+          params: { page, limit: 6, counselee: userId, counselor: true },
+          withCredentials: true,
+        });
 
         setStoryList(data.data.counsels);
         setHasPage({

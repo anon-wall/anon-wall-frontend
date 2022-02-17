@@ -63,7 +63,7 @@ const userSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.status = "success";
-      state.data = action.payload.data;
+      state.data = action.payload;
     },
     [login.rejected]: (state) => {
       state.status = "failed";
