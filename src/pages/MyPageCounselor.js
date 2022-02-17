@@ -4,10 +4,21 @@ import styled from "styled-components";
 
 import Modal from "../components/common/Modal";
 import StyledLoadingSpinner from "../components/shared/StyledLoadingSpinner";
+import StyledTransparentButton from "../components/shared/StyledTransparentButton";
 import ReservationList from "../components/ReservationList";
 import WeekDayScheduler from "../components/WeekDayScheduler";
 import DailyScheduler from "../components/DailyScheduler";
-import { getCounselorInfo } from "../features/counselorSlice";
+import {
+  getCounselorInfo,
+  updateCounselorInfo,
+} from "../features/counselorSlice";
+import {
+  RESTRICT_REGEX,
+  INPUT_TAG,
+  FAMILY_TITLE,
+  SHORT_INPUT,
+  LONG_INPUT,
+} from "../constants/upload";
 
 function MyPageCounselor() {
   const dispatch = useDispatch();
@@ -16,11 +27,70 @@ function MyPageCounselor() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isChanged, setIsChanged] = useState(false);
+  const [newCounselorInfo, setNewCounselorInfo] = useState({});
 
   useEffect(() => {
     setIsLoading(false);
     dispatch(getCounselorInfo(userId));
   }, []);
+
+  useEffect(() => {
+    setNewCounselorInfo({
+      familyTitle: counselorInfo.familyTitle,
+      shortInput: counselorInfo.shortInput,
+      longInput: counselorInfo.longInput,
+      tag: counselorInfo.tag,
+    });
+  }, [isChanged]);
+
+  function handleChangeTitle(familyTitle) {
+    setNewCounselorInfo((info) => ({
+      ...info,
+      familyTitle,
+    }));
+  }
+
+  function handleChangeShortInput(shortInput) {
+    setNewCounselorInfo((info) => ({
+      ...info,
+      shortInput,
+    }));
+  }
+
+  function handleChangelongInput(longInput) {
+    setNewCounselorInfo((info) => ({
+      ...info,
+      longInput,
+    }));
+  }
+
+  function handleChangeTag(tag) {
+    const reg = /[`~!@#$%^&*()_|+\-=?;:'".<>\{\}\[\]\\\/ ]/gim;
+
+    if (tag.search(reg) > -1) {
+      setErrorMessage(RESTRICT_REGEX);
+    }
+
+    setNewCounselorInfo((info) => ({
+      ...info,
+      tag: tag.replace(reg, "").split(","),
+    }));
+  }
+
+  function handleChangeButton() {
+    setIsChanged((bool) => !bool);
+  }
+
+  function handleSubmitNewInfo() {
+    handleChangeButton();
+    dispatch(
+      updateCounselorInfo({
+        userId,
+        newCounselorInfo,
+      })
+    );
+  }
 
   return (
     <>
@@ -32,17 +102,73 @@ function MyPageCounselor() {
           </Modal>
         )}
         <InfoContainer>
-          <InfoWrapper>
-            <div>호칭 입력: {counselorInfo.familyTitle}</div>
-            <div>
-              태그 입력:
-              {counselorInfo.tag.map((tag) => (
-                <span key={tag}>#{tag}</span>
-              ))}
-            </div>
-            <div>한줄 소개: {counselorInfo.shortInput}</div>
-            <div>긴줄 소개: {counselorInfo.longInput}</div>
-          </InfoWrapper>
+          <div className="button-container">
+            {!isChanged ? (
+              <StyledTransparentButton onClick={handleChangeButton}>
+                수정하기
+              </StyledTransparentButton>
+            ) : (
+              <StyledTransparentButton onClick={handleSubmitNewInfo}>
+                저장하기
+              </StyledTransparentButton>
+            )}
+          </div>
+          {isChanged ? (
+            <InfoWrapper>
+              <div>호칭 입력: {counselorInfo.familyTitle}</div>
+              <div>
+                태그 입력:
+                {counselorInfo.tag.map((tag) => (
+                  <span key={tag}>#{tag}</span>
+                ))}
+              </div>
+              <div>한줄 소개: {counselorInfo.shortInput}</div>
+              <div>긴줄 소개: {counselorInfo.longInput}</div>
+            </InfoWrapper>
+          ) : (
+            <InfoFormWrapper>
+              <label>
+                호칭 입력:
+                <input
+                  className="familytitle"
+                  type="text"
+                  placeholder={FAMILY_TITLE}
+                  onChange={(e) => handleChangeTitle(e.target.value)}
+                  value={newCounselorInfo.familyTitle}
+                />
+              </label>
+              <label>
+                태그 입력:
+                <input
+                  className="tags"
+                  type="text"
+                  placeholder={INPUT_TAG}
+                  onChange={(e) => handleChangeTag(e.target.value)}
+                  value={newCounselorInfo.tag?.join()}
+                />
+              </label>
+              <label>
+                한줄 소개:
+                <input
+                  className="short-input"
+                  type="text"
+                  placeholder={SHORT_INPUT}
+                  onChange={(e) => handleChangeShortInput(e.target.value)}
+                  value={newCounselorInfo.shortInput}
+                />
+              </label>
+              <label>
+                긴줄 소개:
+                <input
+                  className="long-input"
+                  type="text"
+                  placeholder={LONG_INPUT}
+                  onChange={(e) => handleChangelongInput(e.target.value)}
+                  value={newCounselorInfo.longInput}
+                />
+              </label>
+            </InfoFormWrapper>
+          )}
         </InfoContainer>
         <div className="sub-title">
           <h2>예약 현황</h2>
@@ -83,6 +209,9 @@ const MainContainer = styled.section`
 
 const InfoContainer = styled.div`
   display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  align-items: center;
   width: 90%;
   min-height: 20rem;
   margin: 0 auto;
@@ -90,26 +219,47 @@ const InfoContainer = styled.div`
   border: 0.5rem solid #c9bab2;
   border-radius: 3rem;
   overflow: scroll;
+
+  button {
+    border-radius: 5rem;
+    font-size: 1.2rem;
+  }
 `;
 
 const InfoWrapper = styled.div`
-  width: 100%;
-  margin: auto;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   line-height: 3rem;
+  width: 400px;
 
   div {
-    padding-left: 10%;
-  }
-
-  .name {
-    font-size: 3rem;
-    color: #3e005b;
+    padding-left: 20px;
+    width: 338px;
   }
 
   .tags {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
+  }
+`;
+
+const InfoFormWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  line-height: 3rem;
+  padding-left: 20px;
+
+  label {
+    font-size: 1.5rem;
+  }
+
+  input,
+  textarea {
+    padding-left: 5px;
+    height: 30px;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid black;
   }
 `;
 

@@ -30,6 +30,21 @@ export const updateAvailableDates = createAsyncThunk(
   }
 );
 
+export const updateCounselorInfo = createAsyncThunk(
+  "counselor/updateCounselorInfo",
+  async (payload) => {
+    const { data } = await axios.patch(
+      `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${payload.userId}`,
+      payload.newCounselorInfo,
+      {
+        withCredentials: true,
+      }
+    );
+
+    return data.data.counselor;
+  }
+);
+
 const initialState = {
   status: "",
   error: null,
@@ -73,6 +88,17 @@ const counselorSlice = createSlice({
       state.data.availableDates = action.payload;
     },
     [updateAvailableDates.rejected]: (state, action) => {
+      state.status = "failed";
+      state.error = action.error.message;
+    },
+    [updateCounselorInfo.pending]: (state) => {
+      state.status = "pending";
+    },
+    [updateCounselorInfo.fulfilled]: (state, action) => {
+      state.status = "success";
+      state.data = action.payload;
+    },
+    [updateCounselorInfo.rejected]: (state, action) => {
       state.status = "failed";
       state.error = action.error.message;
     },
