@@ -7,6 +7,7 @@ import ReservationDate from "./ReservationDate";
 import SubHeader from "./common/SubHeader";
 import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
 import Modal from "./common/Modal";
+import ImageWrapper from "./shared/ImageWrapper";
 import {
   STORY_SUB_HEADER_HEADING,
   STORY_SUB_HEADER_PARAGRAPH,
@@ -22,7 +23,7 @@ function CounselorDetail() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await getCounselor({ userId: user_id });
+        const { data } = await getCounselor(user_id);
 
         setCounselor(data.data);
         setIsLoading(false);
@@ -51,7 +52,7 @@ function CounselorDetail() {
             <section>
               <CounselorHeaderWrapper>
                 <ImageWrapper>
-                  <img />
+                  <img src={counselor.imageURL} alt="Profile Image" />
                 </ImageWrapper>
                 <CounselorInfoWrapper>
                   <div className="name">
@@ -62,8 +63,12 @@ function CounselorDetail() {
                       return <Tag key={tag}>#{tag}</Tag>;
                     })}
                   </div>
-                  <div className="short">{counselor.counselor.shortInput}</div>
-                  <div className="long">{counselor.counselor.longInput}</div>
+                  <div className="short">
+                    짧은 소개: {counselor.counselor.shortInput}
+                  </div>
+                  <div className="long">
+                    긴줄 소개: {counselor.counselor.longInput}
+                  </div>
                 </CounselorInfoWrapper>
               </CounselorHeaderWrapper>
               <InstructionWrapper>
@@ -112,37 +117,27 @@ const CounselorHeaderWrapper = styled.div`
   overflow: scroll;
 `;
 
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30rem;
-  height: 100%;
-  background-color: #000000;
-
-  img {
-    width: 20rem;
-    height: 20rem;
-    border-radius: 50%;
-    background-color: #ffffff;
-  }
-`;
-
 const CounselorInfoWrapper = styled.div`
   width: 100%;
   margin: auto;
-  font-size: 2.25rem;
-  text-align: center;
+  font-size: 1.7rem;
   line-height: 3rem;
+  padding-left: 70px;
 
   .name {
-    font-size: 3rem;
+    padding: 10px;
+    font-size: 2.7rem;
+    font-weight: bold;
     color: #3e005b;
   }
 
   .tags {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    padding-top: 20px 0;
+  }
+
+  .short,
+  .long {
+    margin: 1rem;
   }
 `;
 
@@ -158,7 +153,8 @@ const InstructionWrapper = styled.div`
   margin-top: 3rem;
   border: 0.8rem solid #bfaea4;
   border-radius: 3rem;
-  font-size: 2.5rem;
+  font-size: 1.7rem;
+  line-height: 4rem;
 
   div {
     position: relative;

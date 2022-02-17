@@ -287,11 +287,21 @@ const StyledVideo = styled.video`
 const Button = styled.button`
   width: 10rem;
   height: 5rem;
+  margin: 0 10px;
+  padding: 5px;
+  background-color: #95bcf0;
+  border-radius: 3rem;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
 `;
 
 const RemainingTimeWrapper = styled.div`
-  font-size: 3rem;
-  color: red;
+  margin-left: 10rem;
+  font-size: 2rem;
+  font-weight: bolder;
 `;
 
 export default ChatRoom;
