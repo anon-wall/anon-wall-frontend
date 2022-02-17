@@ -30,7 +30,7 @@ function StoryList() {
     (async () => {
       try {
         const { data } = await getCounselList({
-          params: { page: 1, limit: 6, tag: keyword },
+          params: { page, limit: 6, tag: keyword },
           withCredentials: true,
         });
 
@@ -107,12 +107,11 @@ function StoryList() {
 const StoryListContainer = styled.div`
   display: grid;
   justify-content: center;
-  padding: 2em 0 0;
-  grid-template-columns: repeat(3, 47rem);
+  grid-template-columns: repeat(3, 45rem);
   grid-template-rows: repeat(2, 36rem);
-  column-gap: 2vw;
+  column-gap: 2rem;
   row-gap: 5rem;
-  width: 100%;
+  margin-top: 5rem;
 `;
 
 export default StoryList;

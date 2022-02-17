@@ -41,6 +41,8 @@ const StoryWrapper = styled.div`
   align-items: center;
   border: 6px solid #bfaea4;
   border-radius: 40px;
+  padding: 10px;
+  margin: 10px;
 `;
 
 StoryListEntry.propTypes = {

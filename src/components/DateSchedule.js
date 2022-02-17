@@ -37,7 +37,7 @@ function DateSchedule({ onError }) {
         const { startDate, endDate, _id } = date;
 
         return (
-          <div key={_id}>
+          <div className="date-line" key={_id}>
             <span>{format(parseISO(startDate), "yyyy.MM.dd(eee)")}</span>
             <span>
               {format(parseISO(startDate), "HH")}시 ~
@@ -59,6 +59,25 @@ function DateSchedule({ onError }) {
 const ScheduleContainer = styled.div`
   padding: 20px;
   font-size: 1.5rem;
+
+  .date-line {
+    margin: 10px;
+  }
+
+  .date-line button {
+    margin: 0 10px;
+    padding: 5px;
+    background-color: #95bcf0;
+    border-radius: 3rem;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  span {
+    margin: 0 5px;
+  }
 `;
 
 DateSchedule.propTypes = {

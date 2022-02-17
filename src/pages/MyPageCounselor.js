@@ -113,7 +113,7 @@ function MyPageCounselor() {
               </StyledTransparentButton>
             )}
           </div>
-          {isChanged ? (
+          {!isChanged ? (
             <InfoWrapper>
               <div>호칭 입력: {counselorInfo.familyTitle}</div>
               <div>
@@ -221,8 +221,16 @@ const InfoContainer = styled.div`
   overflow: scroll;
 
   button {
-    border-radius: 5rem;
+    margin: 0 10px;
+    padding: 5px;
+    width: 80px;
+    background-color: #95bcf0;
+    border-radius: 3rem;
+    border: none;
+    color: white;
     font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
   }
 `;
 

@@ -25,6 +25,9 @@ const StoryWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin: 0.5rem;
+  padding: 0 4rem;
+  height: 9rem;
   border: 0.2rem solid #bfaea4;
   border-radius: 4rem;
 `;

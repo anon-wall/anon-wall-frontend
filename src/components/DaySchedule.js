@@ -29,7 +29,7 @@ function DaySchedule({ dayNumber, onError }) {
   return (
     <WeekDayContainer>
       <div className="day-name">{WEEK_DAYS[dayNumber]}</div>
-      <div>
+      <div className="time-line-container">
         {availableDates
           .filter(({ day }) => day === Number(dayNumber))
           .sort((a, b) => a.startHour - b.startHour)
@@ -40,7 +40,7 @@ function DaySchedule({ dayNumber, onError }) {
                   {startHour}시 ~ {endHour}시
                 </span>
                 <button className="delete" id={_id} onClick={handleDelete}>
-                  Delete
+                  삭제
                 </button>
               </div>
             );
@@ -53,7 +53,8 @@ function DaySchedule({ dayNumber, onError }) {
 const WeekDayContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
+  justify-content: space-between;
+  width: 90%;
   padding: 2rem;
   font-size: 1.5rem;
   border-top: 1px solid grey;
@@ -63,8 +64,26 @@ const WeekDayContainer = styled.div`
     font-size: 1.7rem;
   }
 
+  .time-line-container {
+    width: 100%;
+  }
+
   .time-line {
-    overflow: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+  }
+
+  .time-line button {
+    margin: 0 10px;
+    padding: 5px;
+    background-color: #95bcf0;
+    border-radius: 3rem;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
   }
 `;
 

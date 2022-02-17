@@ -90,9 +90,9 @@ const SearchBarContainer = styled.div`
   }
 
   .search-container input:focus {
-    border: 3.5px solid red;
+    border: 3.5px solid #95bcf0;
     transition: 0.35s ease;
-    color: red;
+    color: #95bcf0;
     &::-webkit-input-placeholder {
       transition: opacity 0.45s ease;
       opacity: 0;
