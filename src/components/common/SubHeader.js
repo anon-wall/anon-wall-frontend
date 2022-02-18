@@ -19,13 +19,16 @@ const SubHeaderWrapper = styled.div`
   min-height: 14rem;
   background-color: #dedfac;
   text-align: center;
+  border: 3px solid black;
 
   .headingWrapper {
     height: 30%;
+    font-family: "GangwonEdu_OTFBoldA";
   }
 
   .paragraphWrapper {
     height: 65%;
+    font-family: "GangwonEdu_OTFBoldA";
   }
 
   h2 {

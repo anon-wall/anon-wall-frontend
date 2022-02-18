@@ -64,8 +64,8 @@ const MainContainer = styled.section`
   .reservation-label {
     h2 {
       position: relative;
+      padding-left: 3em;
       margin-top: 3rem;
-      left: 3em;
     }
   }
 `;

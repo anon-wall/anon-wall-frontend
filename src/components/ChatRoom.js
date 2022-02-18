@@ -1,18 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Peer from "simple-peer";
 import io from "socket.io-client";
 import styled from "styled-components";
-import { differenceInSeconds } from "date-fns";
+import { differenceInSeconds, differenceInMinutes } from "date-fns";
 
 import Modal from "./common/Modal";
 import Video from "./Video";
 import useFetch from "../hooks/useFetch";
 import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
+import MessageWrapper from "./shared/MessageWrapper";
 
 function ChatRoom() {
   const { counsel_id: roomId } = useParams();
+  const navigate = useNavigate();
 
   const loggedInUserId = useSelector(({ user }) => user.data._id);
 
@@ -129,16 +131,32 @@ function ChatRoom() {
     })();
 
     let timerId = setTimeout(function tick() {
-      const difference = differenceInSeconds(
+      const differenceMinutes = differenceInMinutes(
         new Date(counsel.endDate),
         new Date()
       );
 
-      if (difference <= 60) {
-        setRemainingTime(Math.floor(difference));
+      if (
+        differenceMinutes >= 1 &&
+        remainingTime?.minutes !== differenceMinutes
+      ) {
+        setRemainingTime({
+          minutes: Math.floor(differenceMinutes),
+        });
       }
 
-      if (difference <= 0) {
+      const differenceSeconds = differenceInSeconds(
+        new Date(counsel.endDate),
+        new Date()
+      );
+
+      if (differenceSeconds <= 59) {
+        setRemainingTime({
+          seconds: Math.floor(differenceSeconds),
+        });
+      }
+
+      if (differenceSeconds <= 0) {
         peersRef.current = [];
         streamPointer.getTracks().forEach((track) => track.stop());
 
@@ -220,42 +238,63 @@ function ChatRoom() {
       {isLoading && <StyledLoadingSpinner />}
       {!isLoading && (errorMessage || fetchError) && isModalOn && (
         <Modal onClick={setIsModalOn} width="40rem" height="20rem">
-          {errorMessage || fetchError}
+          <MessageWrapper>
+            <div>{errorMessage || fetchError}</div>
+            <button onClick={() => navigate(-1)}>Back</button>
+          </MessageWrapper>
         </Modal>
       )}
-      {!isLoading && !errorMessage && (
-        <ChatRoomContainer>
-          <VideoContainer>
-            <div className="myVideo">
-              <StyledVideo playsInline muted ref={myVideo} autoPlay />
-            </div>
-            {peers?.map((peer) => {
-              return (
-                <div className="myVideo" key={peer.peerID}>
-                  <Video
-                    playsInline
-                    key={peer.peerID}
-                    peer={peer.peer}
-                    autoPlay
-                  />
-                </div>
-              );
-            })}
-          </VideoContainer>
-          <ButtonContainer>
-            <Button onClick={handleClickCameraButton}>{cameraText}</Button>
-            <Button onClick={handleClickMuteButton}>{muteText}</Button>
-            {remainingTime <= 60 && (
-              <RemainingTimeWrapper>
-                남은시간: {remainingTime}
-              </RemainingTimeWrapper>
-            )}
-          </ButtonContainer>
-        </ChatRoomContainer>
-      )}
+      <PageContainer>
+        {!isLoading && !errorMessage && (
+          <ChatRoomContainer>
+            <VideoContainer>
+              <div className="myVideo">
+                <StyledVideo playsInline muted ref={myVideo} autoPlay />
+              </div>
+              {peers?.map((peer) => {
+                return (
+                  <div className="myVideo" key={peer.peerID}>
+                    <Video
+                      playsInline
+                      key={peer.peerID}
+                      peer={peer.peer}
+                      autoPlay
+                    />
+                  </div>
+                );
+              })}
+            </VideoContainer>
+            <ButtonContainer>
+              <Button onClick={handleClickCameraButton}>{cameraText}</Button>
+              <Button onClick={handleClickMuteButton}>{muteText}</Button>
+              <CounselTitleWrapper>
+                <span className="title">사연 제목: </span>
+                {counsel?.title}
+              </CounselTitleWrapper>
+              {(remainingTime?.minutes || remainingTime?.seconds) && (
+                <RemainingTimeWrapper>
+                  {remainingTime?.minutes && (
+                    <span>남은시간: {remainingTime?.minutes}분</span>
+                  )}
+                  {remainingTime?.seconds && (
+                    <span>남은시간: {remainingTime?.seconds}초</span>
+                  )}
+                </RemainingTimeWrapper>
+              )}
+            </ButtonContainer>
+          </ChatRoomContainer>
+        )}
+      </PageContainer>
     </>
   );
 }
+
+const PageContainer = styled.div`
+  border-top: 3px solid black;
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+  border-bottom: 3px solid black;
+`;
 
 const ChatRoomContainer = styled.div`
   height: 100vh;
@@ -308,6 +347,15 @@ const RemainingTimeWrapper = styled.div`
   margin-left: 10rem;
   font-size: 2rem;
   font-weight: bolder;
+`;
+
+const CounselTitleWrapper = styled.div`
+  margin-left: 10rem;
+  font-size: 2rem;
+
+  .title {
+    font-weight: bolder;
+  }
 `;
 
 export default ChatRoom;

@@ -7,6 +7,7 @@ import ReservationDate from "./ReservationDate";
 import SubHeader from "./common/SubHeader";
 import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
 import Modal from "./common/Modal";
+import PageContainer from "./shared/PageContainer";
 import ImageWrapper from "./shared/ImageWrapper";
 import {
   STORY_SUB_HEADER_HEADING,
@@ -40,56 +41,60 @@ function CounselorDetail() {
         heading={STORY_SUB_HEADER_HEADING}
         paragraph={STORY_SUB_HEADER_PARAGRAPH}
       />
-      <MainContainer>
-        {isLoading && <StyledLoadingSpinner />}
-        {!isLoading && errorMessage && (
-          <Modal onClick={setErrorMessage} width="50rem" height="20rem">
-            {errorMessage}
-          </Modal>
-        )}
-        {!isLoading && !errorMessage && counselor && (
-          <>
-            <section>
-              <CounselorHeaderWrapper>
-                <ImageWrapper>
-                  <img src={counselor.imageURL} alt="Profile Image" />
-                </ImageWrapper>
-                <CounselorInfoWrapper>
-                  <div className="name">
-                    {counselor.nickname} {counselor.counselor.familyTitle}
+      <PageContainer>
+        <MainContainer>
+          {isLoading && <StyledLoadingSpinner />}
+          {!isLoading && errorMessage && (
+            <Modal onClick={setErrorMessage} width="50rem" height="20rem">
+              {errorMessage}
+            </Modal>
+          )}
+          {!isLoading && !errorMessage && counselor && (
+            <>
+              <section>
+                <CounselorHeaderWrapper>
+                  <ImageWrapper>
+                    <img src={counselor.imageURL} alt="Profile Image" />
+                  </ImageWrapper>
+                  <CounselorInfoWrapper>
+                    <div className="name">
+                      {counselor.nickname} {counselor.counselor.familyTitle}
+                    </div>
+                    <div className="tags">
+                      {counselor.counselor.tag.map((tag) => {
+                        return <Tag key={tag}>#{tag}</Tag>;
+                      })}
+                    </div>
+                    <div className="short">
+                      짧은 소개: {counselor.counselor.shortInput}
+                    </div>
+                    <div className="long">
+                      긴줄 소개: {counselor.counselor.longInput}
+                    </div>
+                  </CounselorInfoWrapper>
+                </CounselorHeaderWrapper>
+                <InstructionWrapper>
+                  <div>
+                    <p>
+                      1. 하나의 고민 담벼락은 한명의 카운슬러만 배정될 수
+                      있습니다.
+                    </p>
+                    <p>2. 카운슬러의 예약 시간을 확인하여 예약을 시작하세요.</p>
+                    <p>
+                      3. 예약 시간이 되면 나의 담벼락에서 입장할 수 있습니다.
+                    </p>
+                    <p>
+                      4. 익명으로 진행되나 선택에 따라서 영상 통화로도 이용이
+                      가능합니다.
+                    </p>
                   </div>
-                  <div className="tags">
-                    {counselor.counselor.tag.map((tag) => {
-                      return <Tag key={tag}>#{tag}</Tag>;
-                    })}
-                  </div>
-                  <div className="short">
-                    짧은 소개: {counselor.counselor.shortInput}
-                  </div>
-                  <div className="long">
-                    긴줄 소개: {counselor.counselor.longInput}
-                  </div>
-                </CounselorInfoWrapper>
-              </CounselorHeaderWrapper>
-              <InstructionWrapper>
-                <div>
-                  <p>
-                    1. 하나의 고민 담벼락은 한명의 카운슬러만 배정될 수
-                    있습니다.
-                  </p>
-                  <p>2. 카운슬러의 예약 시간을 확인하여 예약을 시작하세요.</p>
-                  <p>3. 예약 시간이 되면 나의 담벼락에서 입장할 수 있습니다.</p>
-                  <p>
-                    4. 익명으로 진행되나 선택에 따라서 영상 통화로도 이용이
-                    가능합니다.
-                  </p>
-                </div>
-              </InstructionWrapper>
-            </section>
-            <ReservationDate counselor={counselor} />
-          </>
-        )}
-      </MainContainer>
+                </InstructionWrapper>
+              </section>
+              <ReservationDate counselor={counselor} />
+            </>
+          )}
+        </MainContainer>
+      </PageContainer>
     </>
   );
 }

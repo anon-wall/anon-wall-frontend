@@ -43,14 +43,6 @@ function AuthButton() {
 }
 
 const ButtonStyle = styled.div`
-  @font-face {
-    font-family: "yangjin";
-    src: url("https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
-
   button {
     font-family: "yangjin";
     font-size: 2.5rem;

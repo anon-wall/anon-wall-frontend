@@ -154,9 +154,10 @@ const StoryHeaderWrapper = styled.div`
 const StoryInfoWrapper = styled.div`
   width: 100%;
   margin: auto;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   text-align: center;
   line-height: 3rem;
+  font-family: "ACCchildrenheartOTF-Regular";
   .name {
     font-size: 3rem;
     color: #3e005b;
@@ -175,7 +176,8 @@ const StoryBodyWrapper = styled.div`
   margin-top: 3rem;
   border: 0.8rem solid #bfaea4;
   border-radius: 3rem;
-  font-size: 2.5rem;
+  font-size: 4rem;
+  font-family: "ACCchildrenheartOTF-Regular";
   overflow-y: auto;
 `;
 
@@ -187,6 +189,7 @@ const AsideWrapper = styled.div`
   margin-top: 3rem;
   border: 0.8rem solid #bfaea4;
   border-radius: 3rem;
+  font-family: "ACCchildrenheartOTF-Regular";
 `;
 
 const ButtonWrapper = styled.div`
@@ -196,9 +199,10 @@ const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: center;
   button {
-    font-size: 1.8rem;
     padding: 1rem;
     border-radius: 3rem;
+    font-size: 1.8rem;
+    font-family: "GangwonEdu_OTFBoldA";
   }
 `;
 

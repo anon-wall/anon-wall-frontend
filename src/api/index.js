@@ -36,6 +36,9 @@ export async function getLoggedInUser() {
       throw new Error("로그인이 필요합니다.");
     }
 
+    axios.defaults.headers.common[ACCESS_TOKEN] =
+      localStorage.getItem(ACCESS_TOKEN);
+
     const { data } = await axios.get(
       `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users`,
       {

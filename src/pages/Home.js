@@ -41,12 +41,14 @@ const FillerBox = styled.div`
   width: 100%;
   height: 5rem;
   background-color: ${({ theme }) => theme.colors.filler_bg};
+  border: 3px solid black;
 `;
 
 const Container = styled.section`
   display: flex;
   height: 100rem;
-  border: 1px solid black;
+  border-left: 3px solid black;
+  border-right: 3px solid black;
 `;
 
 const DescriptionWrapper = styled.div`
@@ -55,13 +57,14 @@ const DescriptionWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  border-right: 1px solid black;
+  border-right: 3px solid black;
   background-color: ${({ theme }) => theme.colors.home_bg};
 
   .message {
     margin: 1.4rem;
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 3.5rem;
+    font-family: "GangwonEdu_OTFBoldA";
   }
 
   button {
@@ -70,7 +73,8 @@ const DescriptionWrapper = styled.div`
     height: 5rem;
     margin: auto;
     border-radius: 1rem;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    font-family: "GangwonEdu_OTFBoldA";
   }
 `;
 
