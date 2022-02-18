@@ -11,8 +11,6 @@ import Video from "./Video";
 import useFetch from "../hooks/useFetch";
 import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
 
-const socket = io.connect(process.env.REACT_APP_LOCAL_SERVER_URL);
-
 function ChatRoom() {
   const { counsel_id: roomId } = useParams();
 
@@ -32,6 +30,7 @@ function ChatRoom() {
 
   const [peers, setPeers] = useState([]);
   const [stream, setStream] = useState(null);
+  const socketRef = useRef(null);
   const myVideo = useRef();
   const peersRef = useRef([]);
 
@@ -45,6 +44,9 @@ function ChatRoom() {
     if (!counsel) {
       return;
     }
+
+    socketRef.current = io.connect(process.env.REACT_APP_LOCAL_SERVER_URL);
+    const { current: socket } = socketRef;
 
     let streamPointer;
 
@@ -161,6 +163,7 @@ function ChatRoom() {
       socket.removeAllListeners("currentUsers");
       socket.removeAllListeners("userJoined");
       socket.removeAllListeners("receivingReturnedSignal");
+      socket.off();
     };
   }, [counsel]);
 
@@ -172,7 +175,11 @@ function ChatRoom() {
     });
 
     peer.on("signal", (signal) => {
-      socket.emit("sendingSignal", { userToSignal, callerID, signal });
+      socketRef.current.emit("sendingSignal", {
+        userToSignal,
+        callerID,
+        signal,
+      });
     });
 
     return peer;
@@ -186,7 +193,7 @@ function ChatRoom() {
     });
 
     peer.on("signal", (signal) => {
-      socket.emit("returningSignal", { signal, callerID });
+      socketRef.current.emit("returningSignal", { signal, callerID });
     });
 
     peer.signal(incomingSignal);
