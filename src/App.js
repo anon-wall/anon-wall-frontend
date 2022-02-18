@@ -16,7 +16,7 @@ import MyPage from "./pages/MyPage";
 import PrivateRoute from "./components/PrivateRoute";
 import Modal from "./components/common/Modal";
 import UserStoryList from "./pages/UserStoryList";
-import { getCookie } from "./api/cookie";
+import { ACCESS_TOKEN } from "./constants/home";
 import { getLoginUserByToken } from "./features/userSlice";
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (!isLoggedIn && getCookie("accessToken")) {
+    if (!isLoggedIn && localStorage.getItem(ACCESS_TOKEN)) {
       dispatch(getLoginUserByToken(setErrorMessage));
     }
   }, []);
