@@ -124,9 +124,9 @@ function MyPageCounselor() {
           ) : (
             <InfoFormWrapper>
               <div>
-                <label>호칭 입력:</label>
+                <label htmlFor="familyTitle">호칭 입력:</label>
                 <input
-                  className="familyTitle"
+                  id="familyTitle"
                   type="text"
                   placeholder={FAMILY_TITLE}
                   onChange={(e) => handleChangeTitle(e.target.value)}
@@ -134,9 +134,9 @@ function MyPageCounselor() {
                 />
               </div>
               <div>
-                <label>태그 입력:</label>
+                <label htmlFor="tags">태그 입력:</label>
                 <input
-                  className="tags"
+                  id="tags"
                   type="text"
                   placeholder={INPUT_TAG}
                   onChange={(e) => handleChangeTag(e.target.value)}
@@ -144,9 +144,9 @@ function MyPageCounselor() {
                 />
               </div>
               <div>
-                <label>한줄 소개:</label>
+                <label htmlFor="short-input">한줄 소개:</label>
                 <input
-                  className="short-input"
+                  id="short-input"
                   type="text"
                   placeholder={SHORT_INPUT}
                   onChange={(e) => handleChangeShortInput(e.target.value)}
@@ -154,9 +154,9 @@ function MyPageCounselor() {
                 />
               </div>
               <div>
-                <label>긴줄 소개:</label>
+                <label htmlFor="long-input">긴줄 소개:</label>
                 <textarea
-                  className="long-input"
+                  id="long-input"
                   type="text"
                   placeholder={LONG_INPUT}
                   onChange={(e) => handleChangeLongInput(e.target.value)}
@@ -245,7 +245,7 @@ const InfoWrapper = styled.div`
   line-height: 3rem;
   font-size: 1.5rem;
 
-  .tag {
+  #tag {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
