@@ -208,9 +208,8 @@ const MainContainer = styled.section`
 
   .sub-title {
     h2 {
-      position: relative;
       margin-top: 3rem;
-      left: 3em;
+      padding-left: 3em;
     }
   }
 `;

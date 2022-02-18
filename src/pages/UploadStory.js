@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { createCounsel } from "../api/axios";
 import SubHeader from "../components/common/SubHeader";
 import Modal from "../components/common/Modal";
+import MessageWrapper from "../components/shared/MessageWrapper";
 import {
   STORY_SUB_HEADER_HEADING,
   STORY_SUB_HEADER_PARAGRAPH,
@@ -167,25 +168,6 @@ const FormWrapper = styled.div`
     border-radius: 2rem;
     background: #e8e8e8;
     box-shadow: 0rem 0rem 0.7rem 0.3rem rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-  }
-`;
-
-const MessageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  button {
-    margin: 50px;
-    padding: 5px;
-    width: 80px;
-    background-color: #95bcf0;
-    border-radius: 3rem;
-    border: none;
-    color: white;
-    font-size: 1.6rem;
-    font-weight: bold;
     cursor: pointer;
   }
 `;

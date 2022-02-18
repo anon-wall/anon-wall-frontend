@@ -12,12 +12,20 @@ function MyPage() {
   }, []);
 
   return (
-    <MyPageContainer>
-      <Sidebar />
-      <Outlet />
-    </MyPageContainer>
+    <PageContainer>
+      <MyPageContainer>
+        <Sidebar />
+        <Outlet />
+      </MyPageContainer>
+    </PageContainer>
   );
 }
+
+const PageContainer = styled.div`
+  border-top: 3px solid black;
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+`;
 
 const MyPageContainer = styled.section`
   display: flex;
@@ -26,6 +34,7 @@ const MyPageContainer = styled.section`
   max-width: 155rem;
   height: 100%;
   margin: 0 auto;
+  font-family: "GangwonEdu_OTFBoldA";
 `;
 
 export default MyPage;

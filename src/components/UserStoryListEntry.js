@@ -12,11 +12,11 @@ function UserStoryListEntry({ id, title, endDate, counselors }) {
 
   return (
     <StoryWrapper onClick={handleClickStoryDetail}>
-      <MyStoryInfoWrapper>
+      <StoryContentWrapper>
         <div className="title">제목: {title}</div>
-        <div className="endDate">{endDate}</div>
         <div className="counselors">수락 요청: {counselors}</div>
-      </MyStoryInfoWrapper>
+        <div className="endDate">{endDate}</div>
+      </StoryContentWrapper>
     </StoryWrapper>
   );
 }
@@ -25,15 +25,24 @@ const StoryWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0.5rem;
+  width: 100%;
+  min-height: 13rem;
   padding: 0 4rem;
-  height: 9rem;
-  border: 0.2rem solid #bfaea4;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+  border: 0.3rem solid ${({ theme }) => theme.colors.card_border_1};
   border-radius: 4rem;
+  font-size: ${({ theme }) => theme.fontSizes.mmmm};
 `;
 
-const MyStoryInfoWrapper = styled.div`
+const StoryContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
+
+  .endDate {
+    align-self: flex-end;
+  }
 `;
 
 UserStoryListEntry.propTypes = {

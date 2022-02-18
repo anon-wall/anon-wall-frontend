@@ -7,7 +7,7 @@ function Footer() {
     <FooterWrapper>
       <div className="copyright">
         <span>&copy; </span>
-        {COPYRIGHT}
+        <span className="copyright-message">{COPYRIGHT}</span>
       </div>
     </FooterWrapper>
   );
@@ -18,11 +18,17 @@ const FooterWrapper = styled.footer`
   justify-content: center;
   align-items: center;
   height: 8rem;
-  border-top: 1px solid black;
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+  border-bottom: 3px solid black;
   background-color: ${({ theme }) => theme.colors.footer_bg};
 
   .copyright {
     font-size: ${({ theme }) => theme.fontSizes.lll};
+  }
+
+  .copyright-message {
+    font-family: "GangwonEdu_OTFBoldA";
   }
 `;
 

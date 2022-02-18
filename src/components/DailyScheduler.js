@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import DatePicker from "react-datepicker";
-import { add, isSameDay, isEqual, parseISO } from "date-fns";
+import { add, isSameDay, isEqual } from "date-fns";
 import ko from "date-fns/locale/ko";
 import styled from "styled-components";
 
@@ -130,10 +130,12 @@ function DailyScheduler() {
 
   function getEqualSchedule(timeType) {
     const equalDateSchedule = scheduleList
-      ?.filter((schedule) =>
-        isSameDay(selectedDate, parseISO(schedule[timeType]))
-      )
-      .map((schedule) => parseISO(schedule[timeType]));
+      ?.filter((schedule) => {
+        if (selectedDate) {
+          return isSameDay(selectedDate, new Date(schedule[timeType]));
+        }
+      })
+      .map((schedule) => new Date(schedule[timeType]));
 
     return equalDateSchedule;
   }

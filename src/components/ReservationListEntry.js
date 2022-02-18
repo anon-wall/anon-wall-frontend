@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { parseISO, format } from "date-fns";
 
 function ReservationListEntry({ counsel, type }) {
   const navigate = useNavigate();
 
-  const { counselee, counselor, startDate, _id } = counsel;
+  const { counselee, counselor, startDate, _id, title } = counsel;
   const counterpart =
     type === "counselee" ? counselor.nickname : counselee.nickname;
 
@@ -17,10 +18,16 @@ function ReservationListEntry({ counsel, type }) {
     <ReservationWrapper key={_id}>
       <InfoWrapper>
         <div className="info">
-          <span>상대방: </span>
-          <div>{counterpart}</div>
-          <span>날짜:</span>
-          <div>{new Date(startDate).toLocaleString()}</div>
+          <div>
+            <span className="head">상대방: </span>
+            <span>{counterpart}</span>
+          </div>
+          <div>
+            <span className="head">제목: </span>
+            <span>{title}</span>
+          </div>
+          <span className="head">날짜:</span>
+          <div>{format(parseISO(startDate), "yyyy-MM-dd aa HH:mm")}</div>
         </div>
       </InfoWrapper>
       <ButtonWrapper>
@@ -36,7 +43,7 @@ function ReservationListEntry({ counsel, type }) {
 }
 
 const ReservationWrapper = styled.div`
-  width: 25rem;
+  width: 28rem;
   min-height: 27.5rem;
   padding: 1rem;
   text-align: center;
@@ -49,12 +56,15 @@ const InfoWrapper = styled.div`
   background-color: #dedfac;
   border-radius: 30%;
 
-  span {
+  .head {
     font-weight: 800;
   }
 
   .info {
-    padding-top: 3rem;
+    padding: 4rem 0 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 

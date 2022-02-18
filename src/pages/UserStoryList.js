@@ -92,7 +92,7 @@ const UserStoryListContainer = styled.div`
   flex-direction: column;
   margin-left: 3rem;
   padding: 2rem;
-  width: 100%;
+  width: 90%;
   font-size: 1.3rem;
 `;
 

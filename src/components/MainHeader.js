@@ -43,17 +43,11 @@ function MainHeader() {
 }
 
 const MainHeaderContainer = styled.header`
-  @font-face {
-    font-family: "yangjin";
-    src: url("https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
-
   height: 10rem;
   background-color: ${({ theme }) => theme.colors.mainHeader_bg};
-  border-bottom: 1px solid black;
+  border-top: 3px solid black;
+  border-left: 3px solid black;
+  border-right: 3px solid black;
 
   nav {
     display: grid;

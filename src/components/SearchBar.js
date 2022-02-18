@@ -68,7 +68,9 @@ const SearchBarContainer = styled.div`
   .button-container button {
     float: right;
     height: 4rem;
-    margin: 1rem 2rem;
+    margin: 2rem 3rem;
+    font-size: 2.2rem;
+    font-family: "GangwonEdu_OTFBoldA";
   }
 
   .search-container {
@@ -86,6 +88,7 @@ const SearchBarContainer = styled.div`
     border-radius: 30px;
     outline: none;
     font-size: 1.6rem;
+    font-family: "GangwonEdu_OTFBoldA";
     color: #bfaea4;
   }
 
