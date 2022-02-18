@@ -124,11 +124,9 @@ const FormWrapper = styled.div`
   }
 
   .title {
-    vertical-align: top;
     width: 70rem;
     height: 5rem;
     margin: 1rem;
-    box-sizing: border-box;
     border: 0.2rem solid #bfaea4;
     border-radius: 1.5rem;
     text-align: center;
@@ -138,10 +136,8 @@ const FormWrapper = styled.div`
     vertical-align: top;
     width: 70rem;
     height: 37rem;
-    box-sizing: border-box;
-    resize: none;
     margin: 10px 0;
-    padding-top: 5%;
+    padding-top: 3rem;
     border: 0.2rem solid #bfaea4;
     border-radius: 1.5rem;
     text-align: center;
@@ -154,11 +150,9 @@ const FormWrapper = styled.div`
   }
 
   .tag {
-    vertical-align: top;
     width: 70rem;
     height: 5rem;
     margin: 1rem;
-    box-sizing: border-box;
     border: 0.2rem solid #bfaea4;
     border-radius: 1.5rem;
     text-align: center;
@@ -167,14 +161,13 @@ const FormWrapper = styled.div`
   .submit {
     width: 15rem;
     height: 4rem;
-    align-items: flex-start;
     padding: 0.8rem 2.9rem;
     margin: 1rem;
-    box-sizing: border-box;
     border: 0.1rem solid #b0adad;
-    border-radius: 4rem;
+    border-radius: 2rem;
     background: #e8e8e8;
-    box-shadow: 0rem 0rem 2.5rem 0.3rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0rem 0rem 0.7rem 0.3rem rgba(0, 0, 0, 0.1);
+    cursor: pointer;
   }
 `;
 

@@ -9,7 +9,7 @@ import StyledLoadingSpinner from "./shared/StyledLoadingSpinner";
 import { PREV, NEXT } from "../constants/story";
 
 function ReservationList({ payload, onError }) {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [counsels, setCounsels] = useState([]);
   const [page, setPage] = useState(1);
   const [hasPage, setHasPage] = useState({
@@ -30,10 +30,10 @@ function ReservationList({ payload, onError }) {
           prev: data.data.hasPrevPage,
           next: data.data.hasNextPage,
         });
+        setLoading(false);
       })();
-
-      setLoading(false);
     } catch (err) {
+      setLoading(false);
       onError(err.data.message);
     }
   }, [userId]);
