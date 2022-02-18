@@ -3,6 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import AuthButton from "./AuthButton";
+import logoImage from "../assets/images/anon-wall.png";
 
 function MainHeader() {
   return (
@@ -11,7 +12,7 @@ function MainHeader() {
         <div>
           <Link to="/">
             <div className="logo">
-              <h2>Anon-Wall</h2>
+              <img src={logoImage} />
             </div>
           </Link>
         </div>
@@ -42,6 +43,14 @@ function MainHeader() {
 }
 
 const MainHeaderContainer = styled.header`
+  @font-face {
+    font-family: "yangjin";
+    src: url("https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff")
+      format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+
   height: 10rem;
   background-color: ${({ theme }) => theme.colors.mainHeader_bg};
   border-bottom: 1px solid black;
@@ -55,8 +64,15 @@ const MainHeaderContainer = styled.header`
   }
 
   .logo {
+    width: 65%;
+    height: 65%;
     margin-left: 5rem;
     font-size: 2.5rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .mainHeader-link {
@@ -71,7 +87,8 @@ const MainHeaderContainer = styled.header`
 
   .mainHeader-link li {
     width: 15rem;
-    font-size: 1.7rem;
+    font-family: "yangjin";
+    font-size: 2.5rem;
   }
 
   .mainHeader-link a {
