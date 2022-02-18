@@ -215,6 +215,7 @@ const DatePickerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 45%;
 
   .picker-field {
     margin: 30px;

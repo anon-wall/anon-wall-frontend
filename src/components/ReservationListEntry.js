@@ -5,8 +5,6 @@ import styled from "styled-components";
 function ReservationListEntry({ counsel, type }) {
   const navigate = useNavigate();
 
-  console.log(counsel);
-
   const { counselee, counselor, startDate, _id } = counsel;
   const counterpart =
     type === "counselee" ? counselor.nickname : counselee.nickname;

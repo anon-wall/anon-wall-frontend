@@ -78,6 +78,11 @@ function MyPageCounselor() {
     }));
   }
 
+  function handleOnKeyDown(e) {
+    e.target.style.height = "inherit";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  }
+
   function handleChangeButton() {
     setIsChanged((bool) => !bool);
   }
@@ -108,7 +113,9 @@ function MyPageCounselor() {
               <div>
                 태그:
                 {counselorInfo.tag.map((tag) => (
-                  <span key={tag}>#{tag}</span>
+                  <span className="tag" key={tag}>
+                    #{tag}
+                  </span>
                 ))}
               </div>
               <div>한줄 소개: {counselorInfo.shortInput}</div>
@@ -153,6 +160,7 @@ function MyPageCounselor() {
                   type="text"
                   placeholder={LONG_INPUT}
                   onChange={(e) => handleChangeLongInput(e.target.value)}
+                  onKeyDown={handleOnKeyDown}
                   value={newCounselorInfo.longInput}
                 />
               </div>
@@ -213,7 +221,7 @@ const InfoContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 90%;
-  min-height: 20rem;
+  min-height: 25rem;
   margin: 0 auto;
   margin-top: 3rem;
   border: 0.5rem solid #c9bab2;
@@ -237,7 +245,7 @@ const InfoWrapper = styled.div`
   line-height: 3rem;
   font-size: 1.5rem;
 
-  .tags {
+  .tag {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
@@ -246,22 +254,24 @@ const InfoWrapper = styled.div`
 const InfoFormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 50%;
+  padding-left: 1.5rem;
   line-height: 3rem;
-  padding-left: 20px;
 
   div {
     display: flex;
+    margin-bottom: 0.5rem;
+  }
 
-    label {
-      font-size: ${({ theme }) => theme.fontSizes.mmm};
-    }
+  label {
+    font-size: ${({ theme }) => theme.fontSizes.mmm};
   }
 
   input,
   textarea {
     width: 80%;
     padding-left: 5px;
+    margin-left: 1rem;
     min-height: 3rem;
     border: none;
     border-bottom: 1px solid black;
@@ -274,16 +284,15 @@ const InfoFormWrapper = styled.form`
 `;
 
 const ScheduleContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 50px;
+  display: flex;
+  flex-direction: row;
   width: 90%;
   min-height: 20rem;
+  padding: 3rem;
   margin: 0 auto;
   margin-top: 3rem;
   border: 0.5rem solid #c9bab2;
   border-radius: 3rem;
-  overflow: scroll;
 `;
 
 export default MyPageCounselor;

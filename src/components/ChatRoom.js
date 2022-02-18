@@ -155,13 +155,12 @@ function ChatRoom() {
       peersRef.current = [];
 
       clearTimeout(timerId);
-      streamPointer.getTracks().forEach((track) => track.stop());
 
+      streamPointer.getTracks().forEach((track) => track.stop());
       socket.emit("leaveRoom", roomId);
       socket.removeAllListeners("currentUsers");
       socket.removeAllListeners("userJoined");
       socket.removeAllListeners("receivingReturnedSignal");
-      socket.close();
     };
   }, [counsel]);
 

@@ -36,22 +36,12 @@ function WeekDayScheduler() {
       return;
     }
 
-    if (value <= 0) {
-      setStartHour(0);
-      return;
-    }
-    if (value >= 23) {
+    if (value > 23) {
       setStartHour(23);
       return;
     }
 
-    if (value >= endHour) {
-      setStartHour(parseInt(value));
-      setEndHour(parseInt(value) + 1);
-      return;
-    }
-
-    setStartHour(parseInt(value));
+    setStartHour(Math.abs(parseInt(value)));
   }
 
   function handleEndHourChange(e) {
@@ -62,26 +52,22 @@ function WeekDayScheduler() {
       return;
     }
 
-    if (value <= 1) {
-      setEndHour(1);
-      return;
-    }
-    if (value >= 24) {
+    if (value > 24) {
       setEndHour(24);
       return;
     }
 
-    if (value <= startHour) {
-      setEndHour(startHour + 1);
-      return;
-    }
-
-    setEndHour(parseInt(value));
+    setEndHour(Math.abs(parseInt(value)));
   }
 
   async function handleAdd() {
     try {
       if (!setSelectedWDays.length) {
+        return;
+      }
+
+      if (startHour >= endHour) {
+        setErrorMessage("시작 시간은 종료 시간보다 빨라야 합니다.");
         return;
       }
 
@@ -133,11 +119,13 @@ function WeekDayScheduler() {
             className="input"
             onChange={handleStartHourChange}
             value={startHour}
+            min="0"
           />
           <input
             className="input"
             onChange={handleEndHourChange}
             value={endHour}
+            min="1"
           />
           <button onClick={handleAdd}>저장하기</button>
         </div>
@@ -151,6 +139,8 @@ function WeekDayScheduler() {
 }
 
 const Container = styled.div`
+  width: 55%;
+
   .input {
     height: 3rem;
   }
@@ -179,11 +169,6 @@ const Container = styled.div`
     color: white;
     font-size: 1.4rem;
     font-weight: bold;
-    cursor: pointer;
-  }
-
-  .delete {
-    padding-left: 3rem;
     cursor: pointer;
   }
 

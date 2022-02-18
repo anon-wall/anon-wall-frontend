@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { parseISO, format } from "date-fns";
 import styled from "styled-components";
+import { Icon } from "@iconify/react";
+import { parseISO, format } from "date-fns";
 
 import { deleteCounselorSchedule } from "../api/axios";
 import { deleteAvailableDates } from "../features/counselorSlice";
@@ -47,7 +48,7 @@ function DateSchedule({ onError }) {
               id={_id}
               onClick={(e) => handleClickDeleteButton(e.target.id)}
             >
-              삭제
+              <Icon icon={"icomoon-free:bin"} style={{ fontSize: "2rem" }} />
             </button>
           </div>
         );
@@ -68,10 +69,10 @@ const ScheduleContainer = styled.div`
     width: 43px;
     margin: 0 10px;
     padding: 5px;
-    background-color: #95bcf0;
     border-radius: 3rem;
     border: none;
-    color: white;
+    background-color: #ffffff;
+    color: ${({ theme }) => theme.colors.btn_bg_1};
     font-weight: bold;
     cursor: pointer;
   }
