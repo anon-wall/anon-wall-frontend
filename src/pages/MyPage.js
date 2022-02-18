@@ -23,8 +23,6 @@ function MyPage() {
 
 const PageContainer = styled.div`
   border-top: 3px solid black;
-  border-left: 3px solid black;
-  border-right: 3px solid black;
 `;
 
 const MyPageContainer = styled.section`

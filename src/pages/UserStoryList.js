@@ -69,7 +69,7 @@ function UserStoryList() {
         {storyList.map((story) => {
           const { _id, title, endDate, counselors } = story;
           const currentDate = new Date().toUTCString();
-          const isDone = endDate || endDate < currentDate ? "종료" : "진행중";
+          const status = endDate || endDate < currentDate ? "종료" : "진행중";
           const numberOfRequest = counselors.length;
 
           return (
@@ -77,7 +77,7 @@ function UserStoryList() {
               key={_id}
               id={_id}
               title={title}
-              endDate={isDone}
+              status={status}
               counselors={numberOfRequest}
             />
           );

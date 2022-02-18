@@ -47,8 +47,6 @@ const FillerBox = styled.div`
 const Container = styled.section`
   display: flex;
   height: 100rem;
-  border-left: 3px solid black;
-  border-right: 3px solid black;
 `;
 
 const DescriptionWrapper = styled.div`
