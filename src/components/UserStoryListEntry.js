@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-function UserStoryListEntry({ id, title, endDate, counselors }) {
+function UserStoryListEntry({ id, title, status, counselors }) {
   const navigate = useNavigate();
 
   function handleClickStoryDetail() {
@@ -15,7 +15,7 @@ function UserStoryListEntry({ id, title, endDate, counselors }) {
       <StoryContentWrapper>
         <div className="title">제목: {title}</div>
         <div className="counselors">수락 요청: {counselors}</div>
-        <div className="endDate">{endDate}</div>
+        <div className="status">{status}</div>
       </StoryContentWrapper>
     </StoryWrapper>
   );
@@ -40,7 +40,7 @@ const StoryContentWrapper = styled.div`
   flex-direction: column;
   width: 100%;
 
-  .endDate {
+  .status {
     align-self: flex-end;
   }
 `;
@@ -48,7 +48,7 @@ const StoryContentWrapper = styled.div`
 UserStoryListEntry.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  endDate: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
   counselors: PropTypes.any,
 };
 

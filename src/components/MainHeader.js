@@ -46,8 +46,6 @@ const MainHeaderContainer = styled.header`
   height: 10rem;
   background-color: ${({ theme }) => theme.colors.mainHeader_bg};
   border-top: 3px solid black;
-  border-left: 3px solid black;
-  border-right: 3px solid black;
 
   nav {
     display: grid;

@@ -8,7 +8,6 @@ import SubHeader from "../components/common/SubHeader";
 import Modal from "../components/common/Modal";
 import StoryListEntry from "../components/StoryListEntry";
 import SearchBar from "../components/SearchBar";
-import PageContainer from "../components/shared/PageContainer";
 import {
   STORY_SUB_HEADER_HEADING,
   STORY_SUB_HEADER_PARAGRAPH,
@@ -81,51 +80,49 @@ function StoryList() {
         heading={STORY_SUB_HEADER_HEADING}
         paragraph={STORY_SUB_HEADER_PARAGRAPH}
       />
-      <PageContainer>
-        <SearchBar onSubmitKeyword={handleSearchKeyword} />
-        {isLoading && (
-          <CenterContainer>
-            <StyledLoadingSpinner />
-          </CenterContainer>
-        )}
-        {!isLoading && !storyList.length && (
-          <CenterContainer>
-            <p className="result-text">{STORY_RESULT_MESSAGE}</p>
-          </CenterContainer>
-        )}
-        <Container>
-          <div className="indicator-wrapper">
-            {hasPage.prev && !isLoading && (
-              <Icon
-                icon="akar-icons:arrow-left"
-                style={{ fontSize: "5rem" }}
-                onClick={handleClickPrevButton}
-              />
-            )}
-          </div>
-          <StoryListContainer>
-            {storyList?.map(({ _id, counselee, title, tag }) => (
-              <StoryListEntry
-                key={_id}
-                id={_id}
-                img={counselee.imageURL}
-                nickname={counselee.nickname}
-                title={title}
-                tag={tag}
-              />
-            ))}
-          </StoryListContainer>
-          <div className="indicator-wrapper">
-            {hasPage.next && !isLoading && (
-              <Icon
-                icon="akar-icons:arrow-right"
-                style={{ fontSize: "5rem" }}
-                onClick={handleClickNextButton}
-              ></Icon>
-            )}
-          </div>
-        </Container>
-      </PageContainer>
+      <SearchBar onSubmitKeyword={handleSearchKeyword} />
+      {isLoading && (
+        <CenterContainer>
+          <StyledLoadingSpinner />
+        </CenterContainer>
+      )}
+      {!isLoading && !storyList.length && (
+        <CenterContainer>
+          <p className="result-text">{STORY_RESULT_MESSAGE}</p>
+        </CenterContainer>
+      )}
+      <Container>
+        <div className="indicator-wrapper">
+          {hasPage.prev && !isLoading && (
+            <Icon
+              icon="akar-icons:arrow-left"
+              style={{ fontSize: "5rem" }}
+              onClick={handleClickPrevButton}
+            />
+          )}
+        </div>
+        <StoryListContainer>
+          {storyList?.map(({ _id, counselee, title, tag }) => (
+            <StoryListEntry
+              key={_id}
+              id={_id}
+              img={counselee.imageURL}
+              nickname={counselee.nickname}
+              title={title}
+              tag={tag}
+            />
+          ))}
+        </StoryListContainer>
+        <div className="indicator-wrapper">
+          {hasPage.next && !isLoading && (
+            <Icon
+              icon="akar-icons:arrow-right"
+              style={{ fontSize: "5rem" }}
+              onClick={handleClickNextButton}
+            ></Icon>
+          )}
+        </div>
+      </Container>
     </>
   );
 }

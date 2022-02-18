@@ -291,9 +291,6 @@ function ChatRoom() {
 
 const PageContainer = styled.div`
   border-top: 3px solid black;
-  border-left: 3px solid black;
-  border-right: 3px solid black;
-  border-bottom: 3px solid black;
 `;
 
 const ChatRoomContainer = styled.div`
