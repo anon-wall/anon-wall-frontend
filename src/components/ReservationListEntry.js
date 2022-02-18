@@ -7,10 +7,10 @@ function ReservationListEntry({ counsel, type }) {
 
   const { counselee, counselor, startDate, _id } = counsel;
   const counterpart =
-    type === "counselee" ? counselee.nickname : counselor.nickname;
+    type === "counselee" ? counselor.nickname : counselee.nickname;
 
   function handleClick() {
-    navigate(`counsels/${_id}/room`);
+    navigate(`/counsels/${_id}/room`);
   }
 
   return (
@@ -62,9 +62,19 @@ const ButtonWrapper = styled.div`
   text-align: center;
   height: 20%;
   margin-top: 1rem;
+
   button {
-    font-size: 2.3rem;
-    padding: 0.1rem 0.3rem;
+    width: 7rem;
+    height: 4rem;
+    margin: 0 10px;
+    padding: 5px;
+    background-color: #a79286;
+    border-radius: 3rem;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
   }
 `;
 
