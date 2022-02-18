@@ -1,6 +1,6 @@
 import axios from "axios";
 
-async function getCounselor({ userId }) {
+async function getCounselor(userId) {
   const res = await axios.get(
     `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/users/${userId}`,
     {
