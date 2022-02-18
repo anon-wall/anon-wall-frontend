@@ -1,8 +1,8 @@
 import axios from "axios";
 import { signInWithPopup } from "firebase/auth";
 
-import { setCookie, getCookie } from "./cookie";
 import { auth, provider } from "../api/firebase";
+import { ACCESS_TOKEN } from "../constants/home";
 
 export async function firebaseLogin() {
   try {
@@ -19,16 +19,10 @@ export async function firebaseLogin() {
       }
     );
 
-    const expires = new Date();
-    expires.setDate(expires.getDate() + 1);
+    localStorage.setItem(ACCESS_TOKEN, data.data.accessToken);
 
-    setCookie("accessToken", data.data.accessToken, {
-      expires,
-      path: "/",
-      domain: ".anon-wall.xyz",
-      secure: true,
-      httpOnly: true,
-    });
+    axios.defaults.headers.common[ACCESS_TOKEN] =
+      localStorage.getItem(ACCESS_TOKEN);
 
     return data.data.user;
   } catch (err) {
@@ -38,7 +32,7 @@ export async function firebaseLogin() {
 
 export async function getLoggedInUser() {
   try {
-    if (!getCookie("accessToken")) {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
       throw new Error("로그인이 필요합니다.");
     }
 

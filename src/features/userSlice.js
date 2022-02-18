@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { firebaseLogin, getLoggedInUser } from "../api";
-import { removeCookie } from "../api/cookie";
+import { ACCESS_TOKEN } from "../constants/home";
 
 export const login = createAsyncThunk(
   "user/login",
@@ -50,7 +50,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      removeCookie("accessToken");
+      localStorage.removeItem(ACCESS_TOKEN);
       state.isLoggedIn = false;
       state.status = "";
       state.data = initialState.data;
@@ -67,7 +67,7 @@ const userSlice = createSlice({
     },
     [login.rejected]: (state) => {
       state.status = "failed";
-      removeCookie("accessToken");
+      localStorage.removeItem(ACCESS_TOKEN);
     },
     [getLoginUserByToken.pending]: (state) => {
       state.status = "pending";
@@ -79,7 +79,7 @@ const userSlice = createSlice({
     },
     [getLoginUserByToken.rejected]: (state) => {
       state.status = "failed";
-      removeCookie("accessToken");
+      localStorage.removeItem(ACCESS_TOKEN);
     },
   },
 });
