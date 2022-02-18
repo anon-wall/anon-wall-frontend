@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Icon } from "@iconify/react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
@@ -36,11 +37,14 @@ function DaySchedule({ dayNumber, onError }) {
           .map(({ startHour, endHour, _id }) => {
             return (
               <div key={_id} className="time-line">
-                <span>
+                <span className="time">
                   {startHour}시 ~ {endHour}시
                 </span>
                 <button className="delete" id={_id} onClick={handleDelete}>
-                  삭제
+                  <Icon
+                    icon={"icomoon-free:bin"}
+                    style={{ fontSize: "2rem" }}
+                  />
                 </button>
               </div>
             );
@@ -62,6 +66,7 @@ const WeekDayContainer = styled.div`
   .day-name {
     flex-basis: 15%;
     font-size: 1.7rem;
+    font-weight: 700;
   }
 
   .time-line-container {
@@ -70,19 +75,23 @@ const WeekDayContainer = styled.div`
 
   .time-line {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .time {
+    width: 70%;
+    font-size: ${({ theme }) => theme.fontSizes.mmmm};
+    text-align: center;
+    line-height: 2;
   }
 
   .delete {
-    width: 43px;
-    margin: 0 10px;
     padding: 5px;
-    background-color: #95bcf0;
+    background-color: #ffffff;
     border-radius: 3rem;
     border: none;
-    color: white;
+    color: ${({ theme }) => theme.colors.btn_bg_1};
     font-weight: bold;
     cursor: pointer;
   }

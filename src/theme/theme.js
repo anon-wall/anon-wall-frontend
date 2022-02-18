@@ -10,6 +10,7 @@ const colors = {
   card_bg_2: "#d9a5cd",
   card_border_1: "#bfaea4",
   card_border_2: "#c9bab2",
+  btn_bg_1: "#5f89c2",
 };
 
 const fontSizes = {
