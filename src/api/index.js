@@ -23,9 +23,11 @@ export async function firebaseLogin() {
     expires.setDate(expires.getDate() + 1);
 
     setCookie("accessToken", data.data.accessToken, {
-      path: "/",
-      secure: true,
       expires,
+      path: "/",
+      domain: ".anon-wall.xyz",
+      secure: true,
+      httpOnly: true,
     });
 
     return data.data.user;
