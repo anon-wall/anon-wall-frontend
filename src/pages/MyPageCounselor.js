@@ -102,6 +102,62 @@ function MyPageCounselor() {
           </Modal>
         )}
         <InfoContainer>
+          {!isChanged ? (
+            <InfoWrapper>
+              <div>호칭: {counselorInfo.familyTitle}</div>
+              <div>
+                태그:
+                {counselorInfo.tag.map((tag) => (
+                  <span key={tag}>#{tag}</span>
+                ))}
+              </div>
+              <div>한줄 소개: {counselorInfo.shortInput}</div>
+              <div>긴줄 소개: {counselorInfo.longInput}</div>
+            </InfoWrapper>
+          ) : (
+            <InfoFormWrapper>
+              <div>
+                <label>호칭 입력:</label>
+                <input
+                  className="familyTitle"
+                  type="text"
+                  placeholder={FAMILY_TITLE}
+                  onChange={(e) => handleChangeTitle(e.target.value)}
+                  value={newCounselorInfo.familyTitle}
+                />
+              </div>
+              <div>
+                <label>태그 입력:</label>
+                <input
+                  className="tags"
+                  type="text"
+                  placeholder={INPUT_TAG}
+                  onChange={(e) => handleChangeTag(e.target.value)}
+                  value={newCounselorInfo.tag?.join()}
+                />
+              </div>
+              <div>
+                <label>한줄 소개:</label>
+                <input
+                  className="short-input"
+                  type="text"
+                  placeholder={SHORT_INPUT}
+                  onChange={(e) => handleChangeShortInput(e.target.value)}
+                  value={newCounselorInfo.shortInput}
+                />
+              </div>
+              <div>
+                <label>긴줄 소개:</label>
+                <textarea
+                  className="long-input"
+                  type="text"
+                  placeholder={LONG_INPUT}
+                  onChange={(e) => handleChangeLongInput(e.target.value)}
+                  value={newCounselorInfo.longInput}
+                />
+              </div>
+            </InfoFormWrapper>
+          )}
           <div className="button-container">
             {!isChanged ? (
               <StyledTransparentButton onClick={handleChangeButton}>
@@ -113,62 +169,6 @@ function MyPageCounselor() {
               </StyledTransparentButton>
             )}
           </div>
-          {!isChanged ? (
-            <InfoWrapper>
-              <div>호칭 입력: {counselorInfo.familyTitle}</div>
-              <div>
-                태그 입력:
-                {counselorInfo.tag.map((tag) => (
-                  <span key={tag}>#{tag}</span>
-                ))}
-              </div>
-              <div>한줄 소개: {counselorInfo.shortInput}</div>
-              <div>긴줄 소개: {counselorInfo.longInput}</div>
-            </InfoWrapper>
-          ) : (
-            <InfoFormWrapper>
-              <label>
-                호칭 입력:
-                <input
-                  className="familyTitle"
-                  type="text"
-                  placeholder={FAMILY_TITLE}
-                  onChange={(e) => handleChangeTitle(e.target.value)}
-                  value={newCounselorInfo.familyTitle}
-                />
-              </label>
-              <label>
-                태그 입력:
-                <input
-                  className="tags"
-                  type="text"
-                  placeholder={INPUT_TAG}
-                  onChange={(e) => handleChangeTag(e.target.value)}
-                  value={newCounselorInfo.tag?.join()}
-                />
-              </label>
-              <label>
-                한줄 소개:
-                <input
-                  className="short-input"
-                  type="text"
-                  placeholder={SHORT_INPUT}
-                  onChange={(e) => handleChangeShortInput(e.target.value)}
-                  value={newCounselorInfo.shortInput}
-                />
-              </label>
-              <label>
-                긴줄 소개:
-                <input
-                  className="long-input"
-                  type="text"
-                  placeholder={LONG_INPUT}
-                  onChange={(e) => handleChangeLongInput(e.target.value)}
-                  value={newCounselorInfo.longInput}
-                />
-              </label>
-            </InfoFormWrapper>
-          )}
         </InfoContainer>
         <div className="sub-title">
           <h2>예약 현황</h2>
@@ -209,7 +209,7 @@ const MainContainer = styled.section`
 
 const InfoContainer = styled.div`
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: space-around;
   align-items: center;
   width: 90%;
@@ -218,31 +218,24 @@ const InfoContainer = styled.div`
   margin-top: 3rem;
   border: 0.5rem solid #c9bab2;
   border-radius: 3rem;
-  overflow: scroll;
 
   button {
-    margin: 0 10px;
+    width: 8rem;
     padding: 5px;
-    width: 80px;
-    background-color: #95bcf0;
+    margin: 0 10px;
     border-radius: 3rem;
-    border: none;
+    background-color: #95bcf0;
+    font-size: ${({ theme }) => theme.fontSizes.mmm};
     color: white;
-    font-size: 1.6rem;
-    font-weight: bold;
     cursor: pointer;
   }
 `;
 
 const InfoWrapper = styled.div`
-  font-size: 1.5rem;
+  width: 50%;
+  padding-left: 1.5rem;
   line-height: 3rem;
-  width: 400px;
-
-  div {
-    padding-left: 20px;
-    width: 338px;
-  }
+  font-size: 1.5rem;
 
   .tags {
     margin-left: 0.5rem;
@@ -253,21 +246,30 @@ const InfoWrapper = styled.div`
 const InfoFormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 75%;
   line-height: 3rem;
   padding-left: 20px;
 
-  label {
-    font-size: 1.5rem;
+  div {
+    display: flex;
+
+    label {
+      font-size: ${({ theme }) => theme.fontSizes.mmm};
+    }
   }
 
   input,
   textarea {
+    width: 80%;
     padding-left: 5px;
-    height: 30px;
-    width: 300px;
+    min-height: 3rem;
     border: none;
     border-bottom: 1px solid black;
+  }
+
+  textarea {
+    min-height: 7rem;
+    resize: none;
   }
 `;
 

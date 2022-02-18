@@ -5,6 +5,8 @@ import styled from "styled-components";
 function ReservationListEntry({ counsel, type }) {
   const navigate = useNavigate();
 
+  console.log(counsel);
+
   const { counselee, counselor, startDate, _id } = counsel;
   const counterpart =
     type === "counselee" ? counselor.nickname : counselee.nickname;
@@ -44,9 +46,9 @@ const ReservationWrapper = styled.div`
 `;
 
 const InfoWrapper = styled.div`
-  background-color: #dedfac;
   width: 100%;
   height: 80%;
+  background-color: #dedfac;
   border-radius: 30%;
 
   span {
@@ -64,16 +66,12 @@ const ButtonWrapper = styled.div`
   margin-top: 1rem;
 
   button {
-    width: 7rem;
-    height: 4rem;
-    margin: 0 10px;
-    padding: 5px;
-    background-color: #a79286;
-    border-radius: 3rem;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border: 0.1px solid black;
+    border-radius: 1.5rem;
+    background-color: #95bcf0;
+    color: #ffffff;
+    font-size: ${({ theme }) => theme.fontSizes.l};
     cursor: pointer;
   }
 `;

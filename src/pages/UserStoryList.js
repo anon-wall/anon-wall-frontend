@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { getCounselList } from "../api/axios";
-import UserStoryListEntry from "../components/UserStoryLIstEntry";
+import UserStoryListEntry from "../components/UserStoryListEntry";
 import Modal from "../components/common/Modal";
 import StyledTransparentButton from "../components/shared/StyledTransparentButton";
 import { PREV, NEXT } from "../constants/story";
