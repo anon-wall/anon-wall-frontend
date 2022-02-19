@@ -17,7 +17,7 @@ function DaySchedule({ dayNumber, onError }) {
 
   async function handleDelete(e) {
     try {
-      const { id } = e.target;
+      const { id } = e.currentTarget;
 
       await deleteCounselorSchedule({ userId, dateId: id });
 

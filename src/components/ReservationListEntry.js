@@ -69,9 +69,9 @@ const InfoWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  text-align: center;
   height: 20%;
   margin-top: 1rem;
+  text-align: center;
 
   button {
     padding: 0.5rem 1rem;
@@ -81,6 +81,13 @@ const ButtonWrapper = styled.div`
     color: #ffffff;
     font-size: ${({ theme }) => theme.fontSizes.l};
     cursor: pointer;
+  }
+
+  button:disabled {
+    background-color: #f3f3f3;
+    color: #ccc;
+    border: none;
+    cursor: not-allowed;
   }
 `;
 

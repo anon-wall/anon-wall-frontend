@@ -19,7 +19,8 @@ const SubHeaderWrapper = styled.div`
   min-height: 14rem;
   background-color: #dedfac;
   text-align: center;
-  border: 3px solid black;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
 
   .headingWrapper {
     height: 30%;

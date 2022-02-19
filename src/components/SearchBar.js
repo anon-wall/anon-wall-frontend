@@ -69,7 +69,7 @@ const SearchBarContainer = styled.div`
     float: right;
     height: 4rem;
     margin: 2rem 3rem;
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-family: "GangwonEdu_OTFBoldA";
   }
 

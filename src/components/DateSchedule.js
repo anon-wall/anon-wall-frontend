@@ -22,8 +22,10 @@ function DateSchedule({ onError }) {
       return 0;
     });
 
-  async function handleClickDeleteButton(id) {
+  async function handleClickDeleteButton(e) {
     try {
+      const { id } = e.currentTarget;
+
       await deleteCounselorSchedule({ userId, dateId: id });
 
       dispatch(deleteAvailableDates({ id }));
@@ -44,10 +46,7 @@ function DateSchedule({ onError }) {
               {format(parseISO(startDate), "HH")}시 ~
               {format(parseISO(endDate), "HH")}시
             </span>
-            <button
-              id={_id}
-              onClick={(e) => handleClickDeleteButton(e.target.id)}
-            >
+            <button id={_id} onClick={handleClickDeleteButton}>
               <Icon icon={"icomoon-free:bin"} style={{ fontSize: "2rem" }} />
             </button>
           </div>
