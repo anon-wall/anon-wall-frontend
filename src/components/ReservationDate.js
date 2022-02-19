@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
-import { format, addDays, addMinutes } from "date-fns";
+import { format, addDays, addMinutes, parseISO } from "date-fns";
 import styled from "styled-components";
 
 import Modal from "./common/Modal";
@@ -122,7 +122,9 @@ function ReservationDate({ counselor }) {
           return true;
         }
       })
-      .map((filteredDate) => filteredDate.startTime);
+      .map((filteredDate) => {
+        return parseISO(filteredDate.startDate);
+      });
 
     setExcludedTimes(correspondingDates);
   }

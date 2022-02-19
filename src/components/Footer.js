@@ -18,6 +18,7 @@ const FooterWrapper = styled.footer`
   justify-content: center;
   align-items: center;
   height: 8rem;
+  border-bottom: 3px solid black;
   background-color: ${({ theme }) => theme.colors.footer_bg};
 
   .copyright {
