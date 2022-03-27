@@ -92,5 +92,6 @@ const counselorSlice = createSlice({
     },
   },
 });
+
 export const { deleteAvailableDates } = counselorSlice.actions;
 export default counselorSlice.reducer;
