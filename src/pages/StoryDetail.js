@@ -124,10 +124,12 @@ const MainContainer = styled.section`
   width: 80%;
   min-height: 100vh;
   margin: 0 auto;
+
   section {
     flex-basis: 70%;
     min-height: 100%;
   }
+
   aside {
     flex-basis: 30%;
     min-height: 100%;
@@ -158,6 +160,7 @@ const StoryInfoWrapper = styled.div`
   text-align: center;
   line-height: 3rem;
   font-family: "ACCchildrenheartOTF-Regular";
+
   .name {
     font-size: 3rem;
     color: #3e005b;
@@ -198,6 +201,7 @@ const ButtonWrapper = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
+
   button {
     padding: 1rem;
     border-radius: 3rem;

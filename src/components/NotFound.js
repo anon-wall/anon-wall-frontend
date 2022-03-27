@@ -24,6 +24,7 @@ const Container = styled.div`
 
 const ImageWrapper = styled.div`
   width: 50%;
+
   img {
     width: 100%;
     height: 700px;

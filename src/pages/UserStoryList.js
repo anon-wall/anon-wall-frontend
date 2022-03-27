@@ -68,16 +68,15 @@ function UserStoryList() {
         )}
         {storyList.map((story) => {
           const { _id, title, endDate, counselors } = story;
-          const currentDate = new Date().toUTCString();
           const numberOfRequest = counselors.length;
           let status;
 
-          if (endDate < currentDate) {
+          if (!endDate) {
+            status = "예약 진행중";
+          } else if (new Date(endDate) < new Date()) {
             status = "상담 종료";
-          } else if (!endDate) {
-            status = "진행중";
           } else {
-            status = "에약 완료";
+            status = "예약 완료";
           }
 
           return (
