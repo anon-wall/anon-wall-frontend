@@ -94,11 +94,13 @@ function UploadStory() {
             placeholder={INPUT_TITLE}
             onChange={(e) => handleChangeTitle(e.target.value)}
             value={title}
+            required
           />
           <textarea
             placeholder={INPUT_CONTENT}
             onChange={(e) => handleChangeContent(e.target.value)}
             value={content}
+            required
           />
           <input
             className="tag"
@@ -106,6 +108,7 @@ function UploadStory() {
             placeholder={INPUT_TAG}
             onChange={(e) => handleChangeTag(e.target.value)}
             value={tag}
+            required
           />
           <button type="submit" className="submit">
             등록하기

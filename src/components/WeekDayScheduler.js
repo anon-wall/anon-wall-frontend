@@ -151,6 +151,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
   }
+
   .input-fields select {
     width: 28rem;
     height: 40px;

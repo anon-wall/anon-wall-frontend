@@ -39,6 +39,7 @@ const StoryContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+
   .status {
     align-self: flex-end;
   }
